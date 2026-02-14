@@ -10,16 +10,17 @@ document.addEventListener('DOMContentLoaded', async () => {
         STOPPED: 'STOPPED'
     };
 
+    let buffer = '';
+    let cursorPosition = 0;
+
     function renderInput() {
-        let buffer = input.innerText;
-        let cursorPosition = buffer.length - 1;
         input.innerText = '';
 
         Array.from(buffer).forEach((char, index) => {
             let span = document.createElement('span');
             span.textContent = char;
             if (index === cursorPosition) {
-                span.className = 'inverted';
+                span.className = 'cursor';
             }
             input.appendChild(span);
         });
@@ -36,6 +37,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
     
     startGame();
+    renderInput();
 
     const moveCursorToEnd = () => {
         const range = document.createRange();
@@ -58,9 +60,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     input.addEventListener('keydown', async (e) => {
         if(e.key.length === 1) {
-            input.innerText = e.key;
-            renderInput();
-            e.preventDefault;
+            buffer += e.key;
+            ++cursorPosition;
+            e.preventDefault();
+        } else if (e.key === "ArrowLeft") {
+            cursorPosition = Math.max(--cursorPosition, 0);
+            e.preventDefault();
+        } else if (e.key === "ArrowRight") {
+            cursorPosition = Math.max(++cursorPosition, 0);
+            e.preventDefault();
         }
 
         if (e.key === 'Enter') {
@@ -86,6 +94,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 console.log(prompt);
             }
         }
+        renderInput();
     });
 
     newGameBtn.addEventListener('click', async () => {
