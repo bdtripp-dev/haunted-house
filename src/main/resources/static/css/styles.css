@@ -1,3 +1,8 @@
+:root {
+    --default-fg: #33ff33;
+    --default-bg: black;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
   margin: 0;
@@ -18,14 +23,20 @@ h1 {
 }
 
 #terminal {
-    background-color: black;
-    color: #33ff33;
+    background-color: var(--default-bg);
+    color: var(--default-fg);
     height: 400px;
     display: grid;
     padding: 10px;
     border-radius: 10px;
     align-content: start;
     overflow: scroll;
+}
+
+.cursor {
+    background-color: var(--default-fg);
+    color: var(--default-bg);
+    opacity: .5;
 }
 
 #output {
@@ -35,6 +46,7 @@ h1 {
 #input-area {
     display: flex;
     align-items: start;
+    white-space: pre; /* prevents spaces from collapsing */
 }
 
 #terminal-input {
@@ -43,16 +55,16 @@ h1 {
     caret-color: transparent;
 }
 
-#cursor {
+/* #cursor {
     width: 10px;
     height: 1.2em;
     background-color: #33ff33;
     opacity: .5;
-}
+} */
 
-#input-area:focus-within #cursor {
+#input-area:focus-within .cursor {
     opacity: 1;
-    animation: blink 1.4s step-end infinite;
+    animation: blink 1s step-end infinite;
 }
 
 #new-game-btn {
@@ -70,7 +82,13 @@ h1 {
 }
 
 @keyframes blink {
-    0% {opacity : 0;}
-    50% {opacity : 1;}
+    0% {
+        background-color: var(--default-bg);
+        color: var(--default-fg);
+    }
+    50% {
+        background-color: var(--default-fg);
+        color: var(--default-bg);
+    }
 }
 
