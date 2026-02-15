@@ -64,7 +64,7 @@ h1 {
 
 #input-area:focus-within .cursor {
     opacity: 1;
-    animation: blink 1.4s step-end infinite;
+    animation: blink 1s step-end infinite;
 }
 
 #new-game-btn {
@@ -82,7 +82,13 @@ h1 {
 }
 
 @keyframes blink {
-    0% {opacity : 0;}
-    50% {opacity : 1;}
+    0% {
+        background-color: var(--default-bg);
+        color: var(--default-fg);
+    }
+    50% {
+        background-color: var(--default-fg);
+        color: var(--default-bg);
+    }
 }
 

@@ -3,6 +3,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     const prompt = document.querySelector('#prompt');
     const input = document.querySelector('#terminal-input');
     const cursor = document.querySelector('#cursor');
+    const endCursor = document.querySelector('#end-cursor');
     const outputElement = document.querySelector('#output');
     const newGameBtn = document.querySelector('#new-game-btn');
     const STATUS = {
@@ -67,7 +68,11 @@ document.addEventListener('DOMContentLoaded', async () => {
             cursorPosition = Math.max(--cursorPosition, 0);
             e.preventDefault();
         } else if (e.key === "ArrowRight") {
-            cursorPosition = Math.max(++cursorPosition, 0);
+            cursorPosition = Math.min(++cursorPosition, buffer.length);
+            e.preventDefault();
+        } else if (e.key === 'Backspace') {
+            buffer = buffer.slice(0, -1);
+            cursorPosition = Math.min(++cursorPosition, buffer.length);
             e.preventDefault();
         }
 
@@ -87,14 +92,27 @@ document.addEventListener('DOMContentLoaded', async () => {
             outputElement.textContent += data.output;
             terminal.scrollTop = terminal.scrollHeight;
             input.innerText = '';
+            buffer = '';
+            cursorPosition = 0;
             if (data.status === STATUS.STOPPED) {
                 outputElement.textContent += 'Click "New Game" to play again!';
                 input.disabled = true;
                 prompt.style.display = 'none';
                 console.log(prompt);
             }
+            return;
         }
         renderInput();
+        cursorPosition === buffer.length ? 
+        endCursor.className = 'cursor' : 
+        endCursor.classList.remove('cursor');
+        // if (cursorPosition === buffer.length) {
+        //     endCursor.className = 'cursor'
+        // } else {
+        //     endCursor.classList.remove('cursor');
+        // }
+        console.log("Buffer length: ", buffer.length);
+        console.log("Cursor position: ", cursorPosition);
     });
 
     newGameBtn.addEventListener('click', async () => {
