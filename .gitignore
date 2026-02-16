@@ -1,4 +1,5 @@
 *.class
+.vscode/
 
 # BlueJ files
 *.ctxt
@@ -22,5 +23,3 @@ doc/
 
 # Maven build artifacts
 target/
-
-.vscode/

@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 public enum CommandWord
 {
     GO, QUIT, HELP, LOOK, EAT, BACK, TAKE, DROP,
-    ITEMS, STATS, CHARGE, FIRE, TALK, GIVE;
+    ITEMS, STATS, CHARGE, FIRE, TALK, GIVE, UNKNOWN;
 
     /**
      * Checks whether a given string is a valid command word.
@@ -50,13 +50,10 @@ public enum CommandWord
      */
     public static CommandWord fromString(String word)
     {
-        if(word == null) {
-            return null;
-        }
         try {
             return CommandWord.valueOf(word.toUpperCase());
         } catch (IllegalArgumentException ex) {
-            return null;
+            return CommandWord.UNKNOWN;
         }
     }
 }

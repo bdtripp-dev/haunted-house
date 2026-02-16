@@ -193,7 +193,7 @@ public class GameEngine
             case FIRE -> fireBeamer(command);
             case BACK -> goBack(command);
             case QUIT -> quit(command);
-            default -> "I don't know what you mean...";
+            case UNKNOWN -> "I don't know what you mean...";
         };
     }
 
