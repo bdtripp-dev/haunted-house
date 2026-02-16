@@ -22,3 +22,5 @@ doc/
 
 # Maven build artifacts
 target/
+
+.vscode/
