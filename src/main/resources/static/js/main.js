@@ -10,7 +10,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         RUNNING: 'RUNNING',
         STOPPED: 'STOPPED'
     };
-
+    const MAX_BUFFER_LENGTH = 30;
     let buffer = '';
     let cursorPosition = 0;
 
@@ -60,20 +60,22 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     input.addEventListener('keydown', async (e) => {
-        if(e.key.length === 1) {
-            buffer += e.key;
-            ++cursorPosition;
-            e.preventDefault();
+        e.preventDefault();
+
+        if ((e.key === 'Backspace') && cursorPosition !== 0) {
+            buffer = buffer.slice(0, cursorPosition - 1) + buffer.slice(cursorPosition);
+            cursorPosition = Math.max(--cursorPosition, 0);
         } else if (e.key === "ArrowLeft") {
             cursorPosition = Math.max(--cursorPosition, 0);
-            e.preventDefault();
-        } else if (e.key === "ArrowRight") {
+        } else if ((e.key === "ArrowRight") && (cursorPosition < MAX_BUFFER_LENGTH)) {
             cursorPosition = Math.min(++cursorPosition, buffer.length);
-            e.preventDefault();
-        } else if (e.key === 'Backspace') {
-            buffer = buffer.slice(0, -1);
-            cursorPosition = Math.min(++cursorPosition, buffer.length);
-            e.preventDefault();
+        } else if (
+            (e.key.length === 1) && 
+            ((cursorPosition < MAX_BUFFER_LENGTH) && 
+            (buffer.length < MAX_BUFFER_LENGTH))
+        ) {
+            buffer = buffer.slice(0, cursorPosition) + e.key + buffer.slice(cursorPosition);
+            ++cursorPosition;
         }
 
         if (e.key === 'Enter') {
