@@ -9,6 +9,19 @@
   padding: 0;
 }
 
+.frosted {
+    background: rgba(0, 0, 0, .6);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px); /* Safari support */
+}
+
+body {
+    background-image: url(../images/haunted_background.jpg);
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
 main {
     display: grid;
     grid-template-columns: minmax(200px, 800px);
@@ -20,10 +33,12 @@ main {
 
 h1 {
     text-align: center;
+    color: white;
+    border-radius: 10px;
+    padding: 20px;
 }
 
 #terminal {
-    background-color: var(--default-bg);
     color: var(--default-fg);
     height: 400px;
     display: grid;
@@ -55,16 +70,13 @@ h1 {
     caret-color: transparent;
 }
 
-/* #cursor {
-    width: 10px;
-    height: 1.2em;
-    background-color: #33ff33;
-    opacity: .5;
-} */
-
-#input-area:focus-within .cursor {
+#terminal:focus-within .cursor {
     opacity: 1;
     animation: blink 1s step-end infinite;
+}
+
+#terminal:active .cursor{
+    opacity: 1;
 }
 
 #new-game-btn {
