@@ -52,14 +52,6 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
-                <configuration>
-                    <excludes>
-                        <!-- need to remove these later, just excluding them while testing -->
-                        <exclude>**/SessionController.java</exclude>
-                        <exclude>**/GameSession.java</exclude>
-                        <exclude>**/GameService.java</exclude>
-                    </excludes>
-                </configuration>
             </plugin>
         </plugins>
     </build>

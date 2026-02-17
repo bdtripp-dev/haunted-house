@@ -1,4 +1,6 @@
 *.class
+.vscode/
+images/
 
 # BlueJ files
 *.ctxt

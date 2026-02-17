@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     const startGame = async () => {
         input.disabled = false;
+        endCursor.classList.add('cursor');
         prompt.style.display = 'initial';
         const response = await fetch('api/game/start', {
             method: 'POST'
@@ -100,7 +101,7 @@ document.addEventListener('DOMContentLoaded', async () => {
                 outputElement.textContent += 'Click "New Game" to play again!';
                 input.disabled = true;
                 prompt.style.display = 'none';
-                console.log(prompt);
+                endCursor.classList.remove('cursor');
             }
             return;
         }
@@ -108,11 +109,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         cursorPosition === buffer.length ? 
         endCursor.className = 'cursor' : 
         endCursor.classList.remove('cursor');
-        // if (cursorPosition === buffer.length) {
-        //     endCursor.className = 'cursor'
-        // } else {
-        //     endCursor.classList.remove('cursor');
-        // }
         console.log("Buffer length: ", buffer.length);
         console.log("Cursor position: ", cursorPosition);
     });
