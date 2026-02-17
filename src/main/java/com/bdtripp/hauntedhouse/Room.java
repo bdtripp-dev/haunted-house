@@ -167,10 +167,16 @@ public class Room
             return "No items were found.";
         }
         returnString += "You found:\n";
+        int index = 0;
         for(Item item : items) {
+            boolean isLastItem = index == (items.size() - 1);
             returnString += item.getDescription() +
                     "(weight: " + item.getWeight() + ") To take item use the" +
                     " command: take " + item.getName();
+            if(!isLastItem) {
+                returnString += "\n";
+            }
+            index++;
         }
         return returnString;
     }

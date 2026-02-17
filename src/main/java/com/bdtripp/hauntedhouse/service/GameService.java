@@ -50,8 +50,7 @@ public class GameService
         Command command = parser.getCommand();
         String cmdResult = gameEngine.processCommand(command);
         String output = "> " + input + "\n" + cmdResult + "\n\n";
-        if(gameEngine.isGameOver())
-        {
+        if(gameEngine.isGameOver()) {
             return new GameResponse(output, GameStatus.STOPPED);
         }
         return new GameResponse(output, GameStatus.RUNNING);
