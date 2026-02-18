@@ -18,6 +18,7 @@ import java.util.Random;
 public class GameEngine
 {
     private Player player;
+    private Room billiardRoom;
     private ArrayList<Room> rooms;
     private boolean gameOver;
 
@@ -36,7 +37,7 @@ public class GameEngine
      */
     private void createRooms()
     {
-        Room hallway, study, indoorGarden, rootCellar, library, billiardRoom,
+        Room hallway, study, indoorGarden, rootCellar, library,
                 den, wineCellar, bathroom, outside;
 
         // create the rooms
@@ -154,8 +155,6 @@ public class GameEngine
 
         outside.setExit("north", hallway, false);
 
-        player.moveToRoom(billiardRoom, false);  // start game in the billiard room
-
         // add the rooms to the game
         rooms.add(hallway);
         rooms.add(study);
@@ -167,6 +166,14 @@ public class GameEngine
         rooms.add(wineCellar);
         rooms.add(bathroom);
         rooms.add(outside);
+    }
+
+    /**
+     * Starts the game in the billiardRoom
+     */
+    public void startGame()
+    {
+        player.moveToRoom(billiardRoom, false);
     }
 
     /**
