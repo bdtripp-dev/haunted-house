@@ -49,24 +49,79 @@ public class GameEngine
         den = new Room("in the musty den");
         wineCellar = new Room("in the wine cellar");
         bathroom = new Room("in a flooded bathroom...gross");
-        outside = new Room("outside of the haunted house and the sun is so delightful");
+        outside = new Room("outside of the haunted house and the sun is so delightful!");
 
         //create the items in each room
-        hallway.addItem("elixir", "an elixir", 50, true, "health", 10);
-        hallway.addItem("cookie", "a magic cookie", 5, true, "strength", 5);
-        indoorGarden.addItem("spade", "an old spade", 1, false, "", 0);
-        indoorGarden.addItem("plant", "fox glove", 5, false, "", 0);
-        wineCellar.addItem("crate", "a big old crate", 2000, false, "", 0);
-        bathroom.addItem("key", "a rusty skeleton key", 1, false, "", 0);
-        bathroom.addItem("bucket", "an empty bucket", 20, false, "", 0);
+        hallway.addItem(
+            "elixir", 
+            "an elixir", 
+            50, 
+            true, 
+            "health", 
+            10
+        );
+        hallway.addItem(
+            "cookie", 
+            "a magic cookie", 
+            5, 
+            true, 
+            "strength", 
+            5
+        );
+        indoorGarden.addItem(
+            "spade", 
+            "an old spade", 
+            1, 
+            false, 
+            "", 
+            0
+        );
+        indoorGarden.addItem(
+            "plant", 
+            "fox glove", 
+            5, 
+            false, 
+            "", 
+            0
+        );
+        wineCellar.addItem(
+            "crate", 
+            "a big old crate", 
+            2000, 
+            false, 
+            "", 
+            0
+        );
+        bathroom.addItem(
+            "key", 
+            "a rusty skeleton key", 
+            1, 
+            false, 
+            "", 
+            0
+        );
+        bathroom.addItem(
+            "bucket", 
+            "an empty bucket", 
+            20, 
+            false, 
+            "", 
+            0
+        );
 
         //create the characters in each room
         billiardRoom.addCharacter(
-                "Beatrice",
-                "How lovely to meet you. You didn't happen to see my spade...",
-                "Oh so you found it! Wonderful! Here is something that might come in handy...",
-                "spade",
-                new Item("potion", "a powerful muscle building potion", 50, true, "maximum carry weight", 50)
+            "Beatrice",
+            "How lovely to meet you. You didn't happen to see my spade...",
+            "Oh so you found it! Wonderful! Here is something that might come in handy...",
+            "spade",
+            new Item(
+                "potion", 
+                "a powerful muscle building potion", 
+                50, true, 
+                "maximum carry weight", 
+                50
+            )
         );
 
         // initialise room exits
@@ -302,6 +357,9 @@ public class GameEngine
         else if(currentRoom.getExit(direction).isLocked()) {
             if(player.hasKey()) {
                 buffer.append("The door is locked...but you have the key!").append("\n");
+                enterRoom(nextRoom, true);
+                endGame();
+                return buffer.append("You are ").append(player.getCurrentRoom().getDescription()).append("\n").toString();
             }
             else {
                 return "The door is locked...you need to find the key!";

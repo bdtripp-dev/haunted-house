@@ -200,7 +200,7 @@ public class Player
             returnString += "Description: " + item.getDescription() + "\n";
             returnString += "Weight: " + item.getWeight() + "\n\n";
         }
-        returnString += "Total Weight: " + getCurrentCarryWeight() + "\n\n";
+        returnString += "Total Weight: " + getCurrentCarryWeight();
         return returnString;
     }
 

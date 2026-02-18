@@ -1,6 +1,9 @@
 :root {
     --default-fg: #33ff33;
     --default-bg: black;
+    --complementary: #FF0000;
+    --triad-1: #FF7400;
+    --tetrad-1: #33FFFF;
 }
 
 *, *::before, *::after {
@@ -10,7 +13,7 @@
 }
 
 .frosted {
-    background: rgba(0, 0, 0, .6);
+    background: rgba(0, 0, 0, .7);
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px); /* Safari support */
 }
@@ -20,13 +23,16 @@ body {
     background-size: cover;
     background-position: center;
     background-repeat: no-repeat;
+    height: 100vh;
+    display: grid;
+    align-content: center;
 }
 
 main {
     display: grid;
     grid-template-columns: minmax(200px, 800px);
     justify-content: center;
-    gap: 40px;
+    gap: 4px;
     margin: 20px;
     font-family: 'Cascadia Mono', monospace;
 }
@@ -42,10 +48,16 @@ h1 {
     color: var(--default-fg);
     height: 400px;
     display: grid;
-    padding: 10px;
+    padding: 15px;
     border-radius: 10px;
     align-content: start;
     overflow: scroll;
+    transition: background-color 1s;
+}
+
+#terminal:hover {
+    cursor: pointer;
+    background-color: rgba(0, 0, 0, .6);
 }
 
 .cursor {
@@ -85,6 +97,17 @@ h1 {
     font-size: 1.5em;
     letter-spacing: 2px;
     cursor: pointer;
+    color: white;
+    font-weight: 900;
+    border: 2px solid var(--triad-1);
+    border-radius: 10px;
+    transition: all 1s;
+    margin-top: 35px;
+}
+
+#new-game-btn:hover {
+    background-color: rgba(0, 0, 0, .4);
+    border: 2px solid var(--tetrad-1);
 }
 
 @media (min-width: 500px) {

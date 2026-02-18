@@ -70,6 +70,8 @@ document.addEventListener('DOMContentLoaded', async () => {
             cursorPosition = Math.max(--cursorPosition, 0);
         } else if ((e.key === "ArrowRight") && (cursorPosition < MAX_BUFFER_LENGTH)) {
             cursorPosition = Math.min(++cursorPosition, buffer.length);
+        } else if (e.key === "Delete") {
+            buffer = buffer.slice(0, cursorPosition) + buffer.slice(cursorPosition + 1);
         } else if (
             (e.key.length === 1) && 
             ((cursorPosition < MAX_BUFFER_LENGTH) && 
