@@ -30,6 +30,7 @@ public class CliRunner
      */
     private void run(String[] args)
     {
+        gameEngine.startGame();
         System.out.println(gameEngine.getWelcomeMessage());
 
         while(!gameEngine.isGameOver()) {
