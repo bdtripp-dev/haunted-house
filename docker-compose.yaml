@@ -6,6 +6,7 @@ services:
       - "deunhealth.restart=true"
     environment:
       - VIRTUAL_HOST=${FQDN}
+      - VIRTUAL_PORT=8080
       - ENV_NAME=${ENV_NAME}
     healthcheck:
       test: ["CMD-SHELL", "wget -qO- http://localhost:8080/actuator/health || exit 1"]
