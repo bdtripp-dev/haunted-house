@@ -1,0 +1,21 @@
+on:
+  push:
+    #Does not run until the merge happens
+    branches:
+      - dev
+      - master
+jobs:
+  build-for-dev:
+    if: github.ref == 'refs/heads/dev'
+    uses: bdtripp-dev/infra-proxy-stack/.github/workflows/reusable-docker-build-and-push.yaml@dev
+    with:
+      image_name: "haunted-house" 
+      dockerfile_path: "./Dockerfile"
+    secrets: inherit
+  build-for-production:
+    if: github.ref == 'refs/heads/master'
+    uses: bdtripp-dev/infra-proxy-stack/.github/workflows/reusable-docker-build-and-push.yaml@master
+    with:
+      image_name: "haunted-house" 
+      dockerfile_path: "./Dockerfile"
+    secrets: inherit 

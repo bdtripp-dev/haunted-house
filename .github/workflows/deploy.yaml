@@ -1,0 +1,16 @@
+name: Deploy App
+
+on:
+  push:
+    branches:
+      - dev
+      - master
+jobs:
+  deploy-for-dev:
+    if: github.ref == 'refs/heads/dev'
+    uses: bdtripp-dev/infra-proxy-stack/.github/workflows/reusable-deploy.yaml@dev
+    secrets: inherit
+  deploy-for-production:
+    if: github.ref == 'refs/heads/master'
+    uses: bdtripp-dev/infra-proxy-stack/.github/workflows/reusable-deploy.yaml@master
+    secrets: inherit 

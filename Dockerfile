@@ -1,0 +1,10 @@
+FROM eclipse-temurin:21-jdk-slim AS build
+WORKDIR /app
+COPY . .
+RUN ./mvnw -q -DskipTests package
+
+FROM eclipse-temurin:21-jre-slim
+WORKDIR /app
+COPY --from=build /app/target/haunted-house.jar app.jar
+ENTRYPOINT ["java", "-jar", "app.jar"]
+
