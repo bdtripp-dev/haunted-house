@@ -113,7 +113,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
             return;
         }
-        renderInput();
+        setTimeout(renderInput, 0);
         cursorPosition === buffer.length ? 
         endCursor.className = 'cursor' : 
         endCursor.classList.remove('cursor');
