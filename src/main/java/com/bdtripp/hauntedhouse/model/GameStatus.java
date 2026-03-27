@@ -1,10 +1,11 @@
-package com.bdtripp.hauntedhouse;
+package com.bdtripp.hauntedhouse.model;
 
 /**
  * Represents the GameStatus of the Haunted House game.
  * 
  * Enumerates all the possible game states.
- * @author  Brian Tripp
+ * 
+ * @author Brian Tripp
  * @version 2026.02.09
  */
 public enum GameStatus {

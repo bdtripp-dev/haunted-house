@@ -1,19 +1,19 @@
-package com.bdtripp.hauntedhouse;
+package com.bdtripp.hauntedhouse.model;
 
 import java.util.Set;
 import java.util.HashMap;
 import java.util.ArrayList;
+
 /**
  * Represents a room in the Haunted House game. It is
- * connected to other rooms via exits.  The exits are labelled north,
- * south, east, and west.  For each direction, the room stores a reference
+ * connected to other rooms via exits. The exits are labelled north,
+ * south, east, and west. For each direction, the room stores a reference
  * to the neighboring room, or null if there is no exit in that direction.
  *
- * @author  Michael Kölling, David J. Barnes, and Brian Tripp
+ * @author Michael Kölling, David J. Barnes, and Brian Tripp
  * @version 2020.06.13
  */
-public class Room
-{
+public class Room {
     private String description;
     private HashMap<String, Exit> exits;
     private ArrayList<Item> items;
@@ -21,10 +21,9 @@ public class Room
 
     /**
      * @param description The room's description. Something like "a kitchen" or
-     * "an open court yard".
+     *                    "an open court yard".
      */
-    public Room(String description)
-    {
+    public Room(String description) {
         this.description = description;
         exits = new HashMap<>();
         items = new ArrayList<>();
@@ -33,43 +32,43 @@ public class Room
 
     /**
      * Adds an item to the room
-     * @param name The name of the item
-     * @param description The description of the item
-     * @param weight The weight of the item
-     * @param isEdible The edibility of the item
-     * @param propToAffect The property the item affects (e.g. health, strength, etc.)
-     * @param affectValue The amount the property is changed by
+     * 
+     * @param name         The name of the item
+     * @param description  The description of the item
+     * @param weight       The weight of the item
+     * @param isEdible     The edibility of the item
+     * @param propToAffect The property the item affects (e.g. health, strength,
+     *                     etc.)
+     * @param affectValue  The amount the property is changed by
      */
     public void addItem(
-        String name, 
-        String description, 
-        int weight, 
-        boolean isEdible, 
-        String propToAffect, 
-        int affectValue
-    )
-    {
+            String name,
+            String description,
+            int weight,
+            boolean isEdible,
+            String propToAffect,
+            int affectValue) {
         items.add(new Item(name, description, weight, isEdible, propToAffect, affectValue));
     }
 
     /**
      * Adds an item to the room
+     * 
      * @param item The item to add
      */
-    public void addItem(Item item)
-    {
+    public void addItem(Item item) {
         items.add(item);
     }
 
     /**
      * Removes an item from the room
+     * 
      * @param name The name of the item to remove
      * @return The item that was removed
      */
-    public Item removeItemFromRoom(String name)
-    {
-        for(Item item : items) {
-            if(item.getName().equals(name)) {
+    public Item removeItemFromRoom(String name) {
+        for (Item item : items) {
+            if (item.getName().equals(name)) {
                 items.remove(item);
                 return item;
             }
@@ -79,37 +78,36 @@ public class Room
 
     /**
      * Adds a character to the room
-     * @param name The name of the character
-     * @param initialDialog The character initial dialog
-     * @param acceptanceDialog The dialog the character will speak upon accepting an item
-     * @param itemSought The name of the item that the character is seeking
-     * @param itemForReward The item the character will give as a reward 
+     * 
+     * @param name             The name of the character
+     * @param initialDialog    The character initial dialog
+     * @param acceptanceDialog The dialog the character will speak upon accepting an
+     *                         item
+     * @param itemSought       The name of the item that the character is seeking
+     * @param itemForReward    The item the character will give as a reward
      */
     public void addCharacter(
-        String name, 
-        String initialDialog,
-        String acceptanceDialog, 
-        String itemSought, 
-        Item itemForReward
-    )
-    {
+            String name,
+            String initialDialog,
+            String acceptanceDialog,
+            String itemSought,
+            Item itemForReward) {
         characters.add(new Character(
                 name,
                 initialDialog,
                 acceptanceDialog,
                 itemSought,
-                itemForReward
-        ));
+                itemForReward));
     }
 
     /**
      * Creates an exit for the room
+     * 
      * @param direction The direction of the exit.
-     * @param neighbor The room in the given direction.
-     * @param locked true if the door is locked
+     * @param neighbor  The room in the given direction.
+     * @param locked    true if the door is locked
      */
-    public void setExit(String direction, Room neighbor, boolean locked)
-    {
+    public void setExit(String direction, Room neighbor, boolean locked) {
         Exit exit = new Exit(direction, neighbor, locked);
         exits.put(direction, exit);
     }
@@ -117,10 +115,10 @@ public class Room
     /**
      * 
      * @param direction The direction of the neighbor
-     * @return The room in the given direction. null if there is no exit in that direction
+     * @return The room in the given direction. null if there is no exit in that
+     *         direction
      */
-    public Room getNeighbor(String direction)
-    {
+    public Room getNeighbor(String direction) {
         if (exits.containsKey(direction)) {
             return exits.get(direction).getNeighbor();
         }
@@ -131,19 +129,17 @@ public class Room
      * @param direction The direction of the exit
      * @return The exit in the direction provided
      */
-    public Exit getExit(String direction)
-    {
+    public Exit getExit(String direction) {
         return exits.get(direction);
     }
 
     /**
      * @return A description of the room's exits, for example, "Exits: north west".
      */
-    public String getExitString()
-    {
+    public String getExitString() {
         String returnString = "Exits:";
         Set<String> keys = exits.keySet();
-        for(String exit : keys) {
+        for (String exit : keys) {
             returnString += " " + exit;
         }
         return returnString;
@@ -152,28 +148,27 @@ public class Room
     /**
      * @return The description of the room.
      */
-    public String getDescription()
-    {
+    public String getDescription() {
         return description;
     }
 
     /**
-     * @return Details about the items in this room such as their description and weight
+     * @return Details about the items in this room such as their description and
+     *         weight
      */
-    public String getItemsInRoomDetails()
-    {
+    public String getItemsInRoomDetails() {
         String returnString = "";
         if (items.isEmpty()) {
             return "No items were found.";
         }
         returnString += "You found:\n";
         int index = 0;
-        for(Item item : items) {
+        for (Item item : items) {
             boolean isLastItem = index == (items.size() - 1);
             returnString += item.getDescription() +
                     "(weight: " + item.getWeight() + ") To take item use the" +
                     " command: take " + item.getName();
-            if(!isLastItem) {
+            if (!isLastItem) {
                 returnString += "\n";
             }
             index++;
@@ -182,16 +177,16 @@ public class Room
     }
 
     /**
-     * @return Details about the characters in this room such as their name and dialog
+     * @return Details about the characters in this room such as their name and
+     *         dialog
      */
-    public String getCharactersInRoomDetails()
-    {
+    public String getCharactersInRoomDetails() {
         String returnString = "";
         if (characters.isEmpty()) {
             return "No one is here.";
         }
         returnString += "Characters:\n";
-        for(Character character : characters) {
+        for (Character character : characters) {
             returnString += character.getName();
         }
         return returnString;
@@ -202,18 +197,16 @@ public class Room
      *         You are in the kitchen.
      *         Exits: north west
      */
-    public String getLongDescription()
-    {
+    public String getLongDescription() {
         return "You are " + description + ".\n" + getExitString();
     }
 
     /**
      * @return The character that is in the room
      */
-    public Character getCharacter(String name)
-    {
-        for(Character character : characters) {
-            if(character.getName().toLowerCase().equals(name.toLowerCase())) {
+    public Character getCharacter(String name) {
+        for (Character character : characters) {
+            if (character.getName().toLowerCase().equals(name.toLowerCase())) {
                 return character;
             }
         }
