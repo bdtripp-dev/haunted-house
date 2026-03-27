@@ -1,5 +1,5 @@
 services:
-  haunted-house: # Other services could be db, api, or app
+  haunted-house:
     image: bdtrippdev/haunted-house:${TAG}
     restart: always
     labels:
@@ -9,7 +9,11 @@ services:
       - VIRTUAL_PORT=8080
       - ENV_NAME=${ENV_NAME}
     healthcheck:
-      test: ["CMD-SHELL", "wget -qO- http://localhost:8080/actuator/health || exit 1"]
+      test:
+        [
+          "CMD-SHELL",
+          "wget -qO- http://localhost:8080/actuator/health || exit 1",
+        ]
       interval: 30s
       timeout: 3s
       retries: 3
@@ -19,4 +23,3 @@ networks:
   public_net:
     name: ${ENV_NAME}_public
     external: true
-    

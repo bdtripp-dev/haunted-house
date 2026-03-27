@@ -51,8 +51,14 @@ h1 {
     padding: 15px;
     border-radius: 10px;
     align-content: start;
-    overflow: scroll;
+    overflow: auto;
+    scrollbar-width: none;      /* Firefox */
+    -ms-overflow-style: none;   /* IE/Edge Legacy */
     transition: background-color 1s;
+}
+
+#terminal::-webkit-scrollbar {
+  display: none;              /* Chrome, Safari, Edge */
 }
 
 #terminal:hover {
