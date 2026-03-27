@@ -51,10 +51,12 @@ h1 {
     padding: 15px;
     border-radius: 10px;
     align-content: start;
-    overflow: auto;
     scrollbar-width: none;      /* Firefox */
     -ms-overflow-style: none;   /* IE/Edge Legacy */
     transition: background-color 1s;
+    overflow-y: auto;                 /* allow scrolling */
+    -webkit-overflow-scrolling: touch; /* enable momentum scrolling on iOS */
+    touch-action: manipulation;        /* treat taps as taps, not scroll gestures */
 }
 
 #terminal::-webkit-scrollbar {

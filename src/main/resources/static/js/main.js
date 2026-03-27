@@ -56,6 +56,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         moveCursorToEnd();
     });
 
+    // Required for iOS
+    terminal.addEventListener('touchstart', () => {
+        input.focus();
+        moveCursorToEnd();
+    });
+
     input.addEventListener("focus", () => {
         moveCursorToEnd();
     });
