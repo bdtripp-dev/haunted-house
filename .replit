@@ -1,8 +1,0 @@
-guest_forking = true
-
-run = "cd src && javac com/bdtripp/hauntedhouse/*.java && java com.bdtripp.hauntedhouse.HauntedHouse"
-
-[workflows]
-  [workflows.haunted_house]
-  name = "Haunted House"
-  command = "cd src && javac com/bdtripp/hauntedhouse/*.java && java com.bdtripp.hauntedhouse.HauntedHouse"

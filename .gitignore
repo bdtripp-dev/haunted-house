@@ -23,3 +23,7 @@ doc/
 
 # Maven build artifacts
 target/
+
+docker-compose.override.yaml
+.env
+*:Zone.Identifier
