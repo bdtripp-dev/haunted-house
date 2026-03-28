@@ -68,10 +68,14 @@ h1 {
     background-color: rgba(0, 0, 0, .6);
 }
 
-.cursor {
-    background-color: var(--default-fg);
-    color: var(--default-bg);
+#cursor {
+    background: var(--default-fg);
     opacity: .5;
+    position: absolute;
+    width: 1ch;
+    height: 1.2em;
+    mix-blend-mode: difference; /* This creates the "Invert" effect automatically! */
+    pointer-events: none;
 }
 
 #output {
@@ -81,7 +85,8 @@ h1 {
 #input-area {
     display: flex;
     align-items: start;
-    white-space: pre; /* prevents spaces from collapsing */
+    white-space: pre;
+    position: relative; /* prevents spaces from collapsing */
 }
 
 #terminal-input {
@@ -90,12 +95,12 @@ h1 {
     caret-color: transparent;
 }
 
-#terminal:focus-within .cursor {
+#terminal:focus-within #cursor {
     opacity: 1;
     animation: blink 1s step-end infinite;
 }
 
-#terminal:active .cursor{
+#terminal:active #cursor{
     opacity: 1;
 }
 
@@ -118,20 +123,7 @@ h1 {
     border: 2px solid var(--tetrad-1);
 }
 
-@media (min-width: 500px) {
-    main {
-
-    }
-}
-
 @keyframes blink {
-    0% {
-        background-color: var(--default-bg);
-        color: var(--default-fg);
-    }
-    50% {
-        background-color: var(--default-fg);
-        color: var(--default-bg);
-    }
+    50% { opacity: 0; }
 }
 

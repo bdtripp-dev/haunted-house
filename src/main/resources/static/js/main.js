@@ -3,7 +3,6 @@ document.addEventListener('DOMContentLoaded', async () => {
     const prompt = document.querySelector('#prompt');
     const input = document.querySelector('#terminal-input');
     const cursor = document.querySelector('#cursor');
-    const endCursor = document.querySelector('#end-cursor');
     const outputElement = document.querySelector('#output');
     const newGameBtn = document.querySelector('#new-game-btn');
     const STATUS = {
@@ -13,23 +12,29 @@ document.addEventListener('DOMContentLoaded', async () => {
     const MAX_BUFFER_LENGTH = 30;
     let buffer = '';
     let cursorPosition = 0;
+    const isAndroid = /Android/i.test(navigator.userAgent);
+    let userMovedCaret = false;
+
+    // function renderInput() {
+    //     input.innerText = '';
+
+    //     Array.from(buffer).forEach((char, index) => {
+    //         let span = document.createElement('span');
+    //         span.textContent = char;
+    //         if (index === cursorPosition) {
+    //             span.className = 'cursor';
+    //         }
+    //         input.appendChild(span);
+    //     });
+    // }
 
     function renderInput() {
-        input.innerText = '';
-
-        Array.from(buffer).forEach((char, index) => {
-            let span = document.createElement('span');
-            span.textContent = char;
-            if (index === cursorPosition) {
-                span.className = 'cursor';
-            }
-            input.appendChild(span);
-        });
+        input.textContent = buffer;
     }
 
     const startGame = async () => {
         input.disabled = false;
-        endCursor.classList.add('cursor');
+        // endCursor.classList.add('cursor');
         prompt.style.display = 'initial';
         const response = await fetch('api/game/start', {
             method: 'POST'
@@ -51,6 +56,18 @@ document.addEventListener('DOMContentLoaded', async () => {
         sel.addRange(range);
     };
 
+    function updateCursor() {
+        const sel = window.getSelection();
+        if (!sel.rangeCount) return;
+
+        const range = sel.getRangeAt(0).cloneRange();
+        const rect = range.getBoundingClientRect();
+        const containerRect = input.getBoundingClientRect();
+
+        cursor.style.left = `${rect.left - containerRect.left}px`;
+        cursor.style.top = `${rect.top - containerRect.top}px`;
+    }
+
     terminal.addEventListener('click', () => {
         input.focus();
         moveCursorToEnd();
@@ -64,6 +81,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     input.addEventListener("focus", () => {
         moveCursorToEnd();
+    });
+
+    input.addEventListener('input', () => {
+        if (/Android/i.test(navigator.userAgent)) {
+            setTimeout(() => {
+                moveCursorToEnd();
+                updateCursor();
+            }, 0);
+        } else {
+            updateCursor();
+        }
     });
 
     input.addEventListener('keydown', async (e) => {
@@ -109,14 +137,14 @@ document.addEventListener('DOMContentLoaded', async () => {
                 outputElement.textContent += 'Click "New Game" to play again!';
                 input.disabled = true;
                 prompt.style.display = 'none';
-                endCursor.classList.remove('cursor');
+                // endCursor.classList.remove('cursor');
             }
             return;
         }
         setTimeout(renderInput, 0);
         cursorPosition === buffer.length ? 
-        endCursor.className = 'cursor' : 
-        endCursor.classList.remove('cursor');
+        // endCursor.className = 'cursor' : 
+        // endCursor.classList.remove('cursor');
         console.log("Buffer length: ", buffer.length);
         console.log("Cursor position: ", cursorPosition);
     });
