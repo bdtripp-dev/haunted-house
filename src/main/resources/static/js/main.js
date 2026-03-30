@@ -15,26 +15,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     const isAndroid = /Android/i.test(navigator.userAgent);
     let userMovedCaret = false;
 
-    // function renderInput() {
-    //     input.innerText = '';
-
-    //     Array.from(buffer).forEach((char, index) => {
-    //         let span = document.createElement('span');
-    //         span.textContent = char;
-    //         if (index === cursorPosition) {
-    //             span.className = 'cursor';
-    //         }
-    //         input.appendChild(span);
-    //     });
-    // }
-
     function renderInput() {
         input.textContent = buffer;
     }
 
     const startGame = async () => {
         input.disabled = false;
-        // endCursor.classList.add('cursor');
         prompt.style.display = 'initial';
         const response = await fetch('api/game/start', {
             method: 'POST'
@@ -46,7 +32,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     startGame();
     renderInput();
 
-    const moveCursorToEnd = () => {
+    const moveCaretToEnd = () => {
         const range = document.createRange();
         const sel = window.getSelection();
 
@@ -56,6 +42,22 @@ document.addEventListener('DOMContentLoaded', async () => {
         sel.addRange(range);
     };
 
+    function maybeFixAndroidCaret() {
+        if (!isAndroid) return;
+
+        const sel = window.getSelection();
+        if (!sel.rangeCount) return;
+
+        const range = sel.getRangeAt(0);
+
+        // If Android IME reset caret to start (bug)
+        const caretAtStart = range.startOffset === 0 && range.endOffset === 0;
+
+        if (caretAtStart && !userMovedCaret) {
+            moveCaretToEnd();
+        }
+    }
+
     function updateCursor() {
         const sel = window.getSelection();
         if (!sel.rangeCount) return;
@@ -64,33 +66,67 @@ document.addEventListener('DOMContentLoaded', async () => {
         const rect = range.getBoundingClientRect();
         const containerRect = input.getBoundingClientRect();
 
+        // If rect is invalid (collapsed at empty position)
+        if (rect.left === 0 && rect.top === 0 && buffer.length > 0) {
+            // fallback: compute position from logical cursor
+            const textNode = input.firstChild;
+            if (textNode) {
+                const fallbackRange = document.createRange();
+                fallbackRange.setStart(textNode, cursorPosition);
+                fallbackRange.collapse(true);
+                const fallbackRect = fallbackRange.getBoundingClientRect();
+
+                cursor.style.left = `${fallbackRect.left - containerRect.left}px`;
+                cursor.style.top = `${fallbackRect.top - containerRect.top}px`;
+                return;
+            }
+        }
+
         cursor.style.left = `${rect.left - containerRect.left}px`;
         cursor.style.top = `${rect.top - containerRect.top}px`;
     }
 
+
+    function syncBrowserCaretToLogicalCursor() {
+        const sel = window.getSelection();
+        const range = document.createRange();
+
+        // Create a text node reference
+        const textNode = input.firstChild;
+        if (!textNode) return;
+
+        const pos = Math.min(cursorPosition, textNode.length);
+
+        range.setStart(textNode, pos);
+        range.collapse(true);
+
+        sel.removeAllRanges();
+        sel.addRange(range);
+    }
+
     terminal.addEventListener('click', () => {
         input.focus();
-        moveCursorToEnd();
+        updateCursor();
     });
 
     // Required for iOS
     terminal.addEventListener('touchstart', () => {
         input.focus();
-        moveCursorToEnd();
+        updateCursor();
     });
 
     input.addEventListener("focus", () => {
-        moveCursorToEnd();
+        updateCursor();
     });
 
-    input.addEventListener('input', () => {
-        if (/Android/i.test(navigator.userAgent)) {
+    input.addEventListener("input", () => {
+        if (isAndroid) {
             setTimeout(() => {
-                moveCursorToEnd();
-                updateCursor();
+                maybeFixAndroidCaret(); // only fixes when Android breaks it
+                updateCursor();         // always safe
             }, 0);
         } else {
-            updateCursor();
+            updateCursor();             // desktop/iOS
         }
     });
 
@@ -100,12 +136,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         if ((e.key === 'Backspace') && cursorPosition !== 0) {
             buffer = buffer.slice(0, cursorPosition - 1) + buffer.slice(cursorPosition);
             cursorPosition = Math.max(--cursorPosition, 0);
+            userMovedCaret = false;
         } else if (e.key === "ArrowLeft") {
             cursorPosition = Math.max(--cursorPosition, 0);
+            userMovedCaret = true;
         } else if ((e.key === "ArrowRight") && (cursorPosition < MAX_BUFFER_LENGTH)) {
             cursorPosition = Math.min(++cursorPosition, buffer.length);
+            userMovedCaret = true;
         } else if (e.key === "Delete") {
             buffer = buffer.slice(0, cursorPosition) + buffer.slice(cursorPosition + 1);
+            userMovedCaret = false;
         } else if (
             (e.key.length === 1) && 
             ((cursorPosition < MAX_BUFFER_LENGTH) && 
@@ -113,6 +153,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         ) {
             buffer = buffer.slice(0, cursorPosition) + e.key + buffer.slice(cursorPosition);
             ++cursorPosition;
+            userMovedCaret = false;
         }
 
         if (e.key === 'Enter') {
@@ -133,6 +174,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             input.innerText = '';
             buffer = '';
             cursorPosition = 0;
+            userMovedCaret = false;
             if (data.status === STATUS.STOPPED) {
                 outputElement.textContent += 'Click "New Game" to play again!';
                 input.disabled = true;
@@ -141,11 +183,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             }
             return;
         }
-        setTimeout(renderInput, 0);
-        cursorPosition === buffer.length ? 
-        // endCursor.className = 'cursor' : 
-        // endCursor.classList.remove('cursor');
-        console.log("Buffer length: ", buffer.length);
+         setTimeout(() => {
+            renderInput();
+            syncBrowserCaretToLogicalCursor();
+            updateCursor();
+        }, 0); 
+        console.log("Buffer length: ", buffer.length); 
         console.log("Cursor position: ", cursorPosition);
     });
 

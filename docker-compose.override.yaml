@@ -1,0 +1,12 @@
+services:
+  haunted-house:
+    build:
+      context: .
+      dockerfile: Dockerfile.dev
+    ports:
+      - "8084:8080"
+    volumes:
+      - .:/app
+      - ~/.m2:/root/.m2
+    environment:
+      SPRING_PROFILES_ACTIVE: dev
