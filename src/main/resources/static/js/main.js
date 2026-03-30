@@ -15,7 +15,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     let cursorPosition = 0;
     const isAndroid = /Android/i.test(navigator.userAgent);
     let userMovedCaret = false;
-    let hasEverFocused = false;
+    let newGamePressed = false;
+    let gameQuit = false;
 
     function renderInput() {
         input.textContent = buffer || " ";
@@ -27,13 +28,22 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
         const data = await response.json();
         outputElement.textContent = data.output + '\n';
+        renderInput();
+
+        if (!newGamePressed) return;
+
+        buffer = ' ';
+        cursorPosition = 0;
         input.disabled = false;
         prompt.style.display = 'initial';
+        renderInput();
+        focusCursor();
+        newGamePressed = false;
+        gameQuit = false;
     }
 
     cursor.style.display = 'none';
     startGame();
-    renderInput();
 
     const moveCaretToEnd = () => {
         const range = document.createRange();
@@ -92,7 +102,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         cursor.style.left = `${rect.left - containerRect.left}px`;
         cursor.style.top = `${rect.top - containerRect.top}px`;
-        console.log("test");
     }
 
 
@@ -112,76 +121,72 @@ document.addEventListener('DOMContentLoaded', async () => {
         sel.addRange(range);
     }
 
-    function activateCursorForFirstTime() {
-        cursor.style.display = 'initial';   // show cursor
-        input.focus();                      // activate caret
-        syncBrowserCaretToLogicalCursor();  // align caret to logical cursor
-        updateCursor();                     // position visual cursor
-        hasEverFocused = true;
-    }
-
-    terminal.addEventListener('click', () => {
-        if (!hasEverFocused) {
-            activateCursorForFirstTime();
-            return;
-        }
-
+    function focusCursor() {                    // position visual cursor
         input.focus();
         syncBrowserCaretToLogicalCursor();
         updateCursor();
+        cursor.style.display = "initial";
+    }
+
+    terminal.addEventListener('click', () => {
+        if (!gameQuit) {
+            focusCursor();
+        }
     });
 
     // Required for iOS
     terminal.addEventListener('touchstart', () => {
-        if (!hasEverFocused) {
-            activateCursorForFirstTime();
-            return;
+        if (!gameQuit) {
+            focusCursor();
         }
-
-        input.focus();
-        syncBrowserCaretToLogicalCursor();
-        updateCursor();
     });
 
-
     input.addEventListener("input", () => {
+        let text = input.textContent;
+
+        if (text.length > MAX_BUFFER_LENGTH) {
+            text = text.slice(0, MAX_BUFFER_LENGTH);
+            input.textContent = text;
+        }
+
+        buffer = text;
+        cursorPosition++;
+
         if (isAndroid) {
             setTimeout(() => {
-                maybeFixAndroidCaret(); // only fixes when Android breaks it
-                updateCursor();         // always safe
+                maybeFixAndroidCaret();
+                updateCursor();
             }, 0);
         } else {
-            updateCursor();             // desktop/iOS
+            updateCursor();
         }
     });
 
     input.addEventListener('keydown', async (e) => {
-        e.preventDefault();
-
         if ((e.key === 'Backspace') && cursorPosition !== 0) {
+            e.preventDefault();
             buffer = buffer.slice(0, cursorPosition - 1) + buffer.slice(cursorPosition);
             cursorPosition = Math.max(--cursorPosition, 0);
             userMovedCaret = false;
         } else if (e.key === "ArrowLeft") {
+            e.preventDefault();
             cursorPosition = Math.max(--cursorPosition, 0);
             userMovedCaret = true;
         } else if ((e.key === "ArrowRight") && (cursorPosition < MAX_BUFFER_LENGTH)) {
+            e.preventDefault();
             cursorPosition = Math.min(++cursorPosition, buffer.length);
             userMovedCaret = true;
         } else if (e.key === "Delete") {
+            e.preventDefault();
             buffer = buffer.slice(0, cursorPosition) + buffer.slice(cursorPosition + 1);
             userMovedCaret = false;
-        } else if (
-            (e.key.length === 1) && 
-            ((cursorPosition < MAX_BUFFER_LENGTH) && 
-            (buffer.length < MAX_BUFFER_LENGTH))
-        ) {
-            buffer = buffer.slice(0, cursorPosition) + e.key + buffer.slice(cursorPosition);
-            ++cursorPosition;
-            userMovedCaret = false;
+        } else if (e.key === "Tab") {
+            e.preventDefault();
+            return; 
         }
 
         if (e.key === 'Enter') {
+            e.preventDefault();
             const safeBuffer = e.target.textContent.trim();
 
             const response = await fetch('/api/game/command', {
@@ -198,7 +203,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             outputElement.textContent += data.output;
             terminal.scrollTop = terminal.scrollHeight;
-            // input.textContent = ' ';
             buffer = ' ';
             cursorPosition = 0;
             userMovedCaret = false;
@@ -207,8 +211,8 @@ document.addEventListener('DOMContentLoaded', async () => {
                 input.disabled = true;
                 prompt.style.display = 'none';
                 cursor.style.display = 'none';
+                gameQuit = true;
             }
-            // return;
         }
          setTimeout(() => {
             renderInput();
@@ -221,5 +225,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     newGameBtn.addEventListener('click', async () => {
         startGame();
+        newGamePressed = true;
     });
 });
