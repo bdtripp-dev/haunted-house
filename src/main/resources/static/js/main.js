@@ -1,6 +1,7 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const terminal = document.querySelector('#terminal');
     const prompt = document.querySelector('#prompt');
+    const inputContainer = document.querySelector('#input-container');
     const input = document.querySelector('#terminal-input');
     const cursor = document.querySelector('#cursor');
     const outputElement = document.querySelector('#output');
@@ -14,21 +15,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     let cursorPosition = 0;
     const isAndroid = /Android/i.test(navigator.userAgent);
     let userMovedCaret = false;
+    let hasEverFocused = false;
 
     function renderInput() {
-        input.textContent = buffer;
+        input.textContent = buffer || " ";
     }
 
     const startGame = async () => {
-        input.disabled = false;
-        prompt.style.display = 'initial';
         const response = await fetch('api/game/start', {
             method: 'POST'
         });
         const data = await response.json();
         outputElement.textContent = data.output + '\n';
+        input.disabled = false;
+        prompt.style.display = 'initial';
     }
-    
+
+    cursor.style.display = 'none';
     startGame();
     renderInput();
 
@@ -64,16 +67,21 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const range = sel.getRangeAt(0).cloneRange();
         const rect = range.getBoundingClientRect();
-        const containerRect = input.getBoundingClientRect();
+        const containerRect = inputContainer.getBoundingClientRect();
 
-        // If rect is invalid (collapsed at empty position)
-        if (rect.left === 0 && rect.top === 0 && buffer.length > 0) {
-            // fallback: compute position from logical cursor
+        const rectIsInvalid =
+            (rect.left === 0 && rect.top === 0 && buffer.length > 0) ||
+            rect.height === 0;
+
+        if (rectIsInvalid) {
             const textNode = input.firstChild;
             if (textNode) {
                 const fallbackRange = document.createRange();
-                fallbackRange.setStart(textNode, cursorPosition);
+                const pos = Math.min(cursorPosition, textNode.length);
+
+                fallbackRange.setStart(textNode, pos);
                 fallbackRange.collapse(true);
+
                 const fallbackRect = fallbackRange.getBoundingClientRect();
 
                 cursor.style.left = `${fallbackRect.left - containerRect.left}px`;
@@ -84,6 +92,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         cursor.style.left = `${rect.left - containerRect.left}px`;
         cursor.style.top = `${rect.top - containerRect.top}px`;
+        console.log("test");
     }
 
 
@@ -91,7 +100,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         const sel = window.getSelection();
         const range = document.createRange();
 
-        // Create a text node reference
         const textNode = input.firstChild;
         if (!textNode) return;
 
@@ -104,20 +112,37 @@ document.addEventListener('DOMContentLoaded', async () => {
         sel.addRange(range);
     }
 
+    function activateCursorForFirstTime() {
+        cursor.style.display = 'initial';   // show cursor
+        input.focus();                      // activate caret
+        syncBrowserCaretToLogicalCursor();  // align caret to logical cursor
+        updateCursor();                     // position visual cursor
+        hasEverFocused = true;
+    }
+
     terminal.addEventListener('click', () => {
+        if (!hasEverFocused) {
+            activateCursorForFirstTime();
+            return;
+        }
+
         input.focus();
+        syncBrowserCaretToLogicalCursor();
         updateCursor();
     });
 
     // Required for iOS
     terminal.addEventListener('touchstart', () => {
+        if (!hasEverFocused) {
+            activateCursorForFirstTime();
+            return;
+        }
+
         input.focus();
+        syncBrowserCaretToLogicalCursor();
         updateCursor();
     });
 
-    input.addEventListener("focus", () => {
-        updateCursor();
-    });
 
     input.addEventListener("input", () => {
         if (isAndroid) {
@@ -157,10 +182,12 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
 
         if (e.key === 'Enter') {
+            const safeBuffer = e.target.textContent.trim();
+
             const response = await fetch('/api/game/command', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
-                body: JSON.stringify({ 'input': e.target.textContent }),
+                body: JSON.stringify({ 'input': safeBuffer }),
             });
 
             if (!response.ok) {
@@ -171,17 +198,17 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             outputElement.textContent += data.output;
             terminal.scrollTop = terminal.scrollHeight;
-            input.innerText = '';
-            buffer = '';
+            // input.textContent = ' ';
+            buffer = ' ';
             cursorPosition = 0;
             userMovedCaret = false;
             if (data.status === STATUS.STOPPED) {
                 outputElement.textContent += 'Click "New Game" to play again!';
                 input.disabled = true;
                 prompt.style.display = 'none';
-                // endCursor.classList.remove('cursor');
+                cursor.style.display = 'none';
             }
-            return;
+            // return;
         }
          setTimeout(() => {
             renderInput();

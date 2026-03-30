@@ -82,11 +82,11 @@ h1 {
     white-space: pre-line;
 }
 
-#input-area {
+#input-container {
     display: flex;
     align-items: start;
     white-space: pre;
-    position: relative; /* prevents spaces from collapsing */
+    position: relative;
 }
 
 #terminal-input {
