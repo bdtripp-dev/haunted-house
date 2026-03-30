@@ -18,14 +18,17 @@
             <div id="output-area">
                 <p id="output"></p>
             </div>
-            <div id="input-area">
+            <div id="input-container">
                 <span id="prompt">>&nbsp;</span>
                 <span 
                     id="terminal-input" 
                     contenteditable="true"
+                    autocapitalize="off"
+                    autocomplete="off"
+                    autocorrect="off"
                     spellcheck="false"
                 ></span>
-                <span id ="end-cursor" class="cursor"> </span>
+                <span id="cursor"></span>
             </div>
         </div>
         <button id="new-game-btn" class="frosted">New Game</button>
