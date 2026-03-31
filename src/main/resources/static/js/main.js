@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const terminal = document.querySelector('#terminal');
+    const tapLayer = document.querySelector('#tap-layer');
+    const tapHint = document.querySelector('#tap-hint');
     const prompt = document.querySelector('#prompt');
     const inputContainer = document.querySelector('#input-container');
     const input = document.querySelector('#terminal-input');
@@ -34,7 +36,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         buffer = ' ';
         cursorPosition = 0;
-        input.disabled = false;
+        input.setAttribute("contenteditable", "true");
         prompt.style.display = 'initial';
         renderInput();
         focusCursor();
@@ -128,17 +130,19 @@ document.addEventListener('DOMContentLoaded', async () => {
         cursor.style.display = "initial";
     }
 
-    terminal.addEventListener('click', () => {
+    tapLayer.addEventListener('click', () => {
         if (!gameQuit) {
             focusCursor();
         }
+        tapHint.classList.add('hidden');
     });
 
     // Required for iOS
-    terminal.addEventListener('touchstart', () => {
+    tapLayer.addEventListener('touchstart', () => {
         if (!gameQuit) {
             focusCursor();
         }
+        tapHint.classList.add('hidden');
     });
 
     input.addEventListener("input", () => {
@@ -208,7 +212,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             userMovedCaret = false;
             if (data.status === STATUS.STOPPED) {
                 outputElement.textContent += 'Click "New Game" to play again!';
-                input.disabled = true;
+                input.setAttribute("contenteditable", "false");
                 prompt.style.display = 'none';
                 cursor.style.display = 'none';
                 gameQuit = true;

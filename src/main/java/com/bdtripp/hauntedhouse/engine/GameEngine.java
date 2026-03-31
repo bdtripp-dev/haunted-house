@@ -9,6 +9,7 @@ import com.bdtripp.hauntedhouse.model.Item;
 import com.bdtripp.hauntedhouse.model.Player;
 import com.bdtripp.hauntedhouse.model.Room;
 import com.bdtripp.hauntedhouse.model.Character;
+import com.bdtripp.hauntedhouse.model.Direction;
 
 /**
  * Represents the GameEngine of the Haunted House game. Haunted House is a text
@@ -126,34 +127,34 @@ public class GameEngine {
                         50));
 
         // initialise room exits
-        hallway.setExit("north", den, false);
-        hallway.setExit("south", outside, true);
+        hallway.setExit(Direction.NORTH, den, false);
+        hallway.setExit(Direction.SOUTH, outside, true);
 
-        study.setExit("east", indoorGarden, false);
+        study.setExit(Direction.EAST, indoorGarden, false);
 
-        indoorGarden.setExit("east", billiardRoom, false);
-        indoorGarden.setExit("south", rootCellar, false);
-        indoorGarden.setExit("west", study, false);
+        indoorGarden.setExit(Direction.EAST, billiardRoom, false);
+        indoorGarden.setExit(Direction.SOUTH, rootCellar, false);
+        indoorGarden.setExit(Direction.WEST, study, false);
 
-        rootCellar.setExit("east", library, false);
-        rootCellar.setExit("south", wineCellar, false);
-        rootCellar.setExit("west", den, false);
+        rootCellar.setExit(Direction.EAST, library, false);
+        rootCellar.setExit(Direction.SOUTH, wineCellar, false);
+        rootCellar.setExit(Direction.WEST, den, false);
 
-        library.setExit("north", billiardRoom, false);
-        library.setExit("west", rootCellar, false);
+        library.setExit(Direction.NORTH, billiardRoom, false);
+        library.setExit(Direction.WEST, rootCellar, false);
 
-        billiardRoom.setExit("south", library, false);
-        billiardRoom.setExit("west", indoorGarden, false);
+        billiardRoom.setExit(Direction.SOUTH, library, false);
+        billiardRoom.setExit(Direction.WEST, indoorGarden, false);
 
-        den.setExit("east", rootCellar, false);
-        den.setExit("south", hallway, false);
+        den.setExit(Direction.EAST, rootCellar, false);
+        den.setExit(Direction.SOUTH, hallway, false);
 
-        wineCellar.setExit("north", rootCellar, false);
-        wineCellar.setExit("east", bathroom, false);
+        wineCellar.setExit(Direction.NORTH, rootCellar, false);
+        wineCellar.setExit(Direction.EAST, bathroom, false);
 
-        bathroom.setExit("west", wineCellar, false);
+        bathroom.setExit(Direction.WEST, wineCellar, false);
 
-        outside.setExit("north", hallway, false);
+        outside.setExit(Direction.NORTH, hallway, false);
 
         // add the rooms to the game
         rooms.add(hallway);
@@ -357,7 +358,7 @@ public class GameEngine {
             return "Go where?";
         }
 
-        String direction = command.getSecondWord();
+        Direction direction = Direction.fromString(command.getSecondWord());
         Room currentRoom = player.getCurrentRoom();
         Room nextRoom = currentRoom.getNeighbor(direction);
 
