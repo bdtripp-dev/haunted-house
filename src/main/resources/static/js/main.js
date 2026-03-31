@@ -1,5 +1,7 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const terminal = document.querySelector('#terminal');
+    const tapLayer = document.querySelector('#tap-layer');
+    const tapHint = document.querySelector('#tap-hint');
     const prompt = document.querySelector('#prompt');
     const inputContainer = document.querySelector('#input-container');
     const input = document.querySelector('#terminal-input');
@@ -15,7 +17,8 @@ document.addEventListener('DOMContentLoaded', async () => {
     let cursorPosition = 0;
     const isAndroid = /Android/i.test(navigator.userAgent);
     let userMovedCaret = false;
-    let hasEverFocused = false;
+    let newGamePressed = false;
+    let gameQuit = false;
 
     function renderInput() {
         input.textContent = buffer || " ";
@@ -27,13 +30,22 @@ document.addEventListener('DOMContentLoaded', async () => {
         });
         const data = await response.json();
         outputElement.textContent = data.output + '\n';
-        input.disabled = false;
+        renderInput();
+
+        if (!newGamePressed) return;
+
+        buffer = ' ';
+        cursorPosition = 0;
+        input.setAttribute("contenteditable", "true");
         prompt.style.display = 'initial';
+        renderInput();
+        focusCursor();
+        newGamePressed = false;
+        gameQuit = false;
     }
 
     cursor.style.display = 'none';
     startGame();
-    renderInput();
 
     const moveCaretToEnd = () => {
         const range = document.createRange();
@@ -111,35 +123,26 @@ document.addEventListener('DOMContentLoaded', async () => {
         sel.addRange(range);
     }
 
-    function activateCursorForFirstTime() {
-        cursor.style.display = 'initial';   // show cursor
-        input.focus();                      // activate caret
-        syncBrowserCaretToLogicalCursor();  // align caret to logical cursor
-        updateCursor();                     // position visual cursor
-        hasEverFocused = true;
-    }
-
-    terminal.addEventListener('click', () => {
-        if (!hasEverFocused) {
-            activateCursorForFirstTime();
-            return;
-        }
-
+    function focusCursor() {                    // position visual cursor
         input.focus();
         syncBrowserCaretToLogicalCursor();
         updateCursor();
+        cursor.style.display = "initial";
+    }
+
+    tapLayer.addEventListener('click', () => {
+        if (!gameQuit) {
+            focusCursor();
+        }
+        tapHint.classList.add('hidden');
     });
 
     // Required for iOS
-    terminal.addEventListener('touchstart', () => {
-        if (!hasEverFocused) {
-            activateCursorForFirstTime();
-            return;
+    tapLayer.addEventListener('touchstart', () => {
+        if (!gameQuit) {
+            focusCursor();
         }
-
-        input.focus();
-        syncBrowserCaretToLogicalCursor();
-        updateCursor();
+        tapHint.classList.add('hidden');
     });
 
     input.addEventListener("input", () => {
@@ -209,9 +212,10 @@ document.addEventListener('DOMContentLoaded', async () => {
             userMovedCaret = false;
             if (data.status === STATUS.STOPPED) {
                 outputElement.textContent += 'Click "New Game" to play again!';
-                input.disabled = true;
+                input.setAttribute("contenteditable", "false");
                 prompt.style.display = 'none';
                 cursor.style.display = 'none';
+                gameQuit = true;
             }
         }
          setTimeout(() => {
@@ -225,5 +229,6 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     newGameBtn.addEventListener('click', async () => {
         startGame();
+        newGamePressed = true;
     });
 });

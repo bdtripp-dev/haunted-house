@@ -11,7 +11,7 @@ package com.bdtripp.hauntedhouse.model;
  * @version 2020.06.13
  */
 public class Exit {
-    private String direction;
+    private Direction direction;
     private Room neighbor;
     private boolean locked;
 
@@ -23,7 +23,7 @@ public class Exit {
      * @param neighbor  The neighboring room
      * @param locked    Whether or not the exit is locked
      */
-    public Exit(String direction, Room neighbor, boolean locked) {
+    public Exit(Direction direction, Room neighbor, boolean locked) {
         this.direction = direction;
         this.neighbor = neighbor;
         this.locked = locked;

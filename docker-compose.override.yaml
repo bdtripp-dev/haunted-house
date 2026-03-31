@@ -5,6 +5,7 @@ services:
       dockerfile: Dockerfile.dev
     ports:
       - "8084:8080"
+      - "5005:5005"
     volumes:
       - .:/app
       - ~/.m2:/root/.m2
