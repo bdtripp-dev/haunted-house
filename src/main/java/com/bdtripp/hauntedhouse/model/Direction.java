@@ -20,4 +20,10 @@ public enum Direction {
             return null;
         }
     }
+
+    @Override
+    public String toString() {
+        return name().toLowerCase();
+    }
+
 }
