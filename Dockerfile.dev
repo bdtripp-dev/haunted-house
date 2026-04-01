@@ -5,6 +5,5 @@ COPY .mvn .mvn
 COPY pom.xml .
 RUN ./mvnw -q dependency:go-offline
 COPY src ./src
-ENV JAVA_OPTS="-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
-ENV SPRING_DEVTOOLS_RESTART_ENABLED=false
-CMD ["./mvnw", "-q", "-Dspring-boot.run.fork=false", "-Dspring-boot.run.jvmArguments=${JAVA_OPTS}", "spring-boot:run"]
+RUN ./mvnw -q package -DskipTests
+CMD ["java", "-jar", "target/haunted-house-0.0.1-SNAPSHOT.jar"]
