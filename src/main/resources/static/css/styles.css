@@ -90,6 +90,7 @@ h1 {
     transition: opacity 1s ease;
     z-index: 2;
 }
+
 #tap-hint.hidden {
     opacity: 0;
 }
@@ -106,9 +107,16 @@ h1 {
 }
 
 #terminal-input {
-    all: unset; /* wipe most browser styles */
-    flex: 0 1 auto;
+    display: inline-block;
+    min-height: 1.2em;
+    outline: none;
+    border: none;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    white-space: pre;
     caret-color: transparent;
+    flex: 0 1 auto;
 }
 
 #cursor {
