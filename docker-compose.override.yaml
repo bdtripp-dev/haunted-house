@@ -1,6 +1,5 @@
 services:
   haunted-house:
-    image: ""
     build:
       context: .
       dockerfile: Dockerfile.dev
