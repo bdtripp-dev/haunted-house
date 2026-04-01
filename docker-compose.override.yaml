@@ -4,8 +4,8 @@ services:
       context: .
       dockerfile: Dockerfile.dev
     ports:
-      - "8084:8080"
-      - "5005:5005"
+      - "127.0.0.1:8084:8080"
+      - "192.168.0.216:8084:8080"
     volumes:
       - .:/app
       - ~/.m2:/root/.m2
