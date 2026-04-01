@@ -1,0 +1,9 @@
+FROM eclipse-temurin:21-jdk
+WORKDIR /app
+COPY mvnw .
+COPY .mvn .mvn
+COPY pom.xml .
+RUN ./mvnw -q dependency:go-offline
+COPY src ./src
+RUN ./mvnw -q package -DskipTests
+CMD ["java", "-cp", "target/classes:target/dependency/*", "com.bdtripp.hauntedhouse.WebApp"]

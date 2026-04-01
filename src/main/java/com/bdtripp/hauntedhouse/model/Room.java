@@ -15,7 +15,7 @@ import java.util.ArrayList;
  */
 public class Room {
     private String description;
-    private HashMap<String, Exit> exits;
+    private HashMap<Direction, Exit> exits;
     private ArrayList<Item> items;
     private ArrayList<Character> characters;
 
@@ -107,7 +107,7 @@ public class Room {
      * @param neighbor  The room in the given direction.
      * @param locked    true if the door is locked
      */
-    public void setExit(String direction, Room neighbor, boolean locked) {
+    public void setExit(Direction direction, Room neighbor, boolean locked) {
         Exit exit = new Exit(direction, neighbor, locked);
         exits.put(direction, exit);
     }
@@ -118,7 +118,7 @@ public class Room {
      * @return The room in the given direction. null if there is no exit in that
      *         direction
      */
-    public Room getNeighbor(String direction) {
+    public Room getNeighbor(Direction direction) {
         if (exits.containsKey(direction)) {
             return exits.get(direction).getNeighbor();
         }
@@ -129,7 +129,7 @@ public class Room {
      * @param direction The direction of the exit
      * @return The exit in the direction provided
      */
-    public Exit getExit(String direction) {
+    public Exit getExit(Direction direction) {
         return exits.get(direction);
     }
 
@@ -138,9 +138,9 @@ public class Room {
      */
     public String getExitString() {
         String returnString = "Exits:";
-        Set<String> keys = exits.keySet();
-        for (String exit : keys) {
-            returnString += " " + exit;
+        Set<Direction> keys = exits.keySet();
+        for (Direction exit : keys) {
+            returnString += " " + exit.toString();
         }
         return returnString;
     }

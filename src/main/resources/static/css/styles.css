@@ -51,14 +51,17 @@ h1 {
     padding: 15px;
     border-radius: 10px;
     align-content: start;
-    overflow: auto;
     scrollbar-width: none;      /* Firefox */
     -ms-overflow-style: none;   /* IE/Edge Legacy */
     transition: background-color 1s;
+    overflow-y: auto; 
+    -webkit-overflow-scrolling: touch; /* enable momentum scrolling on iOS */
+    touch-action: manipulation;
+    position: relative; /* treat taps as taps, not scroll gestures */
 }
 
 #terminal::-webkit-scrollbar {
-  display: none;              /* Chrome, Safari, Edge */
+  display: none; /* Chrome, Safari, Edge */
 }
 
 #terminal:hover {
@@ -66,34 +69,72 @@ h1 {
     background-color: rgba(0, 0, 0, .6);
 }
 
-.cursor {
-    background-color: var(--default-fg);
-    color: var(--default-bg);
-    opacity: .5;
+#tap-layer {
+    position: absolute;
+    inset: 0;
+    z-index: 1;
+    background: transparent;
+}
+
+#tap-hint {
+    position: absolute;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: rgba(0,0,0,0.6);
+    color: #fff;
+    font-size: 1.5rem;
+    pointer-events: none;
+    opacity: 1;
+    transition: opacity 1s ease;
+    z-index: 2;
+}
+
+#tap-hint.hidden {
+    opacity: 0;
 }
 
 #output {
     white-space: pre-line;
 }
 
-#input-area {
+#input-container {
     display: flex;
     align-items: start;
-    white-space: pre; /* prevents spaces from collapsing */
+    white-space: pre;
+    position: relative;
 }
 
 #terminal-input {
-    all: unset; /* wipe most browser styles */
-    flex: 0 1 auto;
+    display: inline-block;
+    min-height: 1.2em;
+    outline: none;
+    border: none;
+    background: transparent;
+    color: inherit;
+    font: inherit;
+    white-space: pre;
     caret-color: transparent;
+    flex: 0 1 auto;
 }
 
-#terminal:focus-within .cursor {
+#cursor {
+    background: var(--default-fg);
+    opacity: .5;
+    position: absolute;
+    width: 1ch;
+    height: 1.2em;
+    mix-blend-mode: difference; /* This creates the "Invert" effect automatically! */
+    pointer-events: none;
+}
+
+#terminal:focus-within #cursor {
     opacity: 1;
     animation: blink 1s step-end infinite;
 }
 
-#terminal:active .cursor{
+#terminal:active #cursor{
     opacity: 1;
 }
 
@@ -116,20 +157,7 @@ h1 {
     border: 2px solid var(--tetrad-1);
 }
 
-@media (min-width: 500px) {
-    main {
-
-    }
-}
-
 @keyframes blink {
-    0% {
-        background-color: var(--default-bg);
-        color: var(--default-fg);
-    }
-    50% {
-        background-color: var(--default-fg);
-        color: var(--default-bg);
-    }
+    50% { opacity: 0; }
 }
 
