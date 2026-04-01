@@ -1,7 +1,0 @@
-services:
-  haunted-house:
-    ports:
-      - "8084:8080"
-      - "5005:5005"
-    environment:
-      - JAVA_TOOL_OPTIONS=-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005
