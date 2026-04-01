@@ -6,4 +6,4 @@ COPY pom.xml .
 RUN ./mvnw -q dependency:go-offline
 COPY src ./src
 RUN ./mvnw -q package -DskipTests
-CMD ["java", "-jar", "target/haunted-house-0.0.1-SNAPSHOT.jar"]
+CMD ["java", "-cp", "target/classes:target/dependency/*", "com.bdtripp.hauntedhouse.WebApp"]
