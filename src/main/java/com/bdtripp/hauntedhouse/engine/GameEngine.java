@@ -7,9 +7,11 @@ import com.bdtripp.hauntedhouse.model.Command;
 import com.bdtripp.hauntedhouse.model.CommandWord;
 import com.bdtripp.hauntedhouse.model.Item;
 import com.bdtripp.hauntedhouse.model.Player;
+import com.bdtripp.hauntedhouse.model.PlayerStat;
 import com.bdtripp.hauntedhouse.model.Room;
 import com.bdtripp.hauntedhouse.model.Character;
 import com.bdtripp.hauntedhouse.model.Direction;
+import com.bdtripp.hauntedhouse.model.ExitType;
 
 /**
  * Represents the GameEngine of the Haunted House game. Haunted House is a text
@@ -68,49 +70,49 @@ public class GameEngine {
                 "an elixir",
                 50,
                 true,
-                "health",
+                PlayerStat.HEALTH,
                 10);
         hallway.addItem(
                 "cookie",
                 "a magic cookie",
                 5,
                 true,
-                "strength",
+                PlayerStat.STRENGTH,
                 5);
         indoorGarden.addItem(
                 "spade",
                 "an old spade",
                 1,
                 false,
-                "",
+                PlayerStat.NONE,
                 0);
         indoorGarden.addItem(
                 "plant",
                 "fox glove",
                 5,
                 false,
-                "",
+                PlayerStat.NONE,
                 0);
         wineCellar.addItem(
                 "crate",
                 "a big old crate",
                 2000,
                 false,
-                "",
+                PlayerStat.NONE,
                 0);
         bathroom.addItem(
                 "key",
                 "a rusty skeleton key",
                 1,
                 false,
-                "",
+                PlayerStat.NONE,
                 0);
         bathroom.addItem(
                 "bucket",
                 "an empty bucket",
                 20,
                 false,
-                "",
+                PlayerStat.NONE,
                 0);
 
         // create the characters in each room
@@ -123,38 +125,38 @@ public class GameEngine {
                         "potion",
                         "a powerful muscle building potion",
                         50, true,
-                        "maximum carry weight",
+                        PlayerStat.MAX_CARRY_WEIGHT,
                         50));
 
         // initialise room exits
-        hallway.setExit(Direction.NORTH, den, false);
-        hallway.setExit(Direction.SOUTH, outside, true);
+        hallway.setExit(Direction.NORTH, den, ExitType.UNLOCKED);
+        hallway.setExit(Direction.SOUTH, outside, ExitType.LOCKED);
 
-        study.setExit(Direction.EAST, indoorGarden, false);
+        study.setExit(Direction.EAST, indoorGarden, ExitType.UNLOCKED);
 
-        indoorGarden.setExit(Direction.EAST, billiardRoom, false);
-        indoorGarden.setExit(Direction.SOUTH, rootCellar, false);
-        indoorGarden.setExit(Direction.WEST, study, false);
+        indoorGarden.setExit(Direction.EAST, billiardRoom, ExitType.UNLOCKED);
+        indoorGarden.setExit(Direction.SOUTH, rootCellar, ExitType.UNLOCKED);
+        indoorGarden.setExit(Direction.WEST, study, ExitType.UNLOCKED);
 
-        rootCellar.setExit(Direction.EAST, library, false);
-        rootCellar.setExit(Direction.SOUTH, wineCellar, false);
-        rootCellar.setExit(Direction.WEST, den, false);
+        rootCellar.setExit(Direction.EAST, library, ExitType.UNLOCKED);
+        rootCellar.setExit(Direction.SOUTH, wineCellar, ExitType.UNLOCKED);
+        rootCellar.setExit(Direction.WEST, den, ExitType.UNLOCKED);
 
-        library.setExit(Direction.NORTH, billiardRoom, false);
-        library.setExit(Direction.WEST, rootCellar, false);
+        library.setExit(Direction.NORTH, billiardRoom, ExitType.UNLOCKED);
+        library.setExit(Direction.WEST, rootCellar, ExitType.UNLOCKED);
 
-        billiardRoom.setExit(Direction.SOUTH, library, false);
-        billiardRoom.setExit(Direction.WEST, indoorGarden, false);
+        billiardRoom.setExit(Direction.SOUTH, library, ExitType.UNLOCKED);
+        billiardRoom.setExit(Direction.WEST, indoorGarden, ExitType.UNLOCKED);
 
-        den.setExit(Direction.EAST, rootCellar, false);
-        den.setExit(Direction.SOUTH, hallway, false);
+        den.setExit(Direction.EAST, rootCellar, ExitType.UNLOCKED);
+        den.setExit(Direction.SOUTH, hallway, ExitType.UNLOCKED);
 
-        wineCellar.setExit(Direction.NORTH, rootCellar, false);
-        wineCellar.setExit(Direction.EAST, bathroom, false);
+        wineCellar.setExit(Direction.NORTH, rootCellar, ExitType.UNLOCKED);
+        wineCellar.setExit(Direction.EAST, bathroom, ExitType.UNLOCKED);
 
-        bathroom.setExit(Direction.WEST, wineCellar, false);
+        bathroom.setExit(Direction.WEST, wineCellar, ExitType.UNLOCKED);
 
-        outside.setExit(Direction.NORTH, hallway, false);
+        outside.setExit(Direction.NORTH, hallway, ExitType.UNLOCKED);
 
         // add the rooms to the game
         rooms.add(hallway);
@@ -364,7 +366,7 @@ public class GameEngine {
 
         if (nextRoom == null) {
             return "There is no door!";
-        } else if (currentRoom.getExit(direction).isLocked()) {
+        } else if (currentRoom.getExit(direction).getType() == ExitType.LOCKED) {
             if (player.hasKey()) {
                 buffer.append("The door is locked...but you have the key!").append("\n");
                 enterRoom(nextRoom, true);

@@ -238,18 +238,20 @@ public class Player {
      * @return A message to display
      */
     public String ingest(Item item) {
-        String propToAffect = item.getPropToAffect();
+        PlayerStat statToAffect = item.getStatToAffect();
         int affectValue = item.getAffectValue();
 
-        if (propToAffect.equals("health")) {
-            health += affectValue;
-        } else if (propToAffect.equals("strength")) {
-            strength += affectValue;
-        } else if (propToAffect.equals("maximum carry weight")) {
-            maxCarryWeight += affectValue;
+        switch (statToAffect) {
+            case HEALTH -> health += affectValue;
+            case STRENGTH -> strength += affectValue;
+            case MAX_CARRY_WEIGHT -> maxCarryWeight += affectValue;
+            case NONE -> {
+                return "This item has no effect.";
+            }
         }
 
-        return "That was delicious. Not only that but your " + propToAffect + " increased by " + affectValue + "!";
+        return "That was delicious. Not only that but your " + statToAffect.toString() + " increased by " + affectValue
+                + "!";
     }
 
     /**

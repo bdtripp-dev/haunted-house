@@ -37,18 +37,18 @@ public class Room {
      * @param description  The description of the item
      * @param weight       The weight of the item
      * @param isEdible     The edibility of the item
-     * @param propToAffect The property the item affects (e.g. health, strength,
+     * @param statToAffect The stat the item affects (e.g. health, strength,
      *                     etc.)
-     * @param affectValue  The amount the property is changed by
+     * @param affectValue  The amount the stat is changed by
      */
     public void addItem(
             String name,
             String description,
             int weight,
             boolean isEdible,
-            String propToAffect,
+            PlayerStat statToAffect,
             int affectValue) {
-        items.add(new Item(name, description, weight, isEdible, propToAffect, affectValue));
+        items.add(new Item(name, description, weight, isEdible, statToAffect, affectValue));
     }
 
     /**
@@ -105,10 +105,10 @@ public class Room {
      * 
      * @param direction The direction of the exit.
      * @param neighbor  The room in the given direction.
-     * @param locked    true if the door is locked
+     * @param type      The type of exit (locked or unlocked)
      */
-    public void setExit(Direction direction, Room neighbor, boolean locked) {
-        Exit exit = new Exit(direction, neighbor, locked);
+    public void setExit(Direction direction, Room neighbor, ExitType type) {
+        Exit exit = new Exit(direction, neighbor, type);
         exits.put(direction, exit);
     }
 

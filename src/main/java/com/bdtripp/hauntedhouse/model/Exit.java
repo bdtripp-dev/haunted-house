@@ -11,22 +11,21 @@ package com.bdtripp.hauntedhouse.model;
  * @version 2020.06.13
  */
 public class Exit {
-    private Direction direction;
-    private Room neighbor;
-    private boolean locked;
+    private final Direction direction;
+    private final Room neighbor;
+    private final ExitType type;
 
     /**
-     * Creates an exit and sets its direction, neighbor, and whether or not it is
-     * locked.
+     * Creates an exit and sets its direction, neighbor, and type.
      * 
      * @param direction The direction of the exit.
      * @param neighbor  The neighboring room
-     * @param locked    Whether or not the exit is locked
+     * @param type      The type of exit (locked or unlocked)
      */
-    public Exit(Direction direction, Room neighbor, boolean locked) {
+    public Exit(Direction direction, Room neighbor, ExitType type) {
         this.direction = direction;
         this.neighbor = neighbor;
-        this.locked = locked;
+        this.type = type;
     }
 
     /**
@@ -39,11 +38,11 @@ public class Exit {
     }
 
     /**
-     * Checks if the exit is locked.
+     * Returns the type of exit.
      * 
-     * @return true if the exit is locked, otherwise false
+     * @return The type of exit.
      */
-    public boolean isLocked() {
-        return locked;
+    public ExitType getType() {
+        return type;
     }
 }
