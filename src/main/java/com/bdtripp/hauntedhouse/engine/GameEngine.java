@@ -64,6 +64,14 @@ public class GameEngine {
         bathroom = new Room("in a flooded bathroom...gross");
         outside = new Room("outside of the haunted house and the sun is so delightful!");
 
+        Item spade = new Item(
+                "spade",
+                "an old spade",
+                1,
+                false,
+                PlayerStat.NONE,
+                0);
+
         // create the items in each room
         hallway.addItem(new Item(
                 "elixir",
@@ -79,13 +87,7 @@ public class GameEngine {
                 true,
                 PlayerStat.STRENGTH,
                 5));
-        indoorGarden.addItem(new Item(
-                "spade",
-                "an old spade",
-                1,
-                false,
-                PlayerStat.NONE,
-                0));
+        indoorGarden.addItem(spade);
         indoorGarden.addItem(new Item(
                 "plant",
                 "fox glove",
@@ -120,7 +122,7 @@ public class GameEngine {
                 "Beatrice",
                 "How lovely to meet you. You didn't happen to see my spade...",
                 "Oh so you found it! Wonderful! Here is something that might come in handy...",
-                "spade",
+                spade,
                 new Item(
                         "potion",
                         "a powerful muscle building potion",
@@ -557,14 +559,14 @@ public class GameEngine {
             return "Who is \"" + characterName + "\" ?";
         }
 
-        String itemSoughtName = character.getItemSought();
+        Item itemSought = character.getItemSought();
         String itemToGiveName = command.getSecondWord();
         Item itemToGive = player.getItem(itemToGiveName);
         Item itemForReward = character.getItemForReward();
 
         if (itemToGive == null) {
             return "You don't have a(n) \"" + itemToGiveName + "\"";
-        } else if (itemToGive.getName().equals(itemSoughtName)) {
+        } else if (itemToGive == itemSought) {
             player.dropItem(itemToGiveName);
             buffer.append(character.getAcceptanceDialog()).append("\n");
             player.takeItem(itemForReward);

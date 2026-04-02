@@ -14,7 +14,7 @@ public class Character {
     private String name;
     private String initialDialog;
     private String acceptanceDialog;
-    private String itemSought;
+    private Item itemSought;
     private Item itemForReward;
 
     /**
@@ -26,14 +26,14 @@ public class Character {
      * @param initialDialog    The initial dialog that the character speaks.
      * @param acceptanceDialog The dialog that the character speaks upon accepting
      *                         an item.
-     * @param itemSought       The name of the item that the character is seeking.
+     * @param itemSought       The item that the character is seeking.
      * @param itemForReward    The item that the character rewards the player with.
      */
     public Character(
             String name,
             String initialDialog,
             String acceptanceDialog,
-            String itemSought,
+            Item itemSought,
             Item itemForReward) {
         this.name = name;
         this.initialDialog = initialDialog;
@@ -70,11 +70,11 @@ public class Character {
     }
 
     /**
-     * Returns the name of the item that the character is seeking
+     * Returns the item that the character is seeking
      * 
-     * @return The name of the item
+     * @return The item
      */
-    public String getItemSought() {
+    public Item getItemSought() {
         return itemSought;
     }
 
