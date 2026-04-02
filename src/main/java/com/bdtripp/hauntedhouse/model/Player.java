@@ -1,36 +1,32 @@
 package com.bdtripp.hauntedhouse.model;
 
-import java.util.ArrayList;
 import java.util.Stack;
 
 /**
  * Represents a player in the Haunted House game. Keeps track of where the
- * player
- * is, what items they are carrying, and their current stats.
+ * player is, their inventory, and their current stats.
  *
  * @author Brian Tripp
  * @version 2026.04.02
  */
 public class Player {
     private String name;
-    private int maxCarryWeight;
     private int health = 100;
     private int strength = 10;
-    private ArrayList<Item> items;
     private Room currentRoom;
     private Stack<Room> roomHistory;
     private static final int MAX_MOVES_ALLOWED = 30;
     private Room beamerLocation;
     private boolean beamerCharged;
+    private Inventory inventory;
 
     /**
-     * @param name           The name of the player
-     * @param maxCarryWeight The maximum weight the player can carry
+     * @param name      The name of the player
+     * @param inventory A collection of items carried by the player
      */
-    public Player(String name, int maxCarryWeight) {
-        items = new ArrayList<>();
-        this.maxCarryWeight = maxCarryWeight;
+    public Player(String name, Inventory inventory) {
         this.name = name;
+        this.inventory = inventory;
         roomHistory = new Stack<>();
     }
 
@@ -48,22 +44,6 @@ public class Player {
      */
     public boolean getBeamerCharge() {
         return beamerCharged;
-    }
-
-    /**
-     * @param max The maximum weight a player can carry
-     */
-    public void setMaxCarryWeight(int max) {
-        maxCarryWeight = max;
-    }
-
-    /**
-     * Returns the maximum weight that the player can carry
-     * 
-     * @return The maximum weight
-     */
-    public int getMaxCarryWeight() {
-        return maxCarryWeight;
     }
 
     /**
@@ -110,103 +90,12 @@ public class Player {
     }
 
     /**
-     * Adds an item to the list of what the player is carrying
-     * 
-     * @param item The item to take
-     */
-    public void takeItem(Item item) {
-        items.add(item);
-    }
-
-    /**
-     * Removes an item from the list of what the player is currently carrying
-     * 
-     * @param name The name of the item to drop
-     * @return The item that was dropped
-     */
-    public Item dropItem(String name) {
-        for (Item item : items) {
-            if (item.getName().equals(name)) {
-                items.remove(item);
-                return item;
-            }
-        }
-        return null;
-    }
-
-    /**
-     *
-     * @return The weight of the items that the player is currently carrying
-     */
-    public int getCurrentCarryWeight() {
-        int totalWeight = 0;
-        for (Item item : items) {
-            totalWeight += item.getWeight();
-        }
-        return totalWeight;
-    }
-
-    /**
-     * @return The items the player is carrying
-     */
-    public ArrayList<Item> getItems() {
-        return items;
-    }
-
-    /**
-     * Returns an item that the player is carrying
-     * 
-     * @param name The name of the item
-     * @return The item
-     */
-    public Item getItem(String name) {
-        for (Item item : items) {
-            if (item.getName().equals(name)) {
-                return item;
-            }
-        }
-        return null;
-    }
-
-    /**
-     * Checks if the player has a particular item
-     * 
-     * @param item The item to check
-     * @return true if the player has the item
-     */
-    public boolean hasItem(Item item) {
-        for (Item i : items) {
-            if (i == item) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
-     * @return The details of the items that the player is carrying
-     */
-    public String getCurrentItemDetails() {
-        if (items.isEmpty()) {
-            return "There are no items in your posession.";
-        }
-        String returnString = "You are carrying the following:\n\n";
-        for (Item item : items) {
-            returnString += "Name: " + item.getName() + "\n";
-            returnString += "Description: " + item.getDescription() + "\n";
-            returnString += "Weight: " + item.getWeight() + "\n\n";
-        }
-        returnString += "Total Weight: " + getCurrentCarryWeight();
-        return returnString;
-    }
-
-    /**
      * @return The players stats
      */
     public String getStats() {
         String returnString = "Health: " + health + "\n";
         returnString += "Strength: " + strength + "\n";
-        returnString += "Maximum Carry Weight: " + maxCarryWeight + "\n";
+        returnString += "Maximum Carry Weight: " + inventory.getMaxCarryWeight() + "\n";
 
         return returnString;
     }
@@ -245,7 +134,8 @@ public class Player {
         switch (statToAffect) {
             case HEALTH -> health += affectValue;
             case STRENGTH -> strength += affectValue;
-            case MAX_CARRY_WEIGHT -> maxCarryWeight += affectValue;
+            case MAX_CARRY_WEIGHT -> inventory.setMaxCarryWeight(
+                    inventory.getMaxCarryWeight() + affectValue);
             case NONE -> {
                 return "This item has no effect.";
             }
@@ -271,5 +161,12 @@ public class Player {
      */
     public void setStrength(int value) {
         strength = value;
+    }
+
+    /**
+     * @return The player's inventory
+     */
+    public Inventory getInventory() {
+        return inventory;
     }
 }

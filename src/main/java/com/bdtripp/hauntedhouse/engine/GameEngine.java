@@ -12,6 +12,7 @@ import com.bdtripp.hauntedhouse.model.Room;
 import com.bdtripp.hauntedhouse.model.Character;
 import com.bdtripp.hauntedhouse.model.Direction;
 import com.bdtripp.hauntedhouse.model.ExitType;
+import com.bdtripp.hauntedhouse.model.Inventory;
 
 /**
  * Represents the GameEngine of the Haunted House game. Haunted House is a text
@@ -41,7 +42,7 @@ public class GameEngine {
      * Creates the GameEngine and initialises a player and the rooms.
      */
     public GameEngine() {
-        player = new Player("Brian", 75);
+        player = new Player("Brian", new Inventory(75));
         rooms = new ArrayList<>();
         createRooms();
     }
@@ -367,7 +368,7 @@ public class GameEngine {
         if (nextRoom == null) {
             return "There is no door!";
         } else if (currentRoom.getExit(direction).getType() == ExitType.LOCKED) {
-            if (player.hasItem(key)) {
+            if (player.getInventory().hasItem(key)) {
                 buffer.append("The door is locked...but you have the key!").append("\n");
                 enterRoom(nextRoom, true);
                 endGame();
@@ -418,7 +419,7 @@ public class GameEngine {
         }
 
         String itemName = command.getSecondWord();
-        Item itemToEat = player.dropItem(itemName);
+        Item itemToEat = player.getInventory().removeItem(itemName);
 
         if (itemToEat == null) {
             return "That item doesn't exist.";
@@ -461,12 +462,13 @@ public class GameEngine {
 
         if (itemToTake == null) {
             return "That item doesn't exist in this room";
-        } else if ((itemToTake.getWeight() + player.getCurrentCarryWeight()) > player.getMaxCarryWeight()) {
+        } else if ((itemToTake.getWeight() + player.getInventory().getCurrentCarryWeight()) > player.getInventory()
+                .getMaxCarryWeight()) {
             return "It's too heavy! You can carry up to " +
-                    player.getMaxCarryWeight() + " units. Maybe if you dropped \n" +
+                    player.getInventory().getMaxCarryWeight() + " units. Maybe if you dropped \n" +
                     "some items you could manage it. Or it may be simply too heavy.";
         } else {
-            player.takeItem(itemToTake);
+            player.getInventory().addItem(itemToTake);
             return "You picked up " + itemToTake.getDescription() + "!";
         }
     }
@@ -483,7 +485,7 @@ public class GameEngine {
         }
 
         String itemName = command.getSecondWord();
-        Item droppedItem = player.dropItem(itemName);
+        Item droppedItem = player.getInventory().removeItem(itemName);
 
         if (droppedItem == null) {
             return "You don't have one of those.";
@@ -500,7 +502,7 @@ public class GameEngine {
      * @return A message to display
      */
     private String showItems() {
-        return player.getCurrentItemDetails();
+        return player.getInventory().getCurrentItemDetails();
     }
 
     /**
@@ -559,15 +561,15 @@ public class GameEngine {
 
         Item itemSought = character.getItemSought();
         String itemToGiveName = command.getSecondWord();
-        Item itemToGive = player.getItem(itemToGiveName);
+        Item itemToGive = player.getInventory().getItem(itemToGiveName);
         Item itemForReward = character.getItemForReward();
 
         if (itemToGive == null) {
             return "You don't have a(n) \"" + itemToGiveName + "\"";
         } else if (itemToGive == itemSought) {
-            player.dropItem(itemToGiveName);
+            player.getInventory().removeItem(itemToGiveName);
             buffer.append(character.getAcceptanceDialog()).append("\n");
-            player.takeItem(itemForReward);
+            player.getInventory().addItem(itemForReward);
             buffer.append("Received " + itemForReward.getDescription() + "!").append("\n");
             return buffer.toString();
         } else {
