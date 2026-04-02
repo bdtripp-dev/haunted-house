@@ -9,7 +9,7 @@ import java.util.Stack;
  * is, what items they are carrying, and their current stats.
  *
  * @author Brian Tripp
- * @version 2026.02.05
+ * @version 2026.04.02
  */
 public class Player {
     private String name;
@@ -169,13 +169,14 @@ public class Player {
     }
 
     /**
-     * Checks if the player has the key
+     * Checks if the player has a particular item
      * 
-     * @return true if the player has the key
+     * @param item The item to check
+     * @return true if the player has the item
      */
-    public boolean hasKey() {
-        for (Item item : items) {
-            if (item.getName().equals("key")) {
+    public boolean hasItem(Item item) {
+        for (Item i : items) {
+            if (i == item) {
                 return true;
             }
         }

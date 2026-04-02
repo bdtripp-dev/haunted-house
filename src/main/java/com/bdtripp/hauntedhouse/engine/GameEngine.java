@@ -27,7 +27,7 @@ import com.bdtripp.hauntedhouse.model.ExitType;
  * exits for each room, and processes all Commands entered by the player.
  *
  * @author Michael Kölling, David J. Barnes, and Brian Tripp
- * @version 2026.02.05
+ * @version 2026.04.02
  */
 
 public class GameEngine {
@@ -35,6 +35,7 @@ public class GameEngine {
     private Room billiardRoom;
     private ArrayList<Room> rooms;
     private boolean gameOver;
+    private Item key;
 
     /**
      * Creates the GameEngine and initialises a player and the rooms.
@@ -52,7 +53,6 @@ public class GameEngine {
         Room hallway, study, indoorGarden, rootCellar, library,
                 den, wineCellar, bathroom, outside;
 
-        // create the rooms
         hallway = new Room("in a dark hallway");
         study = new Room("in a study");
         indoorGarden = new Room("in a misty indoor garden");
@@ -72,7 +72,14 @@ public class GameEngine {
                 PlayerStat.NONE,
                 0);
 
-        // create the items in each room
+        key = new Item(
+                "key",
+                "a rusty skeleton key",
+                1,
+                false,
+                PlayerStat.NONE,
+                0);
+
         hallway.addItem(new Item(
                 "elixir",
                 "an elixir",
@@ -102,13 +109,7 @@ public class GameEngine {
                 false,
                 PlayerStat.NONE,
                 0));
-        bathroom.addItem(new Item(
-                "key",
-                "a rusty skeleton key",
-                1,
-                false,
-                PlayerStat.NONE,
-                0));
+        bathroom.addItem(key);
         bathroom.addItem(new Item(
                 "bucket",
                 "an empty bucket",
@@ -117,7 +118,6 @@ public class GameEngine {
                 PlayerStat.NONE,
                 0));
 
-        // create the characters in each room
         billiardRoom.addCharacter(
                 "Beatrice",
                 "How lovely to meet you. You didn't happen to see my spade...",
@@ -130,7 +130,6 @@ public class GameEngine {
                         PlayerStat.MAX_CARRY_WEIGHT,
                         50));
 
-        // initialise room exits
         hallway.setExit(Direction.NORTH, den, ExitType.UNLOCKED);
         hallway.setExit(Direction.SOUTH, outside, ExitType.LOCKED);
 
@@ -160,7 +159,6 @@ public class GameEngine {
 
         outside.setExit(Direction.NORTH, hallway, ExitType.UNLOCKED);
 
-        // add the rooms to the game
         rooms.add(hallway);
         rooms.add(study);
         rooms.add(indoorGarden);
@@ -369,7 +367,7 @@ public class GameEngine {
         if (nextRoom == null) {
             return "There is no door!";
         } else if (currentRoom.getExit(direction).getType() == ExitType.LOCKED) {
-            if (player.hasKey()) {
+            if (player.hasItem(key)) {
                 buffer.append("The door is locked...but you have the key!").append("\n");
                 enterRoom(nextRoom, true);
                 endGame();
