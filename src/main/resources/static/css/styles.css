@@ -69,14 +69,7 @@ h1 {
     background-color: rgba(0, 0, 0, .6);
 }
 
-#tap-layer {
-    position: absolute;
-    inset: 0;
-    z-index: 1;
-    background: transparent;
-}
-
-#tap-hint {
+#hint-layer {
     position: absolute;
     inset: 0;
     display: flex;
@@ -91,7 +84,7 @@ h1 {
     z-index: 2;
 }
 
-#tap-hint.hidden {
+#hint-layer.hidden {
     opacity: 0;
 }
 

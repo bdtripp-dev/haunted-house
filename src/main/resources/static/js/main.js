@@ -1,7 +1,6 @@
 document.addEventListener('DOMContentLoaded', async () => {
     const terminal = document.querySelector('#terminal');
-    const tapLayer = document.querySelector('#tap-layer');
-    const tapHint = document.querySelector('#tap-hint');
+    const hintLayer = document.querySelector('#hint-layer');
     const prompt = document.querySelector('#prompt');
     const inputContainer = document.querySelector('#input-container');
     const input = document.querySelector('#terminal-input');
@@ -130,19 +129,19 @@ document.addEventListener('DOMContentLoaded', async () => {
         cursor.style.display = "initial";
     }
 
-    tapLayer.addEventListener('click', () => {
+    terminal.addEventListener('click', () => {
         if (!gameQuit) {
             focusCursor();
         }
-        tapHint.classList.add('hidden');
+        hintLayer.classList.add('hidden');
     });
 
     // Required for iOS
-    tapLayer.addEventListener('touchstart', () => {
+    terminal.addEventListener('touchstart', () => {
         if (!gameQuit) {
             focusCursor();
         }
-        tapHint.classList.add('hidden');
+        hintLayer.classList.add('hidden');
     });
 
     input.addEventListener("input", () => {
