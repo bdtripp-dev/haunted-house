@@ -33,27 +33,6 @@ public class Room {
     /**
      * Adds an item to the room
      * 
-     * @param name         The name of the item
-     * @param description  The description of the item
-     * @param weight       The weight of the item
-     * @param isEdible     The edibility of the item
-     * @param statToAffect The stat the item affects (e.g. health, strength,
-     *                     etc.)
-     * @param affectValue  The amount the stat is changed by
-     */
-    public void addItem(
-            String name,
-            String description,
-            int weight,
-            boolean isEdible,
-            PlayerStat statToAffect,
-            int affectValue) {
-        items.add(new Item(name, description, weight, isEdible, statToAffect, affectValue));
-    }
-
-    /**
-     * Adds an item to the room
-     * 
      * @param item The item to add
      */
     public void addItem(Item item) {

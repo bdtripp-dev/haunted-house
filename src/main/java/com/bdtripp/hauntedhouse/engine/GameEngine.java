@@ -65,55 +65,55 @@ public class GameEngine {
         outside = new Room("outside of the haunted house and the sun is so delightful!");
 
         // create the items in each room
-        hallway.addItem(
+        hallway.addItem(new Item(
                 "elixir",
                 "an elixir",
                 50,
                 true,
                 PlayerStat.HEALTH,
-                10);
-        hallway.addItem(
+                10));
+        hallway.addItem(new Item(
                 "cookie",
                 "a magic cookie",
                 5,
                 true,
                 PlayerStat.STRENGTH,
-                5);
-        indoorGarden.addItem(
+                5));
+        indoorGarden.addItem(new Item(
                 "spade",
                 "an old spade",
                 1,
                 false,
                 PlayerStat.NONE,
-                0);
-        indoorGarden.addItem(
+                0));
+        indoorGarden.addItem(new Item(
                 "plant",
                 "fox glove",
                 5,
                 false,
                 PlayerStat.NONE,
-                0);
-        wineCellar.addItem(
+                0));
+        wineCellar.addItem(new Item(
                 "crate",
                 "a big old crate",
                 2000,
                 false,
                 PlayerStat.NONE,
-                0);
-        bathroom.addItem(
+                0));
+        bathroom.addItem(new Item(
                 "key",
                 "a rusty skeleton key",
                 1,
                 false,
                 PlayerStat.NONE,
-                0);
-        bathroom.addItem(
+                0));
+        bathroom.addItem(new Item(
                 "bucket",
                 "an empty bucket",
                 20,
                 false,
                 PlayerStat.NONE,
-                0);
+                0));
 
         // create the characters in each room
         billiardRoom.addCharacter(
