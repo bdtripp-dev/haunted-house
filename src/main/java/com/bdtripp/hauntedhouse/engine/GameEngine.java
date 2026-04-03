@@ -419,7 +419,8 @@ public class GameEngine {
         }
 
         String itemName = command.getSecondWord();
-        Item itemToEat = player.getInventory().removeItem(itemName);
+        Item item = player.getInventory().getItem(itemName);
+        Item itemToEat = player.getInventory().removeItem(item);
 
         if (itemToEat == null) {
             return "That item doesn't exist.";
@@ -485,7 +486,8 @@ public class GameEngine {
         }
 
         String itemName = command.getSecondWord();
-        Item droppedItem = player.getInventory().removeItem(itemName);
+        Item item = player.getInventory().getItem(itemName);
+        Item droppedItem = player.getInventory().removeItem(item);
 
         if (droppedItem == null) {
             return "You don't have one of those.";
@@ -567,7 +569,7 @@ public class GameEngine {
         if (itemToGive == null) {
             return "You don't have a(n) \"" + itemToGiveName + "\"";
         } else if (itemToGive == itemSought) {
-            player.getInventory().removeItem(itemToGiveName);
+            player.getInventory().removeItem(itemToGive);
             buffer.append(character.getAcceptanceDialog()).append("\n");
             player.getInventory().addItem(itemForReward);
             buffer.append("Received " + itemForReward.getDescription() + "!").append("\n");

@@ -52,15 +52,12 @@ public class Inventory {
     /**
      * Removes an item from the inventory
      * 
-     * @param name The name of the item to remove
+     * @param item The item to remove
      * @return The item that was removed
      */
-    public Item removeItem(String name) {
-        for (Item item : items) {
-            if (item.getName().equals(name)) {
-                items.remove(item);
-                return item;
-            }
+    public Item removeItem(Item item) {
+        if (items.remove(item)) {
+            return item;
         }
         return null;
     }
