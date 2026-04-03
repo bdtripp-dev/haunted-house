@@ -81,6 +81,13 @@ public class GameEngine {
                 PlayerStat.NONE,
                 0);
 
+        Item potion = new Item(
+                "potion",
+                "a powerful muscle building potion",
+                50, true,
+                PlayerStat.MAX_CARRY_WEIGHT,
+                50);
+
         hallway.addItem(new Item(
                 "elixir",
                 "an elixir",
@@ -119,17 +126,12 @@ public class GameEngine {
                 PlayerStat.NONE,
                 0));
 
-        billiardRoom.addCharacter(
+        billiardRoom.addCharacter(new Character(
                 "Beatrice",
                 "How lovely to meet you. You didn't happen to see my spade...",
                 "Oh so you found it! Wonderful! Here is something that might come in handy...",
                 spade,
-                new Item(
-                        "potion",
-                        "a powerful muscle building potion",
-                        50, true,
-                        PlayerStat.MAX_CARRY_WEIGHT,
-                        50));
+                potion));
 
         hallway.setExit(Direction.NORTH, den, ExitType.UNLOCKED);
         hallway.setExit(Direction.SOUTH, outside, ExitType.LOCKED);
@@ -573,7 +575,7 @@ public class GameEngine {
             player.getInventory().removeItem(itemToGive);
             buffer.append(character.getAcceptanceDialog()).append("\n");
             player.getInventory().addItem(itemForReward);
-            buffer.append("Received " + itemForReward.getDescription() + "!").append("\n");
+            buffer.append("Received " + itemForReward.getDescription() + "!");
             return buffer.toString();
         } else {
             return characterName + " doesn't want your " + itemToGiveName;

@@ -70,25 +70,10 @@ public class Room {
     /**
      * Adds a character to the room
      * 
-     * @param name             The name of the character
-     * @param initialDialog    The character initial dialog
-     * @param acceptanceDialog The dialog the character will speak upon accepting an
-     *                         item
-     * @param itemSought       The item that the character is seeking
-     * @param itemForReward    The item the character will give as a reward
+     * @param character The character to add
      */
-    public void addCharacter(
-            String name,
-            String initialDialog,
-            String acceptanceDialog,
-            Item itemSought,
-            Item itemForReward) {
-        characters.add(new Character(
-                name,
-                initialDialog,
-                acceptanceDialog,
-                itemSought,
-                itemForReward));
+    public void addCharacter(Character character) {
+        characters.add(character);
     }
 
     /**
