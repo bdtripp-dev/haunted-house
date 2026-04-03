@@ -11,14 +11,13 @@ import java.util.Stack;
  */
 public class Player {
     private String name;
-    private int health = 100;
-    private int strength = 10;
     private Room currentRoom;
     private Stack<Room> roomHistory;
     private static final int MAX_MOVES_ALLOWED = 30;
     private Room beamerLocation;
     private boolean beamerCharged;
     private Inventory inventory;
+    private Stats stats;
 
     /**
      * @param name      The name of the player
@@ -28,6 +27,7 @@ public class Player {
         this.name = name;
         this.inventory = inventory;
         roomHistory = new Stack<>();
+        this.stats = new Stats(100, 10);
     }
 
     /**
@@ -90,17 +90,6 @@ public class Player {
     }
 
     /**
-     * @return The players stats
-     */
-    public String getStats() {
-        String returnString = "Health: " + health + "\n";
-        returnString += "Strength: " + strength + "\n";
-        returnString += "Maximum Carry Weight: " + inventory.getMaxCarryWeight() + "\n";
-
-        return returnString;
-    }
-
-    /**
      * @return The number of moves a player has left
      */
     public int getMovesLeft() {
@@ -132,8 +121,8 @@ public class Player {
         int affectValue = item.getAffectValue();
 
         switch (statToAffect) {
-            case HEALTH -> health += affectValue;
-            case STRENGTH -> strength += affectValue;
+            case HEALTH -> stats.setHealth(stats.getHealth() + affectValue);
+            case STRENGTH -> stats.setStrength(stats.getStrength() + affectValue);
             case MAX_CARRY_WEIGHT -> inventory.setMaxCarryWeight(
                     inventory.getMaxCarryWeight() + affectValue);
             case NONE -> {
@@ -146,27 +135,20 @@ public class Player {
     }
 
     /**
-     * Set the health of the player
-     * 
-     * @param value The value to set
-     */
-    public void setHealth(int value) {
-        health = value;
-    }
-
-    /**
-     * Set the strength of the player
-     * 
-     * @param value The value to set
-     */
-    public void setStrength(int value) {
-        strength = value;
-    }
-
-    /**
      * @return The player's inventory
      */
     public Inventory getInventory() {
         return inventory;
+    }
+
+    /**
+     * @return The players stats
+     */
+    public String getStats() {
+        String returnString = "Health: " + stats.getHealth() + "\n";
+        returnString += "Strength: " + stats.getStrength() + "\n";
+        returnString += "Maximum Carry Weight: " + inventory.getMaxCarryWeight() + "\n";
+
+        return returnString;
     }
 }
