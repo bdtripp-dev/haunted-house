@@ -74,13 +74,6 @@ public class Inventory {
     }
 
     /**
-     * @return The items in the inventory
-     */
-    public ArrayList<Item> getItems() {
-        return items;
-    }
-
-    /**
      * Returns an item in the inventory
      * 
      * @param name The name of the item
@@ -108,17 +101,17 @@ public class Inventory {
     /**
      * @return The details of the items in the inventory
      */
-    public String getCurrentItemDetails() {
+    public String getItemDetails() {
         if (items.isEmpty()) {
             return "There are no items in your posession.";
         }
-        String returnString = "You are carrying the following:\n\n";
+        StringBuilder buffer = new StringBuilder("You are carrying the following:\n\n");
         for (Item item : items) {
-            returnString += "Name: " + item.getName() + "\n";
-            returnString += "Description: " + item.getDescription() + "\n";
-            returnString += "Weight: " + item.getWeight() + "\n\n";
+            buffer.append("Name: ").append(item.getName()).append("\n");
+            buffer.append("Description: ").append(item.getDescription()).append("\n");
+            buffer.append("Weight: ").append(item.getWeight()).append("\n\n");
         }
-        returnString += "Total Weight: " + getCurrentCarryWeight();
-        return returnString;
+        buffer.append("Total Weight: ").append(getCurrentCarryWeight());
+        return buffer.toString();
     }
 }

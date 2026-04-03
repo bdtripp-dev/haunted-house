@@ -505,7 +505,7 @@ public class GameEngine {
      * @return A message to display
      */
     private String showItems() {
-        return player.getInventory().getCurrentItemDetails();
+        return player.getInventory().getItemDetails();
     }
 
     /**

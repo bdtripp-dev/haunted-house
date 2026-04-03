@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * to the neighboring room, or null if there is no exit in that direction.
  *
  * @author Michael Kölling, David J. Barnes, and Brian Tripp
- * @version 2020.06.13
+ * @version 2026.04.03
  */
 public class Room {
     private String description;
