@@ -102,12 +102,7 @@ public class Inventory {
      * @return true if the item is in the inventory
      */
     public boolean hasItem(Item item) {
-        for (Item i : items) {
-            if (i == item) {
-                return true;
-            }
-        }
-        return false;
+        return items.contains(item);
     }
 
     /**

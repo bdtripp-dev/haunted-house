@@ -40,17 +40,29 @@ public class Room {
     }
 
     /**
-     * Removes an item from the room
+     * Returns an item in the room
      * 
-     * @param name The name of the item to remove
-     * @return The item that was removed
+     * @param name The name of the item
+     * @return The item
      */
-    public Item removeItemFromRoom(String name) {
+    public Item getItem(String name) {
         for (Item item : items) {
             if (item.getName().equals(name)) {
-                items.remove(item);
                 return item;
             }
+        }
+        return null;
+    }
+
+    /**
+     * Removes an item from the room
+     * 
+     * @param item The item to remove
+     * @return The item that was removed
+     */
+    public Item removeItemFromRoom(Item item) {
+        if (items.remove(item)) {
+            return item;
         }
         return null;
     }

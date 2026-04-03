@@ -459,7 +459,8 @@ public class GameEngine {
         }
 
         String itemName = command.getSecondWord();
-        Item itemToTake = player.getCurrentRoom().removeItemFromRoom(itemName);
+        Item item = player.getCurrentRoom().getItem(itemName);
+        Item itemToTake = player.getCurrentRoom().removeItemFromRoom(item);
 
         if (itemToTake == null) {
             return "That item doesn't exist in this room";
