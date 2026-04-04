@@ -18,9 +18,8 @@ public class Character {
     private Item itemForReward;
 
     /**
-     * Create a character with a name, dialog, item they are seeking, and item they
-     * give
-     * as a reward.
+     * Create a character with a name, dialog, item they are
+     * seeking, and item they give as a reward.
      * 
      * @param name             The name of the character.
      * @param initialDialog    The initial dialog that the character speaks.

@@ -14,7 +14,8 @@ import java.util.ArrayList;
  * @version 2026.04.03
  */
 public class Room {
-    private String description;
+    private final RoomName name;
+    private final String description;
     private HashMap<Direction, Exit> exits;
     private ArrayList<Item> items;
     private ArrayList<Character> characters;
@@ -23,7 +24,8 @@ public class Room {
      * @param description The room's description. Something like "a kitchen" or
      *                    "an open court yard".
      */
-    public Room(String description) {
+    public Room(RoomName name, String description) {
+        this.name = name;
         this.description = description;
         exits = new HashMap<>();
         items = new ArrayList<>();
@@ -119,6 +121,13 @@ public class Room {
             returnString += " " + exit.toString();
         }
         return returnString;
+    }
+
+    /**
+     * @return The name of the room.
+     */
+    public RoomName getName() {
+        return name;
     }
 
     /**

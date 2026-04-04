@@ -13,6 +13,7 @@ import com.bdtripp.hauntedhouse.model.Character;
 import com.bdtripp.hauntedhouse.model.Direction;
 import com.bdtripp.hauntedhouse.model.ExitType;
 import com.bdtripp.hauntedhouse.model.Inventory;
+import com.bdtripp.hauntedhouse.model.World;
 
 /**
  * Represents the GameEngine of the Haunted House game. Haunted House is a text
@@ -32,146 +33,15 @@ import com.bdtripp.hauntedhouse.model.Inventory;
  */
 
 public class GameEngine {
-    private Player player;
-    private Room billiardRoom;
-    private ArrayList<Room> rooms;
+    private World world;
     private boolean gameOver;
-    private Item key;
 
     /**
      * Creates the GameEngine and initialises a player and the rooms.
      */
     public GameEngine() {
-        player = new Player("Brian", new Inventory(75));
         rooms = new ArrayList<>();
         createRooms();
-    }
-
-    /**
-     * Create all the rooms and link their exits together.
-     */
-    private void createRooms() {
-        Room hallway, study, indoorGarden, rootCellar, library,
-                den, wineCellar, bathroom, outside;
-
-        hallway = new Room("in a dark hallway");
-        study = new Room("in a study");
-        indoorGarden = new Room("in a misty indoor garden");
-        rootCellar = new Room("in the root cellar");
-        library = new Room("in the library");
-        billiardRoom = new Room("in the billiard room");
-        den = new Room("in the musty den");
-        wineCellar = new Room("in the wine cellar");
-        bathroom = new Room("in a flooded bathroom...gross");
-        outside = new Room("outside of the haunted house and the sun is so delightful!");
-
-        Item spade = new Item(
-                "spade",
-                "an old spade",
-                1,
-                false,
-                PlayerStat.NONE,
-                0);
-
-        key = new Item(
-                "key",
-                "a rusty skeleton key",
-                1,
-                false,
-                PlayerStat.NONE,
-                0);
-
-        Item potion = new Item(
-                "potion",
-                "a powerful muscle building potion",
-                50, true,
-                PlayerStat.MAX_CARRY_WEIGHT,
-                50);
-
-        hallway.addItem(new Item(
-                "elixir",
-                "an elixir",
-                50,
-                true,
-                PlayerStat.HEALTH,
-                10));
-        hallway.addItem(new Item(
-                "cookie",
-                "a magic cookie",
-                5,
-                true,
-                PlayerStat.STRENGTH,
-                5));
-        indoorGarden.addItem(spade);
-        indoorGarden.addItem(new Item(
-                "plant",
-                "fox glove",
-                5,
-                false,
-                PlayerStat.NONE,
-                0));
-        wineCellar.addItem(new Item(
-                "crate",
-                "a big old crate",
-                2000,
-                false,
-                PlayerStat.NONE,
-                0));
-        bathroom.addItem(key);
-        bathroom.addItem(new Item(
-                "bucket",
-                "an empty bucket",
-                20,
-                false,
-                PlayerStat.NONE,
-                0));
-
-        billiardRoom.addCharacter(new Character(
-                "Beatrice",
-                "How lovely to meet you. You didn't happen to see my spade...",
-                "Oh so you found it! Wonderful! Here is something that might come in handy...",
-                spade,
-                potion));
-
-        hallway.setExit(Direction.NORTH, den, ExitType.UNLOCKED);
-        hallway.setExit(Direction.SOUTH, outside, ExitType.LOCKED);
-
-        study.setExit(Direction.EAST, indoorGarden, ExitType.UNLOCKED);
-
-        indoorGarden.setExit(Direction.EAST, billiardRoom, ExitType.UNLOCKED);
-        indoorGarden.setExit(Direction.SOUTH, rootCellar, ExitType.UNLOCKED);
-        indoorGarden.setExit(Direction.WEST, study, ExitType.UNLOCKED);
-
-        rootCellar.setExit(Direction.EAST, library, ExitType.UNLOCKED);
-        rootCellar.setExit(Direction.SOUTH, wineCellar, ExitType.UNLOCKED);
-        rootCellar.setExit(Direction.WEST, den, ExitType.UNLOCKED);
-
-        library.setExit(Direction.NORTH, billiardRoom, ExitType.UNLOCKED);
-        library.setExit(Direction.WEST, rootCellar, ExitType.UNLOCKED);
-
-        billiardRoom.setExit(Direction.SOUTH, library, ExitType.UNLOCKED);
-        billiardRoom.setExit(Direction.WEST, indoorGarden, ExitType.UNLOCKED);
-
-        den.setExit(Direction.EAST, rootCellar, ExitType.UNLOCKED);
-        den.setExit(Direction.SOUTH, hallway, ExitType.UNLOCKED);
-
-        wineCellar.setExit(Direction.NORTH, rootCellar, ExitType.UNLOCKED);
-        wineCellar.setExit(Direction.EAST, bathroom, ExitType.UNLOCKED);
-
-        bathroom.setExit(Direction.WEST, wineCellar, ExitType.UNLOCKED);
-
-        outside.setExit(Direction.NORTH, hallway, ExitType.UNLOCKED);
-
-        rooms.add(hallway);
-        rooms.add(study);
-        rooms.add(indoorGarden);
-        rooms.add(rootCellar);
-        rooms.add(library);
-        rooms.add(billiardRoom);
-        rooms.add(den);
-        rooms.add(wineCellar);
-        rooms.add(bathroom);
-        rooms.add(outside);
     }
 
     /**
