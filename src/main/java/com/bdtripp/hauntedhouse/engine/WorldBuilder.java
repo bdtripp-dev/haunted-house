@@ -4,6 +4,7 @@ import java.util.EnumMap;
 import java.util.HashMap;
 import java.util.Map;
 
+import com.bdtripp.hauntedhouse.model.Character;
 import com.bdtripp.hauntedhouse.model.Direction;
 import com.bdtripp.hauntedhouse.model.ExitType;
 import com.bdtripp.hauntedhouse.model.Inventory;
@@ -13,12 +14,14 @@ import com.bdtripp.hauntedhouse.model.PlayerStat;
 import com.bdtripp.hauntedhouse.model.Room;
 import com.bdtripp.hauntedhouse.model.RoomName;
 import com.bdtripp.hauntedhouse.model.World;
-import com.bdtripp.hauntedhouse.model.Character;
 
 /**
  * Creates all of the things that exist in the game world such as rooms,
  * characters, and items. It also connects all of the rooms together so
  * that the player can navigate between them.
+ *
+ * @author Brian Tripp
+ * @version 2026.04.04
  */
 public class WorldBuilder {
 
@@ -185,7 +188,7 @@ public class WorldBuilder {
                 ExitType.UNLOCKED);
         rooms.get(RoomName.INDOOR_GARDEN).setExit(Direction.SOUTH, rooms.get(RoomName.ROOT_CELLAR),
                 ExitType.UNLOCKED);
-        rooms.get(RoomName.INDOOR_GARDEN).setExit(Direction.WEST, rooms.get(RoomName.HALLWAY),
+        rooms.get(RoomName.INDOOR_GARDEN).setExit(Direction.WEST, rooms.get(RoomName.STUDY),
                 ExitType.UNLOCKED);
 
         rooms.get(RoomName.ROOT_CELLAR).setExit(Direction.EAST, rooms.get(RoomName.LIBRARY),
