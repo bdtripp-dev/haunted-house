@@ -54,6 +54,16 @@ public class World {
     }
 
     /**
+     * Get the room that matches a name
+     * 
+     * @param name The name of the room
+     * @return The room
+     */
+    public Room getRoom(RoomName name) {
+        return rooms.get(name);
+    }
+
+    /**
      * @return A key that is used to unlock an exit
      */
     public Item getKey() {

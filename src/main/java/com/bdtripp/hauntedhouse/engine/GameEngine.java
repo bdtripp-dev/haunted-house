@@ -9,6 +9,7 @@ import com.bdtripp.hauntedhouse.model.Item;
 import com.bdtripp.hauntedhouse.model.Player;
 import com.bdtripp.hauntedhouse.model.PlayerStat;
 import com.bdtripp.hauntedhouse.model.Room;
+import com.bdtripp.hauntedhouse.model.RoomName;
 import com.bdtripp.hauntedhouse.model.Character;
 import com.bdtripp.hauntedhouse.model.Direction;
 import com.bdtripp.hauntedhouse.model.ExitType;
@@ -33,31 +34,21 @@ import com.bdtripp.hauntedhouse.model.World;
  */
 
 public class GameEngine {
-    private World world;
+    private final World world;
     private boolean gameOver;
 
     /**
-     * Creates the GameEngine and initialises a player and the rooms.
+     * Creates the GameEngine and the game world.
      */
     public GameEngine() {
-        rooms = new ArrayList<>();
-        createRooms();
+        world = new WorldBuilder().createWorld();
     }
 
     /**
-     * Starts the game in the billiardRoom
+     * Starts the game by placing the player in the starting room
      */
     public void startGame() {
-        player.moveToRoom(billiardRoom, false);
-    }
-
-    /**
-     * Returns all of the rooms
-     * 
-     * @return A list of the rooms
-     */
-    public ArrayList<Room> getRooms() {
-        return rooms;
+        world.getPlayer().moveToRoom(world.getStartingRoom(), false);
     }
 
     /**

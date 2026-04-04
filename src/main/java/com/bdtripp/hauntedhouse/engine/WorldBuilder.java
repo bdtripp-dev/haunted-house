@@ -37,10 +37,9 @@ public class WorldBuilder {
         placeCharacters(rooms, referencedItems);
         wireExits(rooms);
 
-        Room startingRoom = findStartingRoom(rooms);
         Item key = referencedItems.get("key");
 
-        return new World(player, rooms, startingRoom, key);
+        return new World(player, rooms, rooms.get(RoomName.BILLIARD_ROOM), key);
     }
 
     /**
@@ -67,23 +66,13 @@ public class WorldBuilder {
     }
 
     /**
-     * Find the room that the player starts the game in
-     * 
-     * @param rooms The rooms to search through
-     * @return The starting room
-     */
-    private Room findStartingRoom(Map<RoomName, Room> rooms) {
-        return rooms.get(RoomName.BILLIARD_ROOM);
-    }
-
-    /**
      * Create all the items that will be referenced later. For
      * example an item may be referenced later by a character
      * that is looking for a particular item.
      * 
      * @return A list of all the items
      */
-    public Map<String, Item> createReferencedItems() {
+    private Map<String, Item> createReferencedItems() {
         Map<String, Item> items = new HashMap<>();
 
         items.put("spade", new Item(
@@ -114,7 +103,7 @@ public class WorldBuilder {
     /**
      * Place the items that will be referenced later into rooms.
      */
-    public void placeReferencedItems(Map<RoomName, Room> rooms, Map<String, Item> items) {
+    private void placeReferencedItems(Map<RoomName, Room> rooms, Map<String, Item> items) {
         rooms.get(RoomName.INDOOR_GARDEN).addItem(items.get("spade"));
         rooms.get(RoomName.BATHROOM).addItem(items.get("key"));
     }
@@ -126,7 +115,7 @@ public class WorldBuilder {
      * 
      * @param rooms The rooms to place items in
      */
-    public void placeUnreferencedItems(Map<RoomName, Room> rooms) {
+    private void placeUnreferencedItems(Map<RoomName, Room> rooms) {
         rooms.get(RoomName.HALLWAY).addItem(new Item(
                 "elixir",
                 "an elixir",
@@ -170,7 +159,7 @@ public class WorldBuilder {
      * @param rooms The rooms to place characters in
      * @param items The items that can be given to characters
      */
-    public void placeCharacters(Map<RoomName, Room> rooms, Map<String, Item> items) {
+    private void placeCharacters(Map<RoomName, Room> rooms, Map<String, Item> items) {
         rooms.get(RoomName.BILLIARD_ROOM).addCharacter(new Character(
                 "Beatrice",
                 "How lovely to meet you. You didn't happen to see my spade...",
@@ -185,7 +174,7 @@ public class WorldBuilder {
      * 
      * @param rooms The rooms to wire connect
      */
-    public void wireExits(Map<RoomName, Room> rooms) {
+    private void wireExits(Map<RoomName, Room> rooms) {
         rooms.get(RoomName.HALLWAY).setExit(Direction.NORTH, rooms.get(RoomName.DEN), ExitType.UNLOCKED);
         rooms.get(RoomName.HALLWAY).setExit(Direction.SOUTH, rooms.get(RoomName.OUTSIDE), ExitType.LOCKED);
 
