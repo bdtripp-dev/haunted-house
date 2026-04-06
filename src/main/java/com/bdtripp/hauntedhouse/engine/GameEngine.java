@@ -109,7 +109,7 @@ public class GameEngine {
      * @param addToHistory True if the current room should be added to history
      * @return The details about the room
      */
-    public String enterRoom(Room nextRoom, boolean addToHistory) {
+    public String movePlayerTo(Room nextRoom, boolean addToHistory) {
         world.getPlayer().moveToRoom(nextRoom, addToHistory);
         return describeCurrentRoom();
     }

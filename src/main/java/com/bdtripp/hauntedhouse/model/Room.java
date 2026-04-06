@@ -171,7 +171,7 @@ public class Room {
             returnString += "No one is here.";
             return returnString;
         }
-        for (Character character : characters) {add
+        for (Character character : characters) {
             returnString += character.getName();
         }
         return returnString;

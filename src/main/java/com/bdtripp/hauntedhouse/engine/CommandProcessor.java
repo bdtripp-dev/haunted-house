@@ -39,7 +39,7 @@ public class CommandProcessor {
     public String processCommand(Command command) {
         return switch (command.getCommandWord()) {
             case HELP -> getHelpMessage();
-            case GO -> goRoom(command);
+            case GO -> handleGoCommand(command);
             case LOOK -> look();
             case EAT -> eat(command);
             case TAKE -> take(command);
@@ -143,7 +143,7 @@ public class CommandProcessor {
      * @param command The command that was entered
      * @return A message
      */
-    private String goRoom(Command command) {
+    private String handleGoCommand(Command command) {
         StringBuilder buffer = new StringBuilder();
 
         if (!command.hasSecondWord()) {
@@ -159,7 +159,7 @@ public class CommandProcessor {
         } else if (currentRoom.getExit(direction).getType() == ExitType.LOCKED) {
             if (world.getPlayer().getInventory().hasItem(world.getKey())) {
                 buffer.append("The door is locked...but you have the key!").append("\n");
-                gameEngine.enterRoom(nextRoom, true);
+                gameEngine.movePlayerTo(nextRoom, true);
                 gameEngine.endGame();
                 return buffer.append("You are ").append(world.getPlayer().getCurrentRoom().getDescription())
                         .append("\n")
@@ -173,7 +173,7 @@ public class CommandProcessor {
                 return "You ran out of moves! Game Over...";
             }
         }
-        return buffer.append(gameEngine.enterRoom(nextRoom, true)).toString();
+        return buffer.append(gameEngine.movePlayerTo(nextRoom, true)).toString();
     }
 
     /**
@@ -386,8 +386,8 @@ public class CommandProcessor {
         } else if (world.getPlayer().getBeamerCharge() == false) {
             return "Your beamer isn't charged!";
         } else {
-            buffer.append("Beamer fired!").append("\n");
-            buffer.append(gameEngine.enterRoom(world.getPlayer().getBeamerLocation(), true)).append("\n");
+            buffer.append("Beamer fired!").append("\n\n");
+            buffer.append(gameEngine.movePlayerTo(world.getPlayer().getBeamerLocation(), true));
             return buffer.toString();
         }
     }
@@ -406,7 +406,7 @@ public class CommandProcessor {
         if (world.getPlayer().getRoomHistory().empty()) {
             return "There is nowhere to go back to.";
         } else {
-            return gameEngine.enterRoom(world.getPlayer().getPreviousRoom(), false);
+            return gameEngine.movePlayerTo(world.getPlayer().getPreviousRoom(), false);
         }
     }
 
