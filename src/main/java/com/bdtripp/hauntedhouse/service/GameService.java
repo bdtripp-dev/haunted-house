@@ -38,7 +38,7 @@ public class GameService {
     public GameResponse startGame() {
         gameEngine = new GameEngine();
         gameEngine.startGame();
-        return new GameResponse(gameEngine.getWelcomeMessage() + "\n", GameStatus.RUNNING);
+        return new GameResponse(gameEngine.buildWelcomeMessage(), GameStatus.RUNNING);
     }
 
     /**

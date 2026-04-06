@@ -42,12 +42,12 @@ public class Room {
     }
 
     /**
-     * Returns an item in the room
+     * Finds an item with a given name
      * 
      * @param name The name of the item
      * @return The item
      */
-    public Item getItem(String name) {
+    public Item findItem(String name) {
         for (Item item : items) {
             if (item.getName().equals(name)) {
                 return item;
@@ -62,7 +62,7 @@ public class Room {
      * @param item The item to remove
      * @return The item that was removed
      */
-    public Item removeItemFromRoom(Item item) {
+    public Item removeItem(Item item) {
         if (items.remove(item)) {
             return item;
         }
@@ -114,7 +114,7 @@ public class Room {
     /**
      * @return A description of the room's exits, for example, "Exits: north west".
      */
-    public String getExitString() {
+    public String describeExits() {
         String returnString = "Exits:";
         Set<Direction> keys = exits.keySet();
         for (Direction exit : keys) {
@@ -138,10 +138,9 @@ public class Room {
     }
 
     /**
-     * @return Details about the items in this room such as their description and
-     *         weight
+     * @return A description of the items in the room
      */
-    public String getItemsInRoomDetails() {
+    public String describeItems() {
         String returnString = "";
         if (items.isEmpty()) {
             return "No items were found.";
@@ -151,7 +150,7 @@ public class Room {
         for (Item item : items) {
             boolean isLastItem = index == (items.size() - 1);
             returnString += item.getDescription() +
-                    "(weight: " + item.getWeight() + ") To take item use the" +
+                    " (weight: " + item.getWeight() + ") To take item use the" +
                     " command: take " + item.getName();
             if (!isLastItem) {
                 returnString += "\n";
@@ -162,34 +161,35 @@ public class Room {
     }
 
     /**
-     * @return Details about the characters in this room such as their name and
-     *         dialog
+     * @return A description of the characters in the room
      */
-    public String getCharactersInRoomDetails() {
+    public String describeCharacters() {
         String returnString = "Characters:\n";
         if (characters.isEmpty()) {
             returnString += "No one is here.";
             return returnString;
         }
         for (Character character : characters) {
-            returnString += character.getName();
+            returnString += character.getName() + "\n";
         }
         return returnString;
     }
 
     /**
-     * @return A long desciption of this room. For example:
+     * @return A description of the room. For example:
      *         You are in the kitchen.
      *         Exits: north west
      */
-    public String getLongDescription() {
-        return "You are " + description + ".\n" + getExitString();
+    public String describeRoom() {
+        return "You are " + description + ".\n" + describeExits();
     }
 
     /**
-     * @return The character that is in the room
+     * Find the character that matches the given name
+     * 
+     * @return The character
      */
-    public Character getCharacter(String name) {
+    public Character findCharacter(String name) {
         for (Character character : characters) {
             if (character.getName().toLowerCase().equals(name.toLowerCase())) {
                 return character;

@@ -1,14 +1,15 @@
 services:
-  haunted-house:
-    build:
-      context: .
-      dockerfile: Dockerfile.dev
-    ports:
-      - "127.0.0.1:8084:8080"
-      - "192.168.0.216:8084:8080"
-    volumes:
-      - .:/app
-      - ~/.m2:/root/.m2
-    environment:
-      SPRING_PROFILES_ACTIVE: dev
-      JAVA_TOOL_OPTIONS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"
+    haunted-house:
+        build:
+            context: .
+            dockerfile: Dockerfile.dev
+        ports:
+            - "127.0.0.1:8084:8080"
+            - "192.168.0.216:8084:8080"
+            - "127.0.0.1:5005:5005"
+        volumes:
+            - .:/app
+            - ~/.m2:/root/.m2
+        environment:
+            SPRING_PROFILES_ACTIVE: dev
+            JAVA_TOOL_OPTIONS: "-agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=*:5005"

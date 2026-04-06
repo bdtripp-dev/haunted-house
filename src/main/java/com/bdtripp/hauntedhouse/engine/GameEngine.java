@@ -63,19 +63,19 @@ public class GameEngine {
     }
 
     /**
-     * Get the welcome message that displays when a new game is started. Includes
+     * Build the welcome message that displays when a new game is started. Includes
      * information about the room a player is in.
      * 
      * @return The welcome message
      */
-    public String getWelcomeMessage() {
+    public String buildWelcomeMessage() {
         StringBuilder buffer = new StringBuilder();
 
         buffer.append("""
                 Welcome to the Haunted House!
                 Haunted House is a spooky adventure game.
                 Those who enter may never escape.
-                Find the exit and you just might survive.
+                Find the way out and you just might survive.
                 Use the \"help\" command if you need help.
 
                 """);
@@ -89,15 +89,15 @@ public class GameEngine {
      * items
      * and characters that it contains.
      * 
-     * @return The details about the room
+     * @return A description of the room
      */
     public String describeCurrentRoom() {
         Room currentRoom = world.getPlayer().getCurrentRoom();
         StringBuilder buffer = new StringBuilder();
 
-        buffer.append(currentRoom.getLongDescription()).append("\n\n");
-        buffer.append(currentRoom.getItemsInRoomDetails()).append("\n\n");
-        buffer.append(currentRoom.getCharactersInRoomDetails());
+        buffer.append(currentRoom.describeRoom()).append("\n\n");
+        buffer.append(currentRoom.describeItems()).append("\n\n");
+        buffer.append(currentRoom.describeCharacters());
 
         return buffer.toString();
     }

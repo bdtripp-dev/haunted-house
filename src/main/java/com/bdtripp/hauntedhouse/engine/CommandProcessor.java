@@ -38,19 +38,19 @@ public class CommandProcessor {
      */
     public String processCommand(Command command) {
         return switch (command.getCommandWord()) {
-            case HELP -> getHelpMessage();
+            case HELP -> showHelp();
             case GO -> handleGoCommand(command);
             case LOOK -> look();
             case EAT -> eat(command);
             case TAKE -> take(command);
             case DROP -> drop(command);
-            case ITEMS -> showItems();
+            case ITEMS -> showInventory();
             case STATS -> showStats();
             case TALK -> talk(command);
-            case GIVE -> giveItem(command);
-            case CHARGE -> chargeBeamer(command);
-            case FIRE -> fireBeamer(command);
-            case BACK -> goBack(command);
+            case GIVE -> give(command);
+            case CHARGE -> charge(command);
+            case FIRE -> fire(command);
+            case BACK -> back(command);
             case QUIT -> quit(command);
             case UNKNOWN -> "I don't know what you mean...";
         };
@@ -61,7 +61,7 @@ public class CommandProcessor {
      * 
      * @return A help message
      */
-    private String getHelpMessage() {
+    private String showHelp() {
         StringBuilder buffer = new StringBuilder();
 
         buffer.append("Your command words are:").append("\n");
@@ -162,8 +162,7 @@ public class CommandProcessor {
                 gameEngine.movePlayerTo(nextRoom, true);
                 gameEngine.endGame();
                 return buffer.append("You are ").append(world.getPlayer().getCurrentRoom().getDescription())
-                        .append("\n")
-                        .toString();
+                        .append("\n").toString();
             } else {
                 return "The door is locked...you need to find the key!";
             }
@@ -182,7 +181,7 @@ public class CommandProcessor {
      * @return A message to display
      */
     private String look() {
-        return world.getPlayer().getCurrentRoom().getLongDescription();
+        return world.getPlayer().getCurrentRoom().describeRoom();
     }
 
     /**
@@ -197,7 +196,7 @@ public class CommandProcessor {
         }
 
         String itemName = command.getSecondWord();
-        Item item = world.getPlayer().getInventory().getItem(itemName);
+        Item item = world.getPlayer().getInventory().findItem(itemName);
         Item itemToEat = world.getPlayer().getInventory().removeItem(item);
 
         if (itemToEat == null) {
@@ -221,8 +220,8 @@ public class CommandProcessor {
         }
 
         String itemName = command.getSecondWord();
-        Item item = world.getPlayer().getCurrentRoom().getItem(itemName);
-        Item itemToTake = world.getPlayer().getCurrentRoom().removeItemFromRoom(item);
+        Item item = world.getPlayer().getCurrentRoom().findItem(itemName);
+        Item itemToTake = world.getPlayer().getCurrentRoom().removeItem(item);
 
         if (itemToTake == null) {
             return "That item doesn't exist in this room";
@@ -250,7 +249,7 @@ public class CommandProcessor {
         }
 
         String itemName = command.getSecondWord();
-        Item item = world.getPlayer().getInventory().getItem(itemName);
+        Item item = world.getPlayer().getInventory().findItem(itemName);
         Item droppedItem = world.getPlayer().getInventory().removeItem(item);
 
         if (droppedItem == null) {
@@ -267,7 +266,7 @@ public class CommandProcessor {
      * 
      * @return A message to display
      */
-    private String showItems() {
+    private String showInventory() {
         return world.getPlayer().getInventory().getItemDetails();
     }
 
@@ -292,7 +291,7 @@ public class CommandProcessor {
         }
 
         String characterName = command.getSecondWord();
-        Character character = world.getPlayer().getCurrentRoom().getCharacter(characterName);
+        Character character = world.getPlayer().getCurrentRoom().findCharacter(characterName);
 
         if (character == null) {
             return "That is not someone who can be spoken to.";
@@ -307,7 +306,7 @@ public class CommandProcessor {
      * @param command The command that was entered
      * @return A message to display
      */
-    public String giveItem(Command command) {
+    public String give(Command command) {
         StringBuilder buffer = new StringBuilder();
 
         if (!command.hasSecondWord()) {
@@ -319,7 +318,7 @@ public class CommandProcessor {
         }
 
         String characterName = command.getThirdWord();
-        Character character = world.getPlayer().getCurrentRoom().getCharacter(characterName);
+        Character character = world.getPlayer().getCurrentRoom().findCharacter(characterName);
 
         if (character == null) {
             return "Who is \"" + characterName + "\" ?";
@@ -327,7 +326,7 @@ public class CommandProcessor {
 
         Item itemSought = character.getItemSought();
         String itemToGiveName = command.getSecondWord();
-        Item itemToGive = world.getPlayer().getInventory().getItem(itemToGiveName);
+        Item itemToGive = world.getPlayer().getInventory().findItem(itemToGiveName);
         Item itemForReward = character.getItemForReward();
 
         if (itemToGive == null) {
@@ -344,13 +343,15 @@ public class CommandProcessor {
     }
 
     /**
-     * Charges the beamer. The beamer memorizes the location of the players
-     * current room.
+     * Charges an item. (i.e. the beamer. Charging the beamer memorizes the location
+     * of the
+     * players
+     * current room.)
      * 
      * @param command The command that was entered
      * @return A message to display
      */
-    private String chargeBeamer(Command command) {
+    private String charge(Command command) {
         if (!command.hasSecondWord()) {
             return "Charge what?";
         }
@@ -367,13 +368,14 @@ public class CommandProcessor {
     }
 
     /**
-     * Fires the beamer. Returns the player to the location at which the
-     * beamer was last charged.
+     * Fires an item. (i.e. the beamer. Firing the beamer returns the player to the
+     * location at which the
+     * beamer was last charged.)
      * 
      * @param command The command that was entered
      * @return A message to display
      */
-    private String fireBeamer(Command command) {
+    private String fire(Command command) {
         StringBuilder buffer = new StringBuilder();
         if (!command.hasSecondWord()) {
             return "Fire what?";
@@ -393,13 +395,13 @@ public class CommandProcessor {
     }
 
     /**
-     * Takes the player back to the previous room they
+     * Moves the player back to the previous room they
      * were in.
      * 
      * @param command The command that was entered
      * @return A message to display
      */
-    private String goBack(Command command) {
+    private String back(Command command) {
         if (command.hasSecondWord()) {
             return ("\"back\" command does not allow a second word.");
         }

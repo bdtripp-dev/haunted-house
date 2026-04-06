@@ -79,7 +79,7 @@ public class Inventory {
      * @param name The name of the item
      * @return The item
      */
-    public Item getItem(String name) {
+    public Item findItem(String name) {
         for (Item item : items) {
             if (item.getName().equals(name)) {
                 return item;
