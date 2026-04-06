@@ -79,24 +79,25 @@ public class GameEngine {
                 Use the \"help\" command if you need help.
 
                 """);
-        buffer.append(getRoomDetails());
+        buffer.append(describeCurrentRoom());
 
         return buffer.toString();
     }
 
     /**
-     * Returns details about the room the player is currently in including the items
-     * and
-     * characters that it contains.
+     * Gets a description about the room the player is currently in including the
+     * items
+     * and characters that it contains.
      * 
      * @return The details about the room
      */
-    public String getRoomDetails() {
+    public String describeCurrentRoom() {
+        Room currentRoom = world.getPlayer().getCurrentRoom();
         StringBuilder buffer = new StringBuilder();
 
-        buffer.append(world.getPlayer().getCurrentRoom().getLongDescription()).append("\n");
-        buffer.append(world.getPlayer().getCurrentRoom().getItemsInRoomDetails()).append("\n");
-        buffer.append(world.getPlayer().getCurrentRoom().getCharactersInRoomDetails());
+        buffer.append(currentRoom.getLongDescription()).append("\n\n");
+        buffer.append(currentRoom.getItemsInRoomDetails()).append("\n\n");
+        buffer.append(currentRoom.getCharactersInRoomDetails());
 
         return buffer.toString();
     }
@@ -110,7 +111,7 @@ public class GameEngine {
      */
     public String enterRoom(Room nextRoom, boolean addToHistory) {
         world.getPlayer().moveToRoom(nextRoom, addToHistory);
-        return getRoomDetails();
+        return describeCurrentRoom();
     }
 
     /**

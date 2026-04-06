@@ -166,12 +166,12 @@ public class Room {
      *         dialog
      */
     public String getCharactersInRoomDetails() {
-        String returnString = "";
+        String returnString = "Characters:\n";
         if (characters.isEmpty()) {
-            return "No one is here.";
+            returnString += "No one is here.";
+            return returnString;
         }
-        returnString += "Characters:\n";
-        for (Character character : characters) {
+        for (Character character : characters) {add
             returnString += character.getName();
         }
         return returnString;
