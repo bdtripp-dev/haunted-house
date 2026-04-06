@@ -169,9 +169,11 @@ public class Room {
             returnString += "No one is here.";
             return returnString;
         }
-        for (Character character : characters) {
-            returnString += character.getName() + "\n";
-        }
+        returnString += String.join("\n",
+                characters.stream()
+                        .map(Character::getName)
+                        .toList());
+
         return returnString;
     }
 
