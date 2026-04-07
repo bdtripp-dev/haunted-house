@@ -11,10 +11,11 @@ import java.util.ArrayList;
  * to the neighboring room, or null if there is no exit in that direction.
  *
  * @author Michael Kölling, David J. Barnes, and Brian Tripp
- * @version 2020.06.13
+ * @version 2026.04.03
  */
 public class Room {
-    private String description;
+    private final RoomName name;
+    private final String description;
     private HashMap<Direction, Exit> exits;
     private ArrayList<Item> items;
     private ArrayList<Character> characters;
@@ -23,32 +24,12 @@ public class Room {
      * @param description The room's description. Something like "a kitchen" or
      *                    "an open court yard".
      */
-    public Room(String description) {
+    public Room(RoomName name, String description) {
+        this.name = name;
         this.description = description;
         exits = new HashMap<>();
         items = new ArrayList<>();
         characters = new ArrayList<>();
-    }
-
-    /**
-     * Adds an item to the room
-     * 
-     * @param name         The name of the item
-     * @param description  The description of the item
-     * @param weight       The weight of the item
-     * @param isEdible     The edibility of the item
-     * @param propToAffect The property the item affects (e.g. health, strength,
-     *                     etc.)
-     * @param affectValue  The amount the property is changed by
-     */
-    public void addItem(
-            String name,
-            String description,
-            int weight,
-            boolean isEdible,
-            String propToAffect,
-            int affectValue) {
-        items.add(new Item(name, description, weight, isEdible, propToAffect, affectValue));
     }
 
     /**
@@ -61,15 +42,14 @@ public class Room {
     }
 
     /**
-     * Removes an item from the room
+     * Finds an item with a given name
      * 
-     * @param name The name of the item to remove
-     * @return The item that was removed
+     * @param name The name of the item
+     * @return The item
      */
-    public Item removeItemFromRoom(String name) {
+    public Item findItem(String name) {
         for (Item item : items) {
             if (item.getName().equals(name)) {
-                items.remove(item);
                 return item;
             }
         }
@@ -77,27 +57,25 @@ public class Room {
     }
 
     /**
+     * Removes an item from the room
+     * 
+     * @param item The item to remove
+     * @return The item that was removed
+     */
+    public Item removeItem(Item item) {
+        if (items.remove(item)) {
+            return item;
+        }
+        return null;
+    }
+
+    /**
      * Adds a character to the room
      * 
-     * @param name             The name of the character
-     * @param initialDialog    The character initial dialog
-     * @param acceptanceDialog The dialog the character will speak upon accepting an
-     *                         item
-     * @param itemSought       The name of the item that the character is seeking
-     * @param itemForReward    The item the character will give as a reward
+     * @param character The character to add
      */
-    public void addCharacter(
-            String name,
-            String initialDialog,
-            String acceptanceDialog,
-            String itemSought,
-            Item itemForReward) {
-        characters.add(new Character(
-                name,
-                initialDialog,
-                acceptanceDialog,
-                itemSought,
-                itemForReward));
+    public void addCharacter(Character character) {
+        characters.add(character);
     }
 
     /**
@@ -105,10 +83,10 @@ public class Room {
      * 
      * @param direction The direction of the exit.
      * @param neighbor  The room in the given direction.
-     * @param locked    true if the door is locked
+     * @param type      The type of exit (locked or unlocked)
      */
-    public void setExit(Direction direction, Room neighbor, boolean locked) {
-        Exit exit = new Exit(direction, neighbor, locked);
+    public void setExit(Direction direction, Room neighbor, ExitType type) {
+        Exit exit = new Exit(direction, neighbor, type);
         exits.put(direction, exit);
     }
 
@@ -136,13 +114,20 @@ public class Room {
     /**
      * @return A description of the room's exits, for example, "Exits: north west".
      */
-    public String getExitString() {
+    public String describeExits() {
         String returnString = "Exits:";
         Set<Direction> keys = exits.keySet();
         for (Direction exit : keys) {
             returnString += " " + exit.toString();
         }
         return returnString;
+    }
+
+    /**
+     * @return The name of the room.
+     */
+    public RoomName getName() {
+        return name;
     }
 
     /**
@@ -153,10 +138,9 @@ public class Room {
     }
 
     /**
-     * @return Details about the items in this room such as their description and
-     *         weight
+     * @return A description of the items in the room
      */
-    public String getItemsInRoomDetails() {
+    public String describeItems() {
         String returnString = "";
         if (items.isEmpty()) {
             return "No items were found.";
@@ -166,7 +150,7 @@ public class Room {
         for (Item item : items) {
             boolean isLastItem = index == (items.size() - 1);
             returnString += item.getDescription() +
-                    "(weight: " + item.getWeight() + ") To take item use the" +
+                    " (weight: " + item.getWeight() + ") To take item use the" +
                     " command: take " + item.getName();
             if (!isLastItem) {
                 returnString += "\n";
@@ -177,34 +161,37 @@ public class Room {
     }
 
     /**
-     * @return Details about the characters in this room such as their name and
-     *         dialog
+     * @return A description of the characters in the room
      */
-    public String getCharactersInRoomDetails() {
-        String returnString = "";
+    public String describeCharacters() {
+        String returnString = "Characters:\n";
         if (characters.isEmpty()) {
-            return "No one is here.";
+            returnString += "No one is here.";
+            return returnString;
         }
-        returnString += "Characters:\n";
-        for (Character character : characters) {
-            returnString += character.getName();
-        }
+        returnString += String.join("\n",
+                characters.stream()
+                        .map(Character::getName)
+                        .toList());
+
         return returnString;
     }
 
     /**
-     * @return A long desciption of this room. For example:
+     * @return A description of the room. For example:
      *         You are in the kitchen.
      *         Exits: north west
      */
-    public String getLongDescription() {
-        return "You are " + description + ".\n" + getExitString();
+    public String describeRoom() {
+        return "You are " + description + ".\n" + describeExits();
     }
 
     /**
-     * @return The character that is in the room
+     * Find the character that matches the given name
+     * 
+     * @return The character
      */
-    public Character getCharacter(String name) {
+    public Character findCharacter(String name) {
         for (Character character : characters) {
             if (character.getName().toLowerCase().equals(name.toLowerCase())) {
                 return character;

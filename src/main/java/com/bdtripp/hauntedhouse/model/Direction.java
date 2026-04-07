@@ -25,5 +25,4 @@ public enum Direction {
     public String toString() {
         return name().toLowerCase();
     }
-
 }
