@@ -1,12 +1,15 @@
 document.addEventListener('DOMContentLoaded', async () => {
-    const terminal = document.querySelector('#terminal');
-    const hintLayer = document.querySelector('#hint-layer');
-    const prompt = document.querySelector('#prompt');
-    const inputContainer = document.querySelector('#input-container');
-    const input = document.querySelector('#terminal-input');
-    const cursor = document.querySelector('#cursor');
-    const outputElement = document.querySelector('#output');
-    const newGameBtn = document.querySelector('#new-game-btn');
+
+    const dom = {
+        terminal: document.querySelector('#terminal'),
+        hintLayer: document.querySelector('#hint-layer'),
+        prompt: document.querySelector('#prompt'),
+        inputContainer: document.querySelector('#input-container'),
+        input: document.querySelector('#terminal-input'),
+        cursor: document.querySelector('#cursor'),
+        output: document.querySelector('#output'),
+        newGameBtn: document.querySelector('#new-game-btn')
+    };
 
     const state = {
         buffer: '',
@@ -23,7 +26,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
     
     function renderInput() {
-        input.textContent = state.buffer || " ";
+        dom.input.textContent = state.buffer || " ";
     }
 
     const startGame = async () => {
@@ -31,29 +34,29 @@ document.addEventListener('DOMContentLoaded', async () => {
             method: 'POST'
         });
         const data = await response.json();
-        outputElement.textContent = data.output + '\n';
+        dom.output.textContent = data.output + '\n';
         renderInput();
 
         if (!state.newGamePressed) return;
 
         state.buffer = ' ';
         state.cursorPosition = 0;
-        input.setAttribute("contenteditable", "true");
-        prompt.style.display = 'initial';
+        dom.input.setAttribute("contenteditable", "true");
+        dom.prompt.style.display = 'initial';
         renderInput();
         focusCursor();
         state.newGamePressed = false;
         state.gameQuit = false;
     }
 
-    cursor.style.display = 'none';
+    dom.cursor.style.display = 'none';
     startGame();
 
     const moveCaretToEnd = () => {
         const range = document.createRange();
         const sel = window.getSelection();
 
-        range.selectNodeContents(input);
+        range.selectNodeContents(dom.input);
         range.collapse(false); // collapse to end
         sel.removeAllRanges();
         sel.addRange(range);
@@ -81,14 +84,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         const range = sel.getRangeAt(0).cloneRange();
         const rect = range.getBoundingClientRect();
-        const containerRect = inputContainer.getBoundingClientRect();
+        const containerRect = dom.inputContainer.getBoundingClientRect();
 
         const rectIsInvalid =
             (rect.left === 0 && rect.top === 0 && state.buffer.length > 0) ||
             rect.height === 0;
 
         if (rectIsInvalid) {
-            const textNode = input.firstChild;
+            const textNode = dom.input.firstChild;
             if (textNode) {
                 const fallbackRange = document.createRange();
                 const pos = Math.min(state.cursorPosition, textNode.length);
@@ -98,14 +101,14 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 const fallbackRect = fallbackRange.getBoundingClientRect();
 
-                cursor.style.left = `${fallbackRect.left - containerRect.left}px`;
-                cursor.style.top = `${fallbackRect.top - containerRect.top}px`;
+                dom.cursor.style.left = `${fallbackRect.left - containerRect.left}px`;
+                dom.cursor.style.top = `${fallbackRect.top - containerRect.top}px`;
                 return;
             }
         }
 
-        cursor.style.left = `${rect.left - containerRect.left}px`;
-        cursor.style.top = `${rect.top - containerRect.top}px`;
+        dom.cursor.style.left = `${rect.left - containerRect.left}px`;
+        dom.cursor.style.top = `${rect.top - containerRect.top}px`;
     }
 
 
@@ -113,7 +116,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const sel = window.getSelection();
         const range = document.createRange();
 
-        const textNode = input.firstChild;
+        const textNode = dom.input.firstChild;
         if (!textNode) return;
 
         const pos = Math.min(state.cursorPosition, textNode.length);
@@ -126,33 +129,33 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     function focusCursor() {                    // position visual cursor
-        input.focus();
+        dom.input.focus();
         syncBrowserCaretToLogicalCursor();
         updateCursor();
-        cursor.style.display = "initial";
+        dom.cursor.style.display = "initial";
     }
 
-    terminal.addEventListener('click', () => {
+    dom.terminal.addEventListener('click', () => {
         if (!state.gameQuit) {
             focusCursor();
         }
-        hintLayer.classList.add('hidden');
+        dom.hintLayer.classList.add('hidden');
     });
 
     // Required for iOS
-    terminal.addEventListener('touchstart', () => {
+    dom.terminal.addEventListener('touchstart', () => {
         if (!state.gameQuit) {
             focusCursor();
         }
-        hintLayer.classList.add('hidden');
+        dom.hintLayer.classList.add('hidden');
     });
 
-    input.addEventListener("input", () => {
-        let text = input.textContent;
+    dom.input.addEventListener("input", () => {
+        let text = dom.input.textContent;
 
         if (text.length > state.MAX_BUFFER) {
             text = text.slice(0, state.MAX_BUFFER);
-            input.textContent = text;
+            dom.input.textContent = text;
         }
 
         state.buffer = text;
@@ -168,7 +171,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     });
 
-    input.addEventListener('keydown', async (e) => {
+    dom.input.addEventListener('keydown', async (e) => {
         if ((e.key === 'Backspace') && state.cursorPosition !== 0) {
             e.preventDefault();
             state.buffer = state.buffer.slice(0, state.cursorPosition - 1) + state.buffer.slice(state.cursorPosition);
@@ -207,16 +210,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             const data = await response.json();
 
-            outputElement.textContent += data.output;
-            terminal.scrollTop = terminal.scrollHeight;
+            dom.output.textContent += data.output;
+            dom.terminal.scrollTop = dom.terminal.scrollHeight;
             state.buffer = ' ';
             state.cursorPosition = 0;
             state.userMovedCaret = false;
             if (data.status === state.STATUS.STOPPED) {
-                outputElement.textContent += 'Click "New Game" to play again!';
-                input.setAttribute("contenteditable", "false");
-                prompt.style.display = 'none';
-                cursor.style.display = 'none';
+                dom.output.textContent += 'Click "New Game" to play again!';
+                dom.input.setAttribute("contenteditable", "false");
+                dom.prompt.style.display = 'none';
+                dom.cursor.style.display = 'none';
                 state.gameQuit = true;
             }
         }
@@ -229,7 +232,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         console.log("Cursor position: ", state.cursorPosition);
     });
 
-    newGameBtn.addEventListener('click', async () => {
+    dom.newGameBtn.addEventListener('click', async () => {
         startGame();
         state.newGamePressed = true;
     });
