@@ -6,4 +6,5 @@ COPY pom.xml .
 RUN ./mvnw -q dependency:go-offline
 COPY src ./src
 RUN ./mvnw -q package -DskipTests
+RUN ./mvnw -q dependency:copy-dependencies
 CMD ["java", "-cp", "target/classes:target/dependency/*", "com.bdtripp.hauntedhouse.WebApp"]

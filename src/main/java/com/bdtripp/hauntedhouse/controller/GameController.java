@@ -57,10 +57,18 @@ public class GameController {
     }
 
     /**
-     * API endpoint that executes a command.
-     * 
-     * @param request The request from the client.
-     * @return The response that will be processed by the client.
+     * Executes a player command within the current game session.
+     *
+     * <p>
+     * The client sends a textual command (e.g., "go north", "take key",
+     * "look") and receives the resulting game output and updated game status.
+     * Commands are interpreted by the game engine and may change the player's
+     * location, inventory, or stats.
+     * </p>
+     *
+     * @param request The player's input command, wrapped in a {@link GameRequest}.
+     * @return A {@link GameResponse} containing the engine's output and the
+     *         updated {@link GameStatus}.
      */
     @PostMapping(value = "/command", consumes = "application/json", produces = "application/json")
     public GameResponse executeCommand(@RequestBody GameRequest request) {
