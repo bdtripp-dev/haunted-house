@@ -9,6 +9,10 @@ package com.bdtripp.hauntedhouse.model;
  * @version 2026.04.02
  */
 public enum ExitType {
+
+    /** Indicates that the exit is locked. */
     LOCKED,
-    UNLOCKED
+
+    /** Indicates that the exit is unlocked. */
+    UNLOCKED;
 }

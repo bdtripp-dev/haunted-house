@@ -16,6 +16,12 @@ public class CliRunner {
     private GameEngine gameEngine = new GameEngine();
 
     /**
+     * Initializes the parser and game engine for cli play.
+     */
+    public CliRunner() {
+    }
+
+    /**
      * The main entry point. Creates a CliRunner and runs it.
      * 
      * @param args command-line arguments

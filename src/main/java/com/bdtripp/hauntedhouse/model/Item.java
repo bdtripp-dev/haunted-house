@@ -18,6 +18,8 @@ public class Item {
     private int affectValue;
 
     /**
+     * Creates a new item
+     *
      * @param name         The name of the item
      * @param description  A description of the item
      * @param weight       The items weight

@@ -22,6 +22,11 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
         <java.version>17</java.version>
     </properties>
 
+    <reporting>
+        <outputDirectory>docs</outputDirectory>
+    </reporting>
+
+
     <dependencies>
         <!-- Spring Boot web app (REST/HTTP) -->
         <dependency>
@@ -68,6 +73,16 @@ http://maven.apache.org/xsd/maven-4.0.0.xsd">
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
+            </plugin>
+
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-javadoc-plugin</artifactId>
+                <version>3.6.3</version>
+                <configuration>
+                    <reportOutputDirectory>${project.basedir}/docs</reportOutputDirectory>
+                    <destDir>javadoc</destDir>
+                </configuration>
             </plugin>
             
         </plugins>

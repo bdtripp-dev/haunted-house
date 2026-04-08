@@ -17,7 +17,9 @@ public class Inventory {
     private ArrayList<Item> items;
 
     /**
-     * @param maxCarryWeight The maximum weight the player can carry
+     * Creates a new inventory with the specified maximum carry weight.
+     *
+     * @param maxCarryWeight the maximum weight the player can carry
      */
     public Inventory(int maxCarryWeight) {
         items = new ArrayList<>();
@@ -25,7 +27,9 @@ public class Inventory {
     }
 
     /**
-     * @param max The maximum weight a player can carry
+     * Updates the maximum weight the player is allowed to carry.
+     *
+     * @param max the new maximum carry weight
      */
     public void setMaxCarryWeight(int max) {
         maxCarryWeight = max;
@@ -63,7 +67,9 @@ public class Inventory {
     }
 
     /**
-     * @return The weight of the items that the player is currently carrying
+     * Calculates the total weight of all items currently in the inventory.
+     *
+     * @return the combined weight of all carried items
      */
     public int getCurrentCarryWeight() {
         int totalWeight = 0;
@@ -99,7 +105,9 @@ public class Inventory {
     }
 
     /**
-     * @return The details of the items in the inventory
+     * Produces a formatted description of all items in the inventory.
+     *
+     * @return a multi-line string listing item names, descriptions, and weights
      */
     public String getItemDetails() {
         if (items.isEmpty()) {

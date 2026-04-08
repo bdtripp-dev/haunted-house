@@ -11,7 +11,6 @@ import java.util.ArrayList;
  * to the neighboring room, or null if there is no exit in that direction.
  *
  * @author Michael Kölling, David J. Barnes, and Brian Tripp
- * @version 2026.04.03
  */
 public class Room {
     private final RoomName name;
@@ -21,6 +20,8 @@ public class Room {
     private ArrayList<Character> characters;
 
     /**
+     * Creates a new room with the given name and description.
+     * 
      * @param description The room's description. Something like "a kitchen" or
      *                    "an open court yard".
      */
@@ -91,7 +92,8 @@ public class Room {
     }
 
     /**
-     * 
+     * Retrieves the neighboring room in the specified direction.
+     *
      * @param direction The direction of the neighbor
      * @return The room in the given direction. null if there is no exit in that
      *         direction
@@ -104,6 +106,8 @@ public class Room {
     }
 
     /**
+     * Returns the exit associated with the given direction.
+     *
      * @param direction The direction of the exit
      * @return The exit in the direction provided
      */
@@ -112,6 +116,8 @@ public class Room {
     }
 
     /**
+     * Builds a description of all exits from this room.
+     *
      * @return A description of the room's exits, for example, "Exits: north west".
      */
     public String describeExits() {
@@ -124,6 +130,8 @@ public class Room {
     }
 
     /**
+     * Returns the name of the room.
+     *
      * @return The name of the room.
      */
     public RoomName getName() {
@@ -131,6 +139,8 @@ public class Room {
     }
 
     /**
+     * Returns the description for this room.
+     *
      * @return The description of the room.
      */
     public String getDescription() {
@@ -138,6 +148,8 @@ public class Room {
     }
 
     /**
+     * Produces a formatted description of all items present in the room.
+     *
      * @return A description of the items in the room
      */
     public String describeItems() {
@@ -161,7 +173,9 @@ public class Room {
     }
 
     /**
-     * @return A description of the characters in the room
+     * Produces a formatted list of characters in the room.
+     *
+     * @return A list of characters in the room
      */
     public String describeCharacters() {
         String returnString = "Characters:\n";
@@ -178,6 +192,8 @@ public class Room {
     }
 
     /**
+     * Produces a full description of the room, including its exits.
+     * 
      * @return A description of the room. For example:
      *         You are in the kitchen.
      *         Exits: north west
@@ -189,7 +205,8 @@ public class Room {
     /**
      * Find the character that matches the given name
      * 
-     * @return The character
+     * @param name the name to search for
+     * @return the matching character, or null if none is found
      */
     public Character findCharacter(String name) {
         for (Character character : characters) {

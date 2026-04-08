@@ -25,7 +25,6 @@ import org.springframework.web.context.annotation.SessionScope;
  * @author Brian Tripp
  * @version 2026.02.09
  */
-
 @SessionScope
 @Service
 public class GameService {

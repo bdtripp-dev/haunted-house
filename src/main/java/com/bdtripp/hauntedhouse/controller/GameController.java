@@ -48,11 +48,8 @@ public class GameController {
      * this endpoint before sending any commands.
      * </p>
      *
-     * @return A {@link GameResponse} containing the game's initial description
+     * @return A {@link GameResponse} containing the game's initial output
      *         and the current {@link GameStatus}.
-     *
-     * @apiNote This endpoint has no request body and always creates a fresh game
-     *          state.
      */
     @PostMapping("/start")
     public GameResponse start() {
