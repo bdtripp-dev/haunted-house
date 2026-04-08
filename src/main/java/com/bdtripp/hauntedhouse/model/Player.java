@@ -20,6 +20,8 @@ public class Player {
     private Stats stats;
 
     /**
+     * Creates a new player with the given name and starting inventory.
+     *
      * @param name      The name of the player
      * @param inventory A collection of items carried by the player
      */
@@ -31,6 +33,8 @@ public class Player {
     }
 
     /**
+     * Sets whether the player's beamer is currently charged.
+     *
      * @param value True if the beamer is charged, otherwise false
      */
     public void setBeamerCharge(boolean value) {
@@ -67,6 +71,8 @@ public class Player {
     }
 
     /**
+     * Returns the stack of rooms the player has previously visited.
+     *
      * @return The history of the rooms the player has been in
      */
     public Stack<Room> getRoomHistory() {
@@ -74,6 +80,8 @@ public class Player {
     }
 
     /**
+     * Returns the room the player is currently located in.
+     * 
      * @return The room the player is currently in
      */
     public Room getCurrentRoom() {
@@ -90,6 +98,8 @@ public class Player {
     }
 
     /**
+     * Calculates how many moves the player can still make.
+     *
      * @return The number of moves a player has left
      */
     public int getMovesLeft() {
@@ -104,6 +114,8 @@ public class Player {
     }
 
     /**
+     * Returns the room where the beamer was last charged.
+     *
      * @return The location of the last beamer charge
      */
     public Room getBeamerLocation() {
@@ -135,6 +147,8 @@ public class Player {
     }
 
     /**
+     * Returns the player's inventory.
+     *
      * @return The player's inventory
      */
     public Inventory getInventory() {
@@ -142,7 +156,9 @@ public class Player {
     }
 
     /**
-     * @return The players stats
+     * Returns a formatted summary of the player's current stats.
+     *
+     * @return a string containing health, strength, and carry weight
      */
     public String getStats() {
         String returnString = "Health: " + stats.getHealth() + "\n";

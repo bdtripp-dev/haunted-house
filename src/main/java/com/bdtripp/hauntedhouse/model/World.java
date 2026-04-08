@@ -36,13 +36,17 @@ public class World {
     }
 
     /**
-     * @return The player of the game
+     * Returns the player associated with this world.
+     *
+     * @return The player of the game world
      */
     public Player getPlayer() {
         return player;
     }
 
     /**
+     * Returns all rooms that exist in the game world.
+     *
      * @return The rooms in the game
      */
     public Map<RoomName, Room> getRooms() {
@@ -50,6 +54,8 @@ public class World {
     }
 
     /**
+     * Returns the room where the player begins the game.
+     *
      * @return The starting room of the game
      */
     public Room getStartingRoom() {
@@ -67,7 +73,9 @@ public class World {
     }
 
     /**
-     * @return A key that is used to unlock an exit
+     * Returns the key used to unlock a specific exit in the world.
+     *
+     * @return The key
      */
     public Item getKey() {
         return key;

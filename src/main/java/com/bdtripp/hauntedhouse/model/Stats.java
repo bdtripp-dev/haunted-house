@@ -7,7 +7,6 @@ package com.bdtripp.hauntedhouse.model;
  * navigation logic.
  *
  * @author Brian Tripp
- * @version 2026.04.02
  */
 
 public class Stats {
@@ -15,6 +14,8 @@ public class Stats {
     private int strength;
 
     /**
+     * Creates a new Stats object with the specified health and strength values.
+     *
      * @param health   The health of the player
      * @param strength The strength of the player
      */

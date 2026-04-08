@@ -26,6 +26,12 @@ import com.bdtripp.hauntedhouse.model.World;
 public class WorldBuilder {
 
     /**
+     * Creates a new WorldBuilder instance.
+     */
+    public WorldBuilder() {
+    }
+
+    /**
      * Create the game world. Create all of the items, rooms, characters, etc
      * and place them in rooms and connect wire up the exits of the rooms.
      * 
