@@ -7,20 +7,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     const cursor = document.querySelector('#cursor');
     const outputElement = document.querySelector('#output');
     const newGameBtn = document.querySelector('#new-game-btn');
-    const STATUS = {
-        RUNNING: 'RUNNING',
-        STOPPED: 'STOPPED'
-    };
-    const MAX_BUFFER_LENGTH = 30;
-    let buffer = '';
-    let cursorPosition = 0;
-    const isAndroid = /Android/i.test(navigator.userAgent);
-    let userMovedCaret = false;
-    let newGamePressed = false;
-    let gameQuit = false;
 
+    const state = {
+        buffer: '',
+        cursorPosition: 0,
+        userMovedCaret: false,
+        newGamePressed: false,
+        gameQuit: false,
+        isAndroid: /Android/i.test(navigator.userAgent),
+        MAX_BUFFER: 30,
+        STATUS: {
+            RUNNING: 'RUNNING',
+            STOPPED: 'STOPPED'
+        }
+    };
+    
     function renderInput() {
-        input.textContent = buffer || " ";
+        input.textContent = state.buffer || " ";
     }
 
     const startGame = async () => {
@@ -31,16 +34,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         outputElement.textContent = data.output + '\n';
         renderInput();
 
-        if (!newGamePressed) return;
+        if (!state.newGamePressed) return;
 
-        buffer = ' ';
-        cursorPosition = 0;
+        state.buffer = ' ';
+        state.cursorPosition = 0;
         input.setAttribute("contenteditable", "true");
         prompt.style.display = 'initial';
         renderInput();
         focusCursor();
-        newGamePressed = false;
-        gameQuit = false;
+        state.newGamePressed = false;
+        state.gameQuit = false;
     }
 
     cursor.style.display = 'none';
@@ -57,7 +60,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     };
 
     function maybeFixAndroidCaret() {
-        if (!isAndroid) return;
+        if (!state.isAndroid) return;
 
         const sel = window.getSelection();
         if (!sel.rangeCount) return;
@@ -67,7 +70,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         // If Android IME reset caret to start (bug)
         const caretAtStart = range.startOffset === 0 && range.endOffset === 0;
 
-        if (caretAtStart && !userMovedCaret) {
+        if (caretAtStart && !state.userMovedCaret) {
             moveCaretToEnd();
         }
     }
@@ -81,14 +84,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         const containerRect = inputContainer.getBoundingClientRect();
 
         const rectIsInvalid =
-            (rect.left === 0 && rect.top === 0 && buffer.length > 0) ||
+            (rect.left === 0 && rect.top === 0 && state.buffer.length > 0) ||
             rect.height === 0;
 
         if (rectIsInvalid) {
             const textNode = input.firstChild;
             if (textNode) {
                 const fallbackRange = document.createRange();
-                const pos = Math.min(cursorPosition, textNode.length);
+                const pos = Math.min(state.cursorPosition, textNode.length);
 
                 fallbackRange.setStart(textNode, pos);
                 fallbackRange.collapse(true);
@@ -113,7 +116,7 @@ document.addEventListener('DOMContentLoaded', async () => {
         const textNode = input.firstChild;
         if (!textNode) return;
 
-        const pos = Math.min(cursorPosition, textNode.length);
+        const pos = Math.min(state.cursorPosition, textNode.length);
 
         range.setStart(textNode, pos);
         range.collapse(true);
@@ -130,7 +133,7 @@ document.addEventListener('DOMContentLoaded', async () => {
     }
 
     terminal.addEventListener('click', () => {
-        if (!gameQuit) {
+        if (!state.gameQuit) {
             focusCursor();
         }
         hintLayer.classList.add('hidden');
@@ -138,7 +141,7 @@ document.addEventListener('DOMContentLoaded', async () => {
 
     // Required for iOS
     terminal.addEventListener('touchstart', () => {
-        if (!gameQuit) {
+        if (!state.gameQuit) {
             focusCursor();
         }
         hintLayer.classList.add('hidden');
@@ -147,15 +150,15 @@ document.addEventListener('DOMContentLoaded', async () => {
     input.addEventListener("input", () => {
         let text = input.textContent;
 
-        if (text.length > MAX_BUFFER_LENGTH) {
-            text = text.slice(0, MAX_BUFFER_LENGTH);
+        if (text.length > state.MAX_BUFFER) {
+            text = text.slice(0, state.MAX_BUFFER);
             input.textContent = text;
         }
 
-        buffer = text;
-        cursorPosition++;
+        state.buffer = text;
+        state.cursorPosition++;
 
-        if (isAndroid) {
+        if (state.isAndroid) {
             setTimeout(() => {
                 maybeFixAndroidCaret();
                 updateCursor();
@@ -166,23 +169,23 @@ document.addEventListener('DOMContentLoaded', async () => {
     });
 
     input.addEventListener('keydown', async (e) => {
-        if ((e.key === 'Backspace') && cursorPosition !== 0) {
+        if ((e.key === 'Backspace') && state.cursorPosition !== 0) {
             e.preventDefault();
-            buffer = buffer.slice(0, cursorPosition - 1) + buffer.slice(cursorPosition);
-            cursorPosition = Math.max(--cursorPosition, 0);
-            userMovedCaret = false;
+            state.buffer = state.buffer.slice(0, state.cursorPosition - 1) + state.buffer.slice(state.cursorPosition);
+            state.cursorPosition = Math.max(--state.cursorPosition, 0);
+            state.userMovedCaret = false;
         } else if (e.key === "ArrowLeft") {
             e.preventDefault();
-            cursorPosition = Math.max(--cursorPosition, 0);
-            userMovedCaret = true;
-        } else if ((e.key === "ArrowRight") && (cursorPosition < MAX_BUFFER_LENGTH)) {
+            state.cursorPosition = Math.max(--state.cursorPosition, 0);
+            state.userMovedCaret = true;
+        } else if ((e.key === "ArrowRight") && (state.cursorPosition < state.MAX_BUFFER)) {
             e.preventDefault();
-            cursorPosition = Math.min(++cursorPosition, buffer.length);
-            userMovedCaret = true;
+            state.cursorPosition = Math.min(++state.cursorPosition, state.buffer.length);
+            state.userMovedCaret = true;
         } else if (e.key === "Delete") {
             e.preventDefault();
-            buffer = buffer.slice(0, cursorPosition) + buffer.slice(cursorPosition + 1);
-            userMovedCaret = false;
+            state.buffer = state.buffer.slice(0, state.cursorPosition) + state.buffer.slice(state.cursorPosition + 1);
+            state.userMovedCaret = false;
         } else if (e.key === "Tab") {
             e.preventDefault();
             return; 
@@ -206,15 +209,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 
             outputElement.textContent += data.output;
             terminal.scrollTop = terminal.scrollHeight;
-            buffer = ' ';
-            cursorPosition = 0;
-            userMovedCaret = false;
-            if (data.status === STATUS.STOPPED) {
+            state.buffer = ' ';
+            state.cursorPosition = 0;
+            state.userMovedCaret = false;
+            if (data.status === state.STATUS.STOPPED) {
                 outputElement.textContent += 'Click "New Game" to play again!';
                 input.setAttribute("contenteditable", "false");
                 prompt.style.display = 'none';
                 cursor.style.display = 'none';
-                gameQuit = true;
+                state.gameQuit = true;
             }
         }
          setTimeout(() => {
@@ -222,12 +225,12 @@ document.addEventListener('DOMContentLoaded', async () => {
             syncBrowserCaretToLogicalCursor();
             updateCursor();
         }, 0); 
-        console.log("Buffer length: ", buffer.length); 
-        console.log("Cursor position: ", cursorPosition);
+        console.log("Buffer length: ", state.buffer.length); 
+        console.log("Cursor position: ", state.cursorPosition);
     });
 
     newGameBtn.addEventListener('click', async () => {
         startGame();
-        newGamePressed = true;
+        state.newGamePressed = true;
     });
 });
