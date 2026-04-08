@@ -15,14 +15,15 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class WebApp {
 
     /**
-     * Creates a new WebApp instance.
+     * Explicit no‑argument constructor required to satisfy Maven's
+     * strict Javadoc rules for default constructors.
      */
     public WebApp() {
     }
 
     /**
-     * The main entry point of the web application. Starts a Spring Boot server.
-     * 
+     * Launches the Haunted House web application.
+     *
      * @param args command-line arguments
      */
     public static void main(String[] args) {
