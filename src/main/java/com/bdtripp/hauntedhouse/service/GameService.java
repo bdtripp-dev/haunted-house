@@ -7,6 +7,7 @@ import com.bdtripp.hauntedhouse.api.GameResponse;
 import com.bdtripp.hauntedhouse.engine.GameEngine;
 import com.bdtripp.hauntedhouse.model.GameStatus;
 import org.springframework.stereotype.Service;
+import org.springframework.web.context.annotation.SessionScope;
 
 /**
  * Service layer for the Haunted House web application.
@@ -24,7 +25,7 @@ import org.springframework.stereotype.Service;
  * @author Brian Tripp
  * @version 2026.02.09
  */
-
+@SessionScope
 @Service
 public class GameService {
     private GameEngine gameEngine;
@@ -38,7 +39,7 @@ public class GameService {
     public GameResponse startGame() {
         gameEngine = new GameEngine();
         gameEngine.startGame();
-        return new GameResponse(gameEngine.getWelcomeMessage() + "\n", GameStatus.RUNNING);
+        return new GameResponse(gameEngine.buildWelcomeMessage() + "\n", GameStatus.RUNNING);
     }
 
     /**

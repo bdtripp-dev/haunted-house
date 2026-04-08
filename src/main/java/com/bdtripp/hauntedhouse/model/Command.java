@@ -33,46 +33,60 @@ public class Command {
     }
 
     /**
-     * Returns the command word (the first word) of this command.
-     * 
-     * @return The command word.
+     * Returns the primary command word supplied by the player.
+     * This represents the action the player intends to perform.
+     *
+     * @return the first word of the command
      */
     public CommandWord getCommandWord() {
         return commandWord;
     }
 
     /**
-     * @return The second word of this command. Returns null if there was no
-     *         second word.
+     * Returns the second word of the command, if present.
+     * This is typically the object or target of the command.
+     *
+     * @return the second word, or {@code null} if the command contains only one
+     *         word.
      */
     public String getSecondWord() {
         return secondWord;
     }
 
     /**
-     * @return The third word of this command. Returns null if there was no
-     *         third word.
+     * Returns the third word of the command, if present.
+     * This is used for commands that require two arguments.
+     *
+     * @return the third word, or {@code null} if the command does not include one.
      */
     public String getThirdWord() {
         return thirdWord;
     }
 
     /**
-     * @return true if this command was not understood.
+     * Indicates whether the command word is unrecognized.
+     * A command is considered unknown when its primary word
+     * does not match any valid {@link CommandWord}.
+     *
+     * @return {@code true} if the command word is not understood.
      */
     public boolean isUnknown() {
         return (commandWord == null);
     }
 
     /**
-     * @return true if the command has a second word.
+     * Indicates whether the command includes a second word.
+     *
+     * @return {@code true} if a second word is present.
      */
     public boolean hasSecondWord() {
         return (secondWord != null);
     }
 
     /**
-     * @return true if the command has a third word.
+     * Indicates whether the command includes a third word.
+     *
+     * @return {@code true} if a third word is present.
      */
     public boolean hasThirdWord() {
         return (thirdWord != null);

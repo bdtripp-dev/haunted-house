@@ -9,10 +9,52 @@ import java.util.stream.Collectors;
  * @author Michael Kölling, David J. Barnes, and Brian Tripp
  * @version 2026.02.10
  */
-
 public enum CommandWord {
-    GO, QUIT, HELP, LOOK, EAT, BACK, TAKE, DROP,
-    ITEMS, STATS, CHARGE, FIRE, TALK, GIVE, UNKNOWN;
+
+    /** Move to another room. */
+    GO,
+
+    /** Quit the game. */
+    QUIT,
+
+    /** Display help information. */
+    HELP,
+
+    /** Look around the current room. */
+    LOOK,
+
+    /** Eat an item. */
+    EAT,
+
+    /** Return to the previous room. */
+    BACK,
+
+    /** Pick up an item. */
+    TAKE,
+
+    /** Drop an item. */
+    DROP,
+
+    /** Show the player's inventory. */
+    ITEMS,
+
+    /** Show the player's statistics. */
+    STATS,
+
+    /** Charge an item. */
+    CHARGE,
+
+    /** Fire an item. */
+    FIRE,
+
+    /** Talk to a character. */
+    TALK,
+
+    /** Give an item to a character. */
+    GIVE,
+
+    /** Represents an unrecognized or invalid command. */
+    UNKNOWN;
 
     /**
      * Checks whether a given string is a valid command word.
