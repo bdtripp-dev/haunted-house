@@ -24,10 +24,18 @@ document.addEventListener('DOMContentLoaded', async () => {
             STOPPED: 'STOPPED'
         }
     };
+
+    // -----------------------------
+    // Rendering
+    // -----------------------------
     
     function renderInput() {
         dom.input.textContent = state.buffer || " ";
     }
+
+    // -----------------------------
+    // Game Lifecycle
+    // -----------------------------
 
     const startGame = async () => {
         const response = await fetch('api/game/start', {
@@ -49,34 +57,9 @@ document.addEventListener('DOMContentLoaded', async () => {
         state.gameQuit = false;
     }
 
-    dom.cursor.style.display = 'none';
-    startGame();
-
-    const moveCaretToEnd = () => {
-        const range = document.createRange();
-        const sel = window.getSelection();
-
-        range.selectNodeContents(dom.input);
-        range.collapse(false); // collapse to end
-        sel.removeAllRanges();
-        sel.addRange(range);
-    };
-
-    function maybeFixAndroidCaret() {
-        if (!state.isAndroid) return;
-
-        const sel = window.getSelection();
-        if (!sel.rangeCount) return;
-
-        const range = sel.getRangeAt(0);
-
-        // If Android IME reset caret to start (bug)
-        const caretAtStart = range.startOffset === 0 && range.endOffset === 0;
-
-        if (caretAtStart && !state.userMovedCaret) {
-            moveCaretToEnd();
-        }
-    }
+    // -----------------------------
+    // Caret + Cursor Positioning
+    // -----------------------------
 
     function updateCursor() {
         const sel = window.getSelection();
@@ -111,7 +94,6 @@ document.addEventListener('DOMContentLoaded', async () => {
         dom.cursor.style.top = `${rect.top - containerRect.top}px`;
     }
 
-
     function syncBrowserCaretToLogicalCursor() {
         const sel = window.getSelection();
         const range = document.createRange();
@@ -128,12 +110,42 @@ document.addEventListener('DOMContentLoaded', async () => {
         sel.addRange(range);
     }
 
+    const moveCaretToEnd = () => {
+        const range = document.createRange();
+        const sel = window.getSelection();
+
+        range.selectNodeContents(dom.input);
+        range.collapse(false); // collapse to end
+        sel.removeAllRanges();
+        sel.addRange(range);
+    };
+
+    function maybeFixAndroidCaret() {
+        if (!state.isAndroid) return;
+
+        const sel = window.getSelection();
+        if (!sel.rangeCount) return;
+
+        const range = sel.getRangeAt(0);
+
+        // If Android IME reset caret to start (bug)
+        const caretAtStart = range.startOffset === 0 && range.endOffset === 0;
+
+        if (caretAtStart && !state.userMovedCaret) {
+            moveCaretToEnd();
+        }
+    }
+
     function focusCursor() {                    // position visual cursor
         dom.input.focus();
         syncBrowserCaretToLogicalCursor();
         updateCursor();
         dom.cursor.style.display = "initial";
     }
+
+    // -----------------------------
+    // Event Handlers
+    // -----------------------------
 
     dom.terminal.addEventListener('click', () => {
         if (!state.gameQuit) {
@@ -236,4 +248,11 @@ document.addEventListener('DOMContentLoaded', async () => {
         startGame();
         state.newGamePressed = true;
     });
+
+    // -----------------------------
+    // Initialization
+    // -----------------------------
+
+    dom.cursor.style.display = 'none';
+    startGame();
 });
