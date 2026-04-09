@@ -1,13 +1,12 @@
 package com.bdtripp.hauntedhouse.model;
 
 /**
- * Represents a character in the Haunted House game.
+ * Represents a non-player character.
  *
- * Players can interact with characters and a character may offer to help the Player in exchange for
- * certain items.
+ * A Character can speak with the player and may request a specific item in exchange for offering a
+ * reward item.
  *
  * @author Brian Tripp
- * @version 2020.06.13
  */
 public class Character {
     private String name;

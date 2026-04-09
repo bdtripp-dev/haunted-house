@@ -5,11 +5,10 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 /**
  * The main entry point for the Haunted House web application.
- * 
- * This class starts a Spring Boot server.
+ *
+ * Starts the Spring Boot server.
  *
  * @author Brian Tripp
- * @version 2026.02.09
  */
 @SpringBootApplication
 public class WebApp {

@@ -3,13 +3,12 @@ package com.bdtripp.hauntedhouse.engine;
 import com.bdtripp.hauntedhouse.model.Command;
 
 /**
- * The main entry point for the Haunted House CLI application.
- * 
- * This class creates a GameEngine, parses input, converts it into a command, processes the command,
- * and prints the output.
+ * Runs the game in a command-line environment.
+ *
+ * The CliRunner initializes the game engine, reads player input from the terminal, converts it into
+ * commands, and prints the resulting output until the session ends.
  *
  * @author Brian Tripp
- * @version 2026.02.09
  */
 public class CliRunner {
     private Parser parser = new Parser(System.in);

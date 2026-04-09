@@ -1,14 +1,13 @@
 package com.bdtripp.hauntedhouse.api;
 
 /**
- * Represents a GameRequest in the Haunted House game.
- * 
- * A GameRequest is created when player input is received by the GameController
+ * Represents input submitted by the client.
+ *
+ * A GameRequest carries the raw text entered by the player so the GameController can forward it to
+ * the game logic.
  *
  * @author Brian Tripp
- * @version 2026.02.09
  */
-
 public class GameRequest {
     private String input;
 

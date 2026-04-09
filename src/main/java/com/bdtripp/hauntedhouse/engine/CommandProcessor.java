@@ -10,10 +10,12 @@ import com.bdtripp.hauntedhouse.model.Room;
 import com.bdtripp.hauntedhouse.model.World;
 
 /**
- * Responsible for interpreting and executing player commands.
+ * Interprets player commands and applies their effects to the game world.
+ *
+ * The CommandProcessor translates parsed commands into actions, invokes the GameEngine to update
+ * the game state, and returns messages describing the results of those actions.
  *
  * @author Brian Tripp
- * @version 2026.04.04
  */
 public class CommandProcessor {
     private final World world;

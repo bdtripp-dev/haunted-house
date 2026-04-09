@@ -4,10 +4,12 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 /**
- * An enumeration of all valid commands in the Haunted House game.
+ * An enumeration of all valid commands.
  *
- * @author Michael Kölling, David J. Barnes, and Brian Tripp
- * @version 2026.02.10
+ * Each constant represents a command that the game engine can execute. The UNKNOWN value is used
+ * when player input does not match any defined command.
+ *
+ * @author Brian Tripp
  */
 public enum CommandWord {
 

@@ -5,9 +5,9 @@ import java.util.HashMap;
 import java.util.ArrayList;
 
 /**
- * Represents a room in the Haunted House game. It is connected to other rooms via exits. The exits
- * are labelled north, south, east, and west. For each direction, the room stores a reference to the
- * neighboring room, or null if there is no exit in that direction.
+ * Represents a room in the game world.
+ *
+ * Rooms contain items, characters, and exits that connect them to other rooms.
  *
  * @author Michael Kölling, David J. Barnes, and Brian Tripp
  */

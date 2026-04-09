@@ -3,11 +3,11 @@ package com.bdtripp.hauntedhouse.model;
 import java.util.Map;
 
 /**
- * Stores all of the things that exist in the game world such as the player, the rooms of the
- * haunted house, the items in the rooms, etc.
+ * Represents the complete game world.
+ *
+ * Stores the player, all rooms, and the starting location.
  *
  * @author Brian Tripp
- * @version 2026.04.04
  */
 public class World {
     private final Player player;

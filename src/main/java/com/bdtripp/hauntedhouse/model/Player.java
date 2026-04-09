@@ -3,11 +3,11 @@ package com.bdtripp.hauntedhouse.model;
 import java.util.Stack;
 
 /**
- * Represents a player in the Haunted House game. Keeps track of where the player is, their
- * inventory, and their current stats.
+ * Represents a player in the game world.
+ *
+ * Tracks the player's location, movement history, inventory, and statistics.
  *
  * @author Brian Tripp
- * @version 2026.04.02
  */
 public class Player {
     private String name;

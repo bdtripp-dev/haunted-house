@@ -8,11 +8,12 @@ import com.bdtripp.hauntedhouse.model.CommandWord;
 import java.io.InputStream;
 
 /**
- * Represents a parser in the Haunted House game. The parser tokenizes user input into commands and
- * arguments.
+ * Parses raw player input into structured commands.
+ *
+ * The Parser tokenizes input from either the CLI or web client, extracts up to three command words,
+ * and produces a Command object for processing.
  *
  * @author Michael Kölling, David J. Barnes, and Brian Tripp
- * @version 2026.02.06
  */
 public class Parser {
     private Scanner reader;

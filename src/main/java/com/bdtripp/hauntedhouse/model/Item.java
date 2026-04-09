@@ -1,13 +1,12 @@
 package com.bdtripp.hauntedhouse.model;
 
 /**
- * Represents an item in the Haunted House game.
+ * Represents an item in the game world.
  *
- * Items are found in rooms and can help players in various ways. Some items may be too heavy to
- * pick up.
+ * Items have names, descriptions, weights, and optional effects on player statistics. Some items
+ * may also be edible.
  *
  * @author Brian Tripp
- * @version 2020.06.13
  */
 public class Item {
     private String name;

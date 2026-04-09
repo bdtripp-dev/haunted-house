@@ -10,14 +10,13 @@ import com.bdtripp.hauntedhouse.model.RoomName;
 import com.bdtripp.hauntedhouse.model.World;
 
 /**
- * Orchestrates the game by starting and ending play, delegating command processing, moving the
- * player between rooms, generating the welcome message, and providing other engine-level utility
- * functions.
- * 
+ * Orchestrates the overall game loop and state transitions.
+ *
+ * The GameEngine initializes the world, manages game state, delegates command execution, moves the
+ * player between rooms, and generates messages.
+ *
  * @author Michael Kölling, David J. Barnes, and Brian Tripp
- * @version 2026.04.02
  */
-
 public class GameEngine {
     private final World world;
     private final CommandProcessor commandProcessor;

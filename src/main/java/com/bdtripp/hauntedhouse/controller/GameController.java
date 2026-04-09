@@ -12,15 +12,13 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
 /**
- * The controller layer for the Haunted House web application.
+ * Exposes the HTTP endpoints used by the client.
  *
- * This class contains the API endpoints that connect the webpage front end with the back end game
- * engine.
+ * The GameController receives player input, delegates it to the GameService for processing, and
+ * returns the resulting output and status.
  *
  * @author Brian Tripp
- * @version 2026.02.09
  */
-
 @RestController @RequestMapping("/api/game") @Validated
 public class GameController {
     private final GameService gameService;

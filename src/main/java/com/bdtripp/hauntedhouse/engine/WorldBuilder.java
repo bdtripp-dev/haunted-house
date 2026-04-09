@@ -16,11 +16,12 @@ import com.bdtripp.hauntedhouse.model.RoomName;
 import com.bdtripp.hauntedhouse.model.World;
 
 /**
- * Creates all of the things that exist in the game world such as rooms, characters, and items. It
- * also connects all of the rooms together so that the player can navigate between them.
+ * Builds the complete game world.
+ *
+ * The WorldBuilder creates all rooms, items, and characters, places them in their initial
+ * locations, and wires the room exits so the player can navigate the environment.
  *
  * @author Brian Tripp
- * @version 2026.04.04
  */
 public class WorldBuilder {
 

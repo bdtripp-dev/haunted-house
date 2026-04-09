@@ -1,12 +1,8 @@
 package com.bdtripp.hauntedhouse.model;
 
 /**
- * Represents the different player statistics that can be affected within the Haunted House game.
- *
- * <p>
  * Enumerates all supported stat types.
- * </p>
- * 
+ *
  * @author Brian Tripp
  */
 public enum PlayerStat {

@@ -1,15 +1,17 @@
 package com.bdtripp.hauntedhouse.model;
 
 /**
- * Represents a command entered by a player in the Haunted House game. A command may have up to
- * three words and are defined as a command word, a second word, and a third word. For example, if
- * the command was "give spade Beatrice", then the three words are "give", "spade", and "Beatrice".
- * A command may only have one or two words. In this case the other words would be null.
+ * Represents a parsed player command.
  *
- * @author Michael Kölling and David J. Barnes, Brian Tripp
- * @version 2026.02.10
+ * A Command consists of a primary verb and up to two optional arguments that specify the target or
+ * context of the action. For example, the input "give spade Beatrice" produces the command word
+ * "give" with "spade" and "Beatrice" as its arguments.
+ *
+ * Missing arguments are represented as {@code null}, allowing the game to distinguish between
+ * incomplete and fully specified commands.
+ * 
+ * @author Brian Tripp
  */
-
 public class Command {
     private CommandWord commandWord;
     private String secondWord;

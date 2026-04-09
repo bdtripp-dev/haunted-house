@@ -1,10 +1,11 @@
 package com.bdtripp.hauntedhouse.model;
 
 /**
- * Represents the four cardinal directions used for room navigation within the Haunted House game.
- * 
+ * Represents the four cardinal directions used for room navigation.
+ *
+ * Each constant corresponds to a navigable direction within the game world.
+ *
  * @author Brian Tripp
- * @version 2026.03.31
  */
 public enum Direction {
 

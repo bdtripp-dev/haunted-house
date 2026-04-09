@@ -3,15 +3,13 @@ package com.bdtripp.hauntedhouse.api;
 import com.bdtripp.hauntedhouse.model.GameStatus;
 
 /**
- * Represents a GameResponse in the Haunted House game.
- * 
- * A GameResponse is created by the GameService and contains output from the GameEngine and the
- * game's current status. The GameResponse is then sent to the client.
+ * Represents the response returned to the client after a command is processed.
+ *
+ * A GameResponse contains the text produced by the game engine along with the game's current
+ * status.
  *
  * @author Brian Tripp
- * @version 2026.02.09
  */
-
 public class GameResponse {
     private String output;
     private GameStatus status;
