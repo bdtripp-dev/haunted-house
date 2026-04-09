@@ -3,8 +3,8 @@ package com.bdtripp.hauntedhouse.model;
 /**
  * Represents an item in the Haunted House game.
  *
- * Items are found in rooms and can help players in various ways. Some items
- * may be too heavy to pick up.
+ * Items are found in rooms and can help players in various ways. Some items may be too heavy to
+ * pick up.
  *
  * @author Brian Tripp
  * @version 2020.06.13
@@ -20,21 +20,15 @@ public class Item {
     /**
      * Creates a new item
      *
-     * @param name         The name of the item
-     * @param description  A description of the item
-     * @param weight       The items weight
-     * @param isEdible     Whether or not the item is edible
-     * @param statToAffect The stat of a player that the item has an affect on
-     *                     (eg. strength)
-     * @param affectValue  The amount to change the stat's value by
+     * @param name The name of the item
+     * @param description A description of the item
+     * @param weight The items weight
+     * @param isEdible Whether or not the item is edible
+     * @param statToAffect The stat of a player that the item has an affect on (eg. strength)
+     * @param affectValue The amount to change the stat's value by
      */
-    public Item(
-            String name,
-            String description,
-            int weight,
-            boolean isEdible,
-            PlayerStat statToAffect,
-            int affectValue) {
+    public Item(String name, String description, int weight, boolean isEdible,
+            PlayerStat statToAffect, int affectValue) {
         this.name = name;
         this.description = description;
         this.weight = weight;

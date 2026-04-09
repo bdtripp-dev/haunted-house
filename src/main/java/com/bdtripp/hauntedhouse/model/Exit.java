@@ -1,11 +1,9 @@
 package com.bdtripp.hauntedhouse.model;
 
 /**
- * Represents an exit in the Haunted House game. Exits are associated with a
- * particular room and allow the character to move from one room to the next.
- * An exit can be located at one of four directions - north, east, south, or
- * west.
- * Exits can be either locked or unlocked.
+ * Represents an exit in the Haunted House game. Exits are associated with a particular room and
+ * allow the character to move from one room to the next. An exit can be located at one of four
+ * directions - north, east, south, or west. Exits can be either locked or unlocked.
  *
  * @author Brian Tripp
  * @version 2020.06.13
@@ -19,8 +17,8 @@ public class Exit {
      * Creates an exit and sets its direction, neighbor, and type.
      * 
      * @param direction The direction of the exit.
-     * @param neighbor  The neighboring room
-     * @param type      The type of exit (locked or unlocked)
+     * @param neighbor The neighboring room
+     * @param type The type of exit (locked or unlocked)
      */
     public Exit(Direction direction, Room neighbor, ExitType type) {
         this.direction = direction;

@@ -1,10 +1,9 @@
 package com.bdtripp.hauntedhouse.model;
 
 /**
- * Represents the stats of a player in the Haunted House
- * game. This class stores and manages values such as health and strength,
- * keeping player-related state separate from inventory and
- * navigation logic.
+ * Represents the stats of a player in the Haunted House game. This class stores and manages values
+ * such as health and strength, keeping player-related state separate from inventory and navigation
+ * logic.
  *
  * @author Brian Tripp
  */
@@ -16,7 +15,7 @@ public class Stats {
     /**
      * Creates a new Stats object with the specified health and strength values.
      *
-     * @param health   The health of the player
+     * @param health The health of the player
      * @param strength The strength of the player
      */
     public Stats(int health, int strength) {

@@ -10,9 +10,9 @@ import com.bdtripp.hauntedhouse.model.RoomName;
 import com.bdtripp.hauntedhouse.model.World;
 
 /**
- * Orchestrates the game by starting and ending play, delegating command
- * processing, moving the player between rooms, generating the welcome
- * message, and providing other engine-level utility functions.
+ * Orchestrates the game by starting and ending play, delegating command processing, moving the
+ * player between rooms, generating the welcome message, and providing other engine-level utility
+ * functions.
  * 
  * @author Michael Kölling, David J. Barnes, and Brian Tripp
  * @version 2026.04.02
@@ -63,8 +63,8 @@ public class GameEngine {
     }
 
     /**
-     * Build the welcome message that displays when a new game is started. Includes
-     * information about the room a player is in.
+     * Build the welcome message that displays when a new game is started. Includes information
+     * about the room a player is in.
      * 
      * @return The welcome message
      */
@@ -85,9 +85,8 @@ public class GameEngine {
     }
 
     /**
-     * Gets a description about the room the player is currently in including the
-     * items
-     * and characters that it contains.
+     * Gets a description about the room the player is currently in including the items and
+     * characters that it contains.
      * 
      * @return A description of the room
      */
@@ -105,7 +104,7 @@ public class GameEngine {
     /**
      * Moves the player to the specified room and returns details about the room
      * 
-     * @param nextRoom     The room to move to
+     * @param nextRoom The room to move to
      * @param addToHistory True if the current room should be added to history
      * @return The details about the room
      */

@@ -3,8 +3,8 @@ package com.bdtripp.hauntedhouse.model;
 import java.util.Stack;
 
 /**
- * Represents a player in the Haunted House game. Keeps track of where the
- * player is, their inventory, and their current stats.
+ * Represents a player in the Haunted House game. Keeps track of where the player is, their
+ * inventory, and their current stats.
  *
  * @author Brian Tripp
  * @version 2026.04.02
@@ -22,7 +22,7 @@ public class Player {
     /**
      * Creates a new player with the given name and starting inventory.
      *
-     * @param name      The name of the player
+     * @param name The name of the player
      * @param inventory A collection of items carried by the player
      */
     public Player(String name, Inventory inventory) {
@@ -53,7 +53,7 @@ public class Player {
     /**
      * Moves the player to the specified room
      * 
-     * @param room         The room to move the player to
+     * @param room The room to move the player to
      * @param addToHistory true if current room should be added to history
      */
     public void moveToRoom(Room room, boolean addToHistory) {
@@ -133,17 +133,17 @@ public class Player {
         int affectValue = item.getAffectValue();
 
         switch (statToAffect) {
-            case HEALTH -> stats.setHealth(stats.getHealth() + affectValue);
-            case STRENGTH -> stats.setStrength(stats.getStrength() + affectValue);
-            case MAX_CARRY_WEIGHT -> inventory.setMaxCarryWeight(
-                    inventory.getMaxCarryWeight() + affectValue);
-            case NONE -> {
-                return "This item has no effect.";
-            }
+        case HEALTH -> stats.setHealth(stats.getHealth() + affectValue);
+        case STRENGTH -> stats.setStrength(stats.getStrength() + affectValue);
+        case MAX_CARRY_WEIGHT -> inventory
+                .setMaxCarryWeight(inventory.getMaxCarryWeight() + affectValue);
+        case NONE -> {
+            return "This item has no effect.";
+        }
         }
 
-        return "That was delicious. Not only that but your " + statToAffect.toString() + " increased by " + affectValue
-                + "!";
+        return "That was delicious. Not only that but your " + statToAffect.toString()
+                + " increased by " + affectValue + "!";
     }
 
     /**

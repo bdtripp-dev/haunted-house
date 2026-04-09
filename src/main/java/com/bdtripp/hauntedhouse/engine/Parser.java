@@ -8,9 +8,8 @@ import com.bdtripp.hauntedhouse.model.CommandWord;
 import java.io.InputStream;
 
 /**
- * Represents a parser in the Haunted House game. The parser tokenizes user
- * input
- * into commands and arguments.
+ * Represents a parser in the Haunted House game. The parser tokenizes user input into commands and
+ * arguments.
  *
  * @author Michael Kölling, David J. Barnes, and Brian Tripp
  * @version 2026.02.06

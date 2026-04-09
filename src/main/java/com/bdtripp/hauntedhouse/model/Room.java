@@ -5,10 +5,9 @@ import java.util.HashMap;
 import java.util.ArrayList;
 
 /**
- * Represents a room in the Haunted House game. It is
- * connected to other rooms via exits. The exits are labelled north,
- * south, east, and west. For each direction, the room stores a reference
- * to the neighboring room, or null if there is no exit in that direction.
+ * Represents a room in the Haunted House game. It is connected to other rooms via exits. The exits
+ * are labelled north, south, east, and west. For each direction, the room stores a reference to the
+ * neighboring room, or null if there is no exit in that direction.
  *
  * @author Michael Kölling, David J. Barnes, and Brian Tripp
  */
@@ -22,8 +21,8 @@ public class Room {
     /**
      * Creates a new room with the given name and description.
      * 
-     * @param description The room's description. Something like "a kitchen" or
-     *                    "an open court yard".
+     * @param description The room's description. Something like "a kitchen" or "an open court
+     * yard".
      */
     public Room(RoomName name, String description) {
         this.name = name;
@@ -83,8 +82,8 @@ public class Room {
      * Creates an exit for the room
      * 
      * @param direction The direction of the exit.
-     * @param neighbor  The room in the given direction.
-     * @param type      The type of exit (locked or unlocked)
+     * @param neighbor The room in the given direction.
+     * @param type The type of exit (locked or unlocked)
      */
     public void setExit(Direction direction, Room neighbor, ExitType type) {
         Exit exit = new Exit(direction, neighbor, type);
@@ -95,8 +94,7 @@ public class Room {
      * Retrieves the neighboring room in the specified direction.
      *
      * @param direction The direction of the neighbor
-     * @return The room in the given direction. null if there is no exit in that
-     *         direction
+     * @return The room in the given direction. null if there is no exit in that direction
      */
     public Room getNeighbor(Direction direction) {
         if (exits.containsKey(direction)) {
@@ -161,9 +159,8 @@ public class Room {
         int index = 0;
         for (Item item : items) {
             boolean isLastItem = index == (items.size() - 1);
-            returnString += item.getDescription() +
-                    " (weight: " + item.getWeight() + ") To take item use the" +
-                    " command: take " + item.getName();
+            returnString += item.getDescription() + " (weight: " + item.getWeight()
+                    + ") To take item use the" + " command: take " + item.getName();
             if (!isLastItem) {
                 returnString += "\n";
             }
@@ -183,10 +180,7 @@ public class Room {
             returnString += "No one is here.";
             return returnString;
         }
-        returnString += String.join("\n",
-                characters.stream()
-                        .map(Character::getName)
-                        .toList());
+        returnString += String.join("\n", characters.stream().map(Character::getName).toList());
 
         return returnString;
     }
@@ -194,9 +188,7 @@ public class Room {
     /**
      * Produces a full description of the room, including its exits.
      * 
-     * @return A description of the room. For example:
-     *         You are in the kitchen.
-     *         Exits: north west
+     * @return A description of the room. For example: You are in the kitchen. Exits: north west
      */
     public String describeRoom() {
         return "You are " + description + ".\n" + describeExits();

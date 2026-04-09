@@ -1,13 +1,10 @@
 package com.bdtripp.hauntedhouse.model;
 
 /**
- * Represents a command entered by a player in the Haunted House game.
- * A command may have up to three words and are defined as a command word, a
- * second
- * word, and a third word. For example, if the command was "give spade
- * Beatrice",
- * then the three words are "give", "spade", and "Beatrice". A command may only
- * have one or two words. In this case the other words would be null.
+ * Represents a command entered by a player in the Haunted House game. A command may have up to
+ * three words and are defined as a command word, a second word, and a third word. For example, if
+ * the command was "give spade Beatrice", then the three words are "give", "spade", and "Beatrice".
+ * A command may only have one or two words. In this case the other words would be null.
  *
  * @author Michael Kölling and David J. Barnes, Brian Tripp
  * @version 2026.02.10
@@ -21,9 +18,9 @@ public class Command {
     /**
      * Create a command with three words. Words may be null.
      * 
-     * @param firstWord  The first word of the command.
+     * @param firstWord The first word of the command.
      * @param secondWord The second word of the command.
-     * @param thirdWord  The third word of the command.
+     * @param thirdWord The third word of the command.
      *
      */
     public Command(CommandWord firstWord, String secondWord, String thirdWord) {
@@ -33,8 +30,8 @@ public class Command {
     }
 
     /**
-     * Returns the primary command word supplied by the player.
-     * This represents the action the player intends to perform.
+     * Returns the primary command word supplied by the player. This represents the action the
+     * player intends to perform.
      *
      * @return the first word of the command
      */
@@ -43,19 +40,18 @@ public class Command {
     }
 
     /**
-     * Returns the second word of the command, if present.
-     * This is typically the object or target of the command.
+     * Returns the second word of the command, if present. This is typically the object or target of
+     * the command.
      *
-     * @return the second word, or {@code null} if the command contains only one
-     *         word.
+     * @return the second word, or {@code null} if the command contains only one word.
      */
     public String getSecondWord() {
         return secondWord;
     }
 
     /**
-     * Returns the third word of the command, if present.
-     * This is used for commands that require two arguments.
+     * Returns the third word of the command, if present. This is used for commands that require two
+     * arguments.
      *
      * @return the third word, or {@code null} if the command does not include one.
      */
@@ -64,9 +60,8 @@ public class Command {
     }
 
     /**
-     * Indicates whether the command word is unrecognized.
-     * A command is considered unknown when its primary word
-     * does not match any valid {@link CommandWord}.
+     * Indicates whether the command word is unrecognized. A command is considered unknown when its
+     * primary word does not match any valid {@link CommandWord}.
      *
      * @return {@code true} if the command word is not understood.
      */

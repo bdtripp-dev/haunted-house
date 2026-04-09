@@ -3,9 +3,8 @@ package com.bdtripp.hauntedhouse.model;
 /**
  * Represents a character in the Haunted House game.
  *
- * Players can interact with characters and a character may offer to help the
- * Player
- * in exchange for certain items.
+ * Players can interact with characters and a character may offer to help the Player in exchange for
+ * certain items.
  *
  * @author Brian Tripp
  * @version 2020.06.13
@@ -18,21 +17,16 @@ public class Character {
     private Item itemForReward;
 
     /**
-     * Create a character with a name, dialog, item they are
-     * seeking, and item they give as a reward.
+     * Create a character with a name, dialog, item they are seeking, and item they give as a
+     * reward.
      * 
-     * @param name             The name of the character.
-     * @param initialDialog    The initial dialog that the character speaks.
-     * @param acceptanceDialog The dialog that the character speaks upon accepting
-     *                         an item.
-     * @param itemSought       The item that the character is seeking.
-     * @param itemForReward    The item that the character rewards the player with.
+     * @param name The name of the character.
+     * @param initialDialog The initial dialog that the character speaks.
+     * @param acceptanceDialog The dialog that the character speaks upon accepting an item.
+     * @param itemSought The item that the character is seeking.
+     * @param itemForReward The item that the character rewards the player with.
      */
-    public Character(
-            String name,
-            String initialDialog,
-            String acceptanceDialog,
-            Item itemSought,
+    public Character(String name, String initialDialog, String acceptanceDialog, Item itemSought,
             Item itemForReward) {
         this.name = name;
         this.initialDialog = initialDialog;

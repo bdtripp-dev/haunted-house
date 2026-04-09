@@ -3,10 +3,9 @@ package com.bdtripp.hauntedhouse.model;
 import java.util.ArrayList;
 
 /**
- * Represents a collection of items carried by the player in
- * the Haunted House game. The Inventory is responsible for storing items,
- * enforcing carry-weight limits, and providing operations for adding, removing,
- * and querying items. It encapsulates all item-management logic so that Player
+ * Represents a collection of items carried by the player in the Haunted House game. The Inventory
+ * is responsible for storing items, enforcing carry-weight limits, and providing operations for
+ * adding, removing, and querying items. It encapsulates all item-management logic so that Player
  * remains focused on player-specific behavior.
  * 
  * @author Brian Tripp

@@ -5,8 +5,8 @@ import com.bdtripp.hauntedhouse.model.Command;
 /**
  * The main entry point for the Haunted House CLI application.
  * 
- * This class creates a GameEngine, parses input, converts
- * it into a command, processes the command, and prints the output.
+ * This class creates a GameEngine, parses input, converts it into a command, processes the command,
+ * and prints the output.
  *
  * @author Brian Tripp
  * @version 2026.02.09
