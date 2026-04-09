@@ -1,63 +1,65 @@
 :root {
-    --default-fg: #33ff33;
-    --default-bg: black;
-    --complementary: #FF0000;
-    --triad-1: #FF7400;
-    --tetrad-1: #33FFFF;
+  --default-fg: #33ff33;
+  --default-bg: black;
+  --complementary: #ff0000;
+  --triad-1: #ff7400;
+  --tetrad-1: #33ffff;
 }
 
-*, *::before, *::after {
+*,
+*::before,
+*::after {
   box-sizing: border-box;
   margin: 0;
   padding: 0;
 }
 
 .frosted {
-    background: rgba(0, 0, 0, .7);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px); /* Safari support */
+  background: rgba(0, 0, 0, 0.7);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* Safari support */
 }
 
 body {
-    background-image: url(../images/haunted_background.jpg);
-    background-size: cover;
-    background-position: center;
-    background-repeat: no-repeat;
-    height: 100vh;
-    display: grid;
-    align-content: center;
+  background-image: url(../images/haunted_background.jpg);
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  height: 100vh;
+  display: grid;
+  align-content: center;
 }
 
 main {
-    display: grid;
-    grid-template-columns: minmax(200px, 800px);
-    justify-content: center;
-    gap: 4px;
-    margin: 20px;
-    font-family: 'Cascadia Mono', monospace;
+  display: grid;
+  grid-template-columns: minmax(200px, 800px);
+  justify-content: center;
+  gap: 4px;
+  margin: 20px;
+  font-family: 'Cascadia Mono', monospace;
 }
 
 h1 {
-    text-align: center;
-    color: white;
-    border-radius: 10px;
-    padding: 20px;
+  text-align: center;
+  color: white;
+  border-radius: 10px;
+  padding: 20px;
 }
 
 #terminal {
-    color: var(--default-fg);
-    height: 400px;
-    display: grid;
-    padding: 15px;
-    border-radius: 10px;
-    align-content: start;
-    scrollbar-width: none;      /* Firefox */
-    -ms-overflow-style: none;   /* IE/Edge Legacy */
-    transition: background-color 1s;
-    overflow-y: auto; 
-    -webkit-overflow-scrolling: touch; /* enable momentum scrolling on iOS */
-    touch-action: manipulation;
-    position: relative; /* treat taps as taps, not scroll gestures */
+  color: var(--default-fg);
+  height: 400px;
+  display: grid;
+  padding: 15px;
+  border-radius: 10px;
+  align-content: start;
+  scrollbar-width: none; /* Firefox */
+  -ms-overflow-style: none; /* IE/Edge Legacy */
+  transition: background-color 1s;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch; /* enable momentum scrolling on iOS */
+  touch-action: manipulation;
+  position: relative; /* treat taps as taps, not scroll gestures */
 }
 
 #terminal::-webkit-scrollbar {
@@ -65,92 +67,93 @@ h1 {
 }
 
 #terminal:hover {
-    cursor: pointer;
-    background-color: rgba(0, 0, 0, .6);
+  cursor: pointer;
+  background-color: rgba(0, 0, 0, 0.6);
 }
 
 #hint-layer {
-    position: absolute;
-    inset: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: rgba(0,0,0,0.6);
-    color: #fff;
-    font-size: 1.5rem;
-    pointer-events: none;
-    opacity: 1;
-    transition: opacity 1s ease;
-    z-index: 2;
+  position: absolute;
+  inset: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(0, 0, 0, 0.6);
+  color: #fff;
+  font-size: 1.5rem;
+  pointer-events: none;
+  opacity: 1;
+  transition: opacity 1s ease;
+  z-index: 2;
 }
 
 #hint-layer.hidden {
-    opacity: 0;
+  opacity: 0;
 }
 
 #output {
-    white-space: pre-line;
+  white-space: pre-line;
 }
 
 #input-container {
-    display: flex;
-    align-items: start;
-    white-space: pre;
-    position: relative;
+  display: flex;
+  align-items: start;
+  white-space: pre;
+  position: relative;
 }
 
 #terminal-input {
-    display: inline-block;
-    min-height: 1.2em;
-    outline: none;
-    border: none;
-    background: transparent;
-    color: inherit;
-    font: inherit;
-    white-space: pre;
-    caret-color: transparent;
-    flex: 0 1 auto;
+  display: inline-block;
+  min-height: 1.2em;
+  outline: none;
+  border: none;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  white-space: pre;
+  caret-color: transparent;
+  flex: 0 1 auto;
 }
 
 #cursor {
-    background: var(--default-fg);
-    opacity: .5;
-    position: absolute;
-    width: 1ch;
-    height: 1.2em;
-    mix-blend-mode: difference; /* This creates the "Invert" effect automatically! */
-    pointer-events: none;
+  background: var(--default-fg);
+  opacity: 0.5;
+  position: absolute;
+  width: 1ch;
+  height: 1.2em;
+  mix-blend-mode: difference; /* This creates the "Invert" effect automatically! */
+  pointer-events: none;
 }
 
 #terminal:focus-within #cursor {
-    opacity: 1;
-    animation: blink 1s step-end infinite;
+  opacity: 1;
+  animation: blink 1s step-end infinite;
 }
 
-#terminal:active #cursor{
-    opacity: 1;
+#terminal:active #cursor {
+  opacity: 1;
 }
 
 #new-game-btn {
-    justify-self: center;
-    padding: 20px;
-    font-size: 1.5em;
-    letter-spacing: 2px;
-    cursor: pointer;
-    color: white;
-    font-weight: 900;
-    border: 2px solid var(--triad-1);
-    border-radius: 10px;
-    transition: all 1s;
-    margin-top: 35px;
+  justify-self: center;
+  padding: 20px;
+  font-size: 1.5em;
+  letter-spacing: 2px;
+  cursor: pointer;
+  color: white;
+  font-weight: 900;
+  border: 2px solid var(--triad-1);
+  border-radius: 10px;
+  transition: all 1s;
+  margin-top: 35px;
 }
 
 #new-game-btn:hover {
-    background-color: rgba(0, 0, 0, .4);
-    border: 2px solid var(--tetrad-1);
+  background-color: rgba(0, 0, 0, 0.4);
+  border: 2px solid var(--tetrad-1);
 }
 
 @keyframes blink {
-    50% { opacity: 0; }
+  50% {
+    opacity: 0;
+  }
 }
-
