@@ -18,10 +18,10 @@ public class World {
     /**
      * Create the game world that has a player, rooms, a starting room, key etc.
      * 
-     * @param player The player of the game
-     * @param rooms The rooms in the game
-     * @param startingRoom The room where the game starts
-     * @param key A key that unlocks an exit
+     * @param player the player of the game
+     * @param rooms the rooms in the game
+     * @param startingRoom the room where the game starts
+     * @param key a key that unlocks an exit
      */
     public World(Player player, Map<RoomName, Room> rooms, Room startingRoom, Item key) {
         this.player = player;
@@ -33,7 +33,7 @@ public class World {
     /**
      * Returns the player associated with this world.
      *
-     * @return The player of the game world
+     * @return the player of the game world
      */
     public Player getPlayer() {
         return player;
@@ -42,7 +42,7 @@ public class World {
     /**
      * Returns all rooms that exist in the game world.
      *
-     * @return The rooms in the game
+     * @return the rooms in the game
      */
     public Map<RoomName, Room> getRooms() {
         return rooms;
@@ -51,7 +51,7 @@ public class World {
     /**
      * Returns the room where the player begins the game.
      *
-     * @return The starting room of the game
+     * @return the starting room of the game
      */
     public Room getStartingRoom() {
         return startingRoom;
@@ -60,8 +60,8 @@ public class World {
     /**
      * Get the room that matches a name
      * 
-     * @param name The name of the room
-     * @return The room
+     * @param name the name of the room
+     * @return the room
      */
     public Room getRoom(RoomName name) {
         return rooms.get(name);
@@ -70,7 +70,7 @@ public class World {
     /**
      * Returns the key used to unlock a specific exit in the world.
      *
-     * @return The key
+     * @return the key
      */
     public Item getKey() {
         return key;

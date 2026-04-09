@@ -35,7 +35,7 @@ public class WorldBuilder {
          * Create the game world. Create all of the items, rooms, characters, etc and place them in
          * rooms and connect wire up the exits of the rooms.
          * 
-         * @return The game world
+         * @return the game world
          */
         public World createWorld() {
                 Player player = new Player("Brian", new Inventory(75));
@@ -54,7 +54,7 @@ public class WorldBuilder {
         /**
          * Create all the rooms that will exist in the world
          * 
-         * @return All of the rooms in the world
+         * @return all of the rooms in the world
          */
         private Map<RoomName, Room> createRooms() {
                 Map<RoomName, Room> rooms = new EnumMap<>(RoomName.class);
@@ -83,7 +83,7 @@ public class WorldBuilder {
          * Create all the items that will be referenced later. For example an item may be referenced
          * later by a character that is looking for a particular item.
          * 
-         * @return A list of all the items
+         * @return a list of all the items
          */
         private Map<String, Item> createReferencedItems() {
                 Map<String, Item> items = new HashMap<>();
@@ -110,7 +110,7 @@ public class WorldBuilder {
          * placed in the room all within this method because they do not need to be refered to
          * later.
          * 
-         * @param rooms The rooms to place items in
+         * @param rooms the rooms to place items in
          */
         private void placeUnreferencedItems(Map<RoomName, Room> rooms) {
                 rooms.get(RoomName.HALLWAY).addItem(
@@ -128,8 +128,8 @@ public class WorldBuilder {
         /**
          * Place the characters in a room
          * 
-         * @param rooms The rooms to place characters in
-         * @param items The items that can be given to characters
+         * @param rooms the rooms to place characters in
+         * @param items the items that can be given to characters
          */
         private void placeCharacters(Map<RoomName, Room> rooms, Map<String, Item> items) {
                 rooms.get(RoomName.BILLIARD_ROOM).addCharacter(new Character("Beatrice",
@@ -142,7 +142,7 @@ public class WorldBuilder {
          * Connect the rooms together so that a player can move from room to room at specific
          * locations
          * 
-         * @param rooms The rooms to wire connect
+         * @param rooms the rooms to wire connect
          */
         private void wireExits(Map<RoomName, Room> rooms) {
                 rooms.get(RoomName.HALLWAY).setExit(Direction.NORTH, rooms.get(RoomName.DEN),

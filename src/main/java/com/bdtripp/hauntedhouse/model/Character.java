@@ -19,11 +19,11 @@ public class Character {
      * Create a character with a name, dialog, item they are seeking, and item they give as a
      * reward.
      * 
-     * @param name The name of the character.
-     * @param initialDialog The initial dialog that the character speaks.
-     * @param acceptanceDialog The dialog that the character speaks upon accepting an item.
-     * @param itemSought The item that the character is seeking.
-     * @param itemForReward The item that the character rewards the player with.
+     * @param name the name of the character.
+     * @param initialDialog the initial dialog that the character speaks.
+     * @param acceptanceDialog the dialog that the character speaks upon accepting an item.
+     * @param itemSought the item that the character is seeking.
+     * @param itemForReward the item that the character rewards the player with.
      */
     public Character(String name, String initialDialog, String acceptanceDialog, Item itemSought,
             Item itemForReward) {
@@ -37,7 +37,7 @@ public class Character {
     /**
      * Returns the name of the character
      * 
-     * @return The name
+     * @return the name
      */
     public String getName() {
         return name;
@@ -46,7 +46,7 @@ public class Character {
     /**
      * Returns the initial dialog that the character speaks
      * 
-     * @return The initial dialog
+     * @return the initial dialog
      */
     public String getInitialDialog() {
         return initialDialog;
@@ -55,7 +55,7 @@ public class Character {
     /**
      * Returns the dialog that the character speaks upon accepting an item
      * 
-     * @return The acceptance dialog
+     * @return the acceptance dialog
      */
     public String getAcceptanceDialog() {
         return acceptanceDialog;
@@ -64,7 +64,7 @@ public class Character {
     /**
      * Returns the item that the character is seeking
      * 
-     * @return The item
+     * @return the item
      */
     public Item getItemSought() {
         return itemSought;
@@ -73,7 +73,7 @@ public class Character {
     /**
      * Returns the item as a reward
      * 
-     * @return The item
+     * @return the item
      */
     public Item getItemForReward() {
         return itemForReward;

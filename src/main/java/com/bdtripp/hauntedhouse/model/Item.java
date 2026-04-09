@@ -19,12 +19,12 @@ public class Item {
     /**
      * Creates a new item
      *
-     * @param name The name of the item
-     * @param description A description of the item
-     * @param weight The items weight
-     * @param isEdible Whether or not the item is edible
-     * @param statToAffect The stat of a player that the item has an affect on (eg. strength)
-     * @param affectValue The amount to change the stat's value by
+     * @param name the name of the item
+     * @param description a description of the item
+     * @param weight the items weight
+     * @param isEdible whether or not the item is edible
+     * @param statToAffect the stat of a player that the item has an affect on (eg. strength)
+     * @param affectValue the amount to change the stat's value by
      */
     public Item(String name, String description, int weight, boolean isEdible,
             PlayerStat statToAffect, int affectValue) {
@@ -39,7 +39,7 @@ public class Item {
     /**
      * Returns the name of the item
      * 
-     * @return The name
+     * @return the name
      */
     public String getName() {
         return name;
@@ -48,7 +48,7 @@ public class Item {
     /**
      * Returns the description of the item
      * 
-     * @return The description
+     * @return the description
      */
     public String getDescription() {
         return description;
@@ -57,7 +57,7 @@ public class Item {
     /**
      * Returns the weight of the item
      * 
-     * @return The weight
+     * @return the weight
      */
     public int getWeight() {
         return weight;
@@ -75,7 +75,7 @@ public class Item {
     /**
      * Returns the stat the item has an effect on
      * 
-     * @return The stat
+     * @return the stat
      */
     public PlayerStat getStatToAffect() {
         return statToAffect;
@@ -84,7 +84,7 @@ public class Item {
     /**
      * Returns the amount to change a stat's value by
      * 
-     * @return The amount
+     * @return the amount
      */
     public int getAffectValue() {
         return affectValue;

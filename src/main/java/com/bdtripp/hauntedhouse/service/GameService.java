@@ -23,7 +23,7 @@ public class GameService {
     /**
      * Starts a new game session and returns the initial response.
      *
-     * @return A response containing a welcome message and status of the game
+     * @return a response containing a welcome message and status of the game
      */
     public GameResponse startGame() {
         gameEngine = new GameEngine();
@@ -35,8 +35,8 @@ public class GameService {
     /**
      * Processes a player command and returns the resulting game output and status.
      *
-     * @param request The request containing the player command
-     * @return A response containing output and status of the game
+     * @param request the request containing the player command
+     * @return a response containing output and status of the game
      */
     public GameResponse execute(GameRequest request) {
         Parser parser = new Parser(request.getInput());

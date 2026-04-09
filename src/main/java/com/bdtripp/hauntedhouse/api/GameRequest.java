@@ -20,7 +20,7 @@ public class GameRequest {
     /**
      * Returns the players input
      * 
-     * @return The input from the client
+     * @return the input from the client
      */
     public String getInput() {
         return input;

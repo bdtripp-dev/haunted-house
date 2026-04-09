@@ -14,8 +14,8 @@ public class Stats {
     /**
      * Creates a new Stats object with the specified health and strength values.
      *
-     * @param health The health of the player
-     * @param strength The strength of the player
+     * @param health the health of the player
+     * @param strength the strength of the player
      */
     public Stats(int health, int strength) {
         this.health = health;
@@ -25,7 +25,7 @@ public class Stats {
     /**
      * Set the health of the player
      * 
-     * @param value The value to set
+     * @param value the value to set
      */
     public void setHealth(int value) {
         health = value;
@@ -43,7 +43,7 @@ public class Stats {
     /**
      * Set the strength of the player
      * 
-     * @param value The value to set
+     * @param value the value to set
      */
     public void setStrength(int value) {
         strength = value;

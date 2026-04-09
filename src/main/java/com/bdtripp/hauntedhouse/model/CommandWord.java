@@ -61,7 +61,7 @@ public enum CommandWord {
     /**
      * Checks whether a given string is a valid command word.
      * 
-     * @param aString The string to check
+     * @param aString the string to check
      * @return true if a given string is a valid command, false if it isn't.
      */
     public static boolean isCommand(String aString) {
@@ -76,7 +76,7 @@ public enum CommandWord {
     /**
      * Get a list of all valid commands
      * 
-     * @return A list of all valid commands separated by spaces
+     * @return a list of all valid commands separated by spaces
      */
     public static String getCommandList() {
         return Arrays.stream(CommandWord.values()).map(Enum::name).map(String::toLowerCase)
@@ -86,8 +86,8 @@ public enum CommandWord {
     /**
      * Converts a string into a CommandWord if it is a valid command
      * 
-     * @param word A string to convert to a CommandWord
-     * @return The CommandWord
+     * @param word a string to convert to a CommandWord
+     * @return the CommandWord
      */
     public static CommandWord fromString(String word) {
         try {

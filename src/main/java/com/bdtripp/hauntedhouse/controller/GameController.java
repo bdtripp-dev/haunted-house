@@ -27,7 +27,7 @@ public class GameController {
      * Create the GameController and initialize the GameService. Since this class is annotated
      * with @RestController, Spring takes care of instantiating it.
      * 
-     * @param gameService The GameService that the Game Controller routes request to and responses
+     * @param gameService the GameService that the Game Controller routes request to and responses
      * from.
      */
     public GameController(GameService gameService) {
@@ -42,7 +42,7 @@ public class GameController {
      * output shown to the user. The client should call this endpoint before sending any commands.
      * </p>
      *
-     * @return A {@link GameResponse} containing the game's initial output and the current
+     * @return a {@link GameResponse} containing the game's initial output and the current
      * {@link GameStatus}.
      */
     @PostMapping("/start")
@@ -59,8 +59,8 @@ public class GameController {
      * and may change the player's location, inventory, or stats.
      * </p>
      *
-     * @param request The player's input command, wrapped in a {@link GameRequest}.
-     * @return A {@link GameResponse} containing the engine's output and the updated
+     * @param request the player's input command, wrapped in a {@link GameRequest}.
+     * @return a {@link GameResponse} containing the engine's output and the updated
      * {@link GameStatus}.
      */
     @PostMapping(value = "/command", consumes = "application/json", produces = "application/json")

@@ -36,7 +36,7 @@ public class Inventory {
     /**
      * Returns the maximum weight that the player can carry
      * 
-     * @return The maximum weight
+     * @return the maximum weight
      */
     public int getMaxCarryWeight() {
         return maxCarryWeight;
@@ -45,7 +45,7 @@ public class Inventory {
     /**
      * Adds an item to the inventory
      * 
-     * @param item The item add
+     * @param item the item add
      */
     public void addItem(Item item) {
         items.add(item);
@@ -54,8 +54,8 @@ public class Inventory {
     /**
      * Removes an item from the inventory
      * 
-     * @param item The item to remove
-     * @return The item that was removed
+     * @param item the item to remove
+     * @return the item that was removed
      */
     public Item removeItem(Item item) {
         if (items.remove(item)) {
@@ -80,7 +80,7 @@ public class Inventory {
     /**
      * Returns an item in the inventory
      * 
-     * @param name The name of the item
+     * @param name the name of the item
      * @return The item
      */
     public Item findItem(String name) {
@@ -95,7 +95,7 @@ public class Inventory {
     /**
      * Checks if a particular item is in the inventory
      * 
-     * @param item The item to check
+     * @param item the item to check
      * @return true if the item is in the inventory
      */
     public boolean hasItem(Item item) {

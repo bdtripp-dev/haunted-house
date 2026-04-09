@@ -22,7 +22,7 @@ public class Player {
     /**
      * Creates a new player with the given name and starting inventory.
      *
-     * @param name The name of the player
+     * @param name the name of the player
      * @param inventory A collection of items carried by the player
      */
     public Player(String name, Inventory inventory) {
@@ -35,7 +35,7 @@ public class Player {
     /**
      * Sets whether the player's beamer is currently charged.
      *
-     * @param value True if the beamer is charged, otherwise false
+     * @param value true if the beamer is charged, otherwise false
      */
     public void setBeamerCharge(boolean value) {
         beamerCharged = value;
@@ -53,7 +53,7 @@ public class Player {
     /**
      * Moves the player to the specified room
      * 
-     * @param room The room to move the player to
+     * @param room the room to move the player to
      * @param addToHistory true if current room should be added to history
      */
     public void moveToRoom(Room room, boolean addToHistory) {
@@ -73,7 +73,7 @@ public class Player {
     /**
      * Returns the stack of rooms the player has previously visited.
      *
-     * @return The history of the rooms the player has been in
+     * @return the history of the rooms the player has been in
      */
     public Stack<Room> getRoomHistory() {
         return roomHistory;
@@ -82,7 +82,7 @@ public class Player {
     /**
      * Returns the room the player is currently located in.
      * 
-     * @return The room the player is currently in
+     * @return the room the player is currently in
      */
     public Room getCurrentRoom() {
         return currentRoom;
@@ -91,7 +91,7 @@ public class Player {
     /**
      * Returns the previous room and removes it from the room history
      * 
-     * @return The previous room
+     * @return the previous room
      */
     public Room getPreviousRoom() {
         return roomHistory.pop();
@@ -100,7 +100,7 @@ public class Player {
     /**
      * Calculates how many moves the player can still make.
      *
-     * @return The number of moves a player has left
+     * @return the number of moves a player has left
      */
     public int getMovesLeft() {
         return MAX_MOVES_ALLOWED - roomHistory.size();
@@ -116,7 +116,7 @@ public class Player {
     /**
      * Returns the room where the beamer was last charged.
      *
-     * @return The location of the last beamer charge
+     * @return the location of the last beamer charge
      */
     public Room getBeamerLocation() {
         return beamerLocation;
@@ -125,8 +125,8 @@ public class Player {
     /**
      * Makes a player ingest an item
      * 
-     * @param item The item to ingest
-     * @return A message to display
+     * @param item the item to ingest
+     * @return a message to display
      */
     public String ingest(Item item) {
         PlayerStat statToAffect = item.getStatToAffect();
@@ -149,7 +149,7 @@ public class Player {
     /**
      * Returns the player's inventory.
      *
-     * @return The player's inventory
+     * @return the player's inventory
      */
     public Inventory getInventory() {
         return inventory;

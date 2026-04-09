@@ -23,8 +23,8 @@ public class GameResponse {
     /**
      * Creates a GameResponse and initialize the output and status.
      * 
-     * @param output The output from the GameEngine.
-     * @param status The game's status.
+     * @param output the output from the GameEngine.
+     * @param status the game's status.
      */
     public GameResponse(String output, GameStatus status) {
         this.output = output;
@@ -34,7 +34,7 @@ public class GameResponse {
     /**
      * Returns the output from the GameEngine.
      * 
-     * @return The output.
+     * @return the output.
      */
     public String getOutput() {
         return output;
@@ -43,7 +43,7 @@ public class GameResponse {
     /**
      * Sets the output from the GameEngine.
      * 
-     * @param output The output.
+     * @param output the output.
      */
     public void setOutput(String output) {
         this.output = output;
@@ -52,7 +52,7 @@ public class GameResponse {
     /**
      * Returns the status of the game.
      * 
-     * @return The status.
+     * @return the status.
      */
     public GameStatus getStatus() {
         return status;
@@ -61,7 +61,7 @@ public class GameResponse {
     /**
      * Sets the status of the game.
      * 
-     * @param status The status.
+     * @param status the status.
      */
     public void setStatus(GameStatus status) {
         this.status = status;

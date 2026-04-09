@@ -21,7 +21,7 @@ public class Room {
     /**
      * Creates a new room with the given name and description.
      * 
-     * @param description The room's description. Something like "a kitchen" or "an open court
+     * @param description the room's description. Something like "a kitchen" or "an open court
      * yard".
      */
     public Room(RoomName name, String description) {
@@ -35,7 +35,7 @@ public class Room {
     /**
      * Adds an item to the room
      * 
-     * @param item The item to add
+     * @param item the item to add
      */
     public void addItem(Item item) {
         items.add(item);
@@ -44,8 +44,8 @@ public class Room {
     /**
      * Finds an item with a given name
      * 
-     * @param name The name of the item
-     * @return The item
+     * @param name the name of the item
+     * @return the item
      */
     public Item findItem(String name) {
         for (Item item : items) {
@@ -59,8 +59,8 @@ public class Room {
     /**
      * Removes an item from the room
      * 
-     * @param item The item to remove
-     * @return The item that was removed
+     * @param item the item to remove
+     * @return the item that was removed
      */
     public Item removeItem(Item item) {
         if (items.remove(item)) {
@@ -72,7 +72,7 @@ public class Room {
     /**
      * Adds a character to the room
      * 
-     * @param character The character to add
+     * @param character the character to add
      */
     public void addCharacter(Character character) {
         characters.add(character);
@@ -81,9 +81,9 @@ public class Room {
     /**
      * Creates an exit for the room
      * 
-     * @param direction The direction of the exit.
-     * @param neighbor The room in the given direction.
-     * @param type The type of exit (locked or unlocked)
+     * @param direction the direction of the exit.
+     * @param neighbor the room in the given direction.
+     * @param type the type of exit (locked or unlocked)
      */
     public void setExit(Direction direction, Room neighbor, ExitType type) {
         Exit exit = new Exit(direction, neighbor, type);
@@ -93,8 +93,8 @@ public class Room {
     /**
      * Retrieves the neighboring room in the specified direction.
      *
-     * @param direction The direction of the neighbor
-     * @return The room in the given direction. null if there is no exit in that direction
+     * @param direction the direction of the neighbor
+     * @return the room in the given direction. null if there is no exit in that direction
      */
     public Room getNeighbor(Direction direction) {
         if (exits.containsKey(direction)) {
@@ -106,8 +106,8 @@ public class Room {
     /**
      * Returns the exit associated with the given direction.
      *
-     * @param direction The direction of the exit
-     * @return The exit in the direction provided
+     * @param direction the direction of the exit
+     * @return the exit in the direction provided
      */
     public Exit getExit(Direction direction) {
         return exits.get(direction);
@@ -116,7 +116,7 @@ public class Room {
     /**
      * Builds a description of all exits from this room.
      *
-     * @return A description of the room's exits, for example, "Exits: north west".
+     * @return a description of the room's exits, for example, "Exits: north west".
      */
     public String describeExits() {
         String returnString = "Exits:";
@@ -130,7 +130,7 @@ public class Room {
     /**
      * Returns the name of the room.
      *
-     * @return The name of the room.
+     * @return the name of the room.
      */
     public RoomName getName() {
         return name;
@@ -139,7 +139,7 @@ public class Room {
     /**
      * Returns the description for this room.
      *
-     * @return The description of the room.
+     * @return the description of the room.
      */
     public String getDescription() {
         return description;
@@ -148,7 +148,7 @@ public class Room {
     /**
      * Produces a formatted description of all items present in the room.
      *
-     * @return A description of the items in the room
+     * @return a description of the items in the room
      */
     public String describeItems() {
         String returnString = "";
@@ -172,7 +172,7 @@ public class Room {
     /**
      * Produces a formatted list of characters in the room.
      *
-     * @return A list of characters in the room
+     * @return a list of characters in the room
      */
     public String describeCharacters() {
         String returnString = "Characters:\n";
@@ -188,7 +188,7 @@ public class Room {
     /**
      * Produces a full description of the room, including its exits.
      * 
-     * @return A description of the room. For example: You are in the kitchen. Exits: north west
+     * @return a description of the room. For example: You are in the kitchen. Exits: north west
      */
     public String describeRoom() {
         return "You are " + description + ".\n" + describeExits();

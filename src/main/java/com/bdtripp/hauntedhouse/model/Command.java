@@ -20,9 +20,9 @@ public class Command {
     /**
      * Create a command with three words. Words may be null.
      * 
-     * @param firstWord The first word of the command.
-     * @param secondWord The second word of the command.
-     * @param thirdWord The third word of the command.
+     * @param firstWord the first word of the command.
+     * @param secondWord the second word of the command.
+     * @param thirdWord the third word of the command.
      *
      */
     public Command(CommandWord firstWord, String secondWord, String thirdWord) {

@@ -40,8 +40,8 @@ public class GameEngine {
     /**
      * Given a command, process (that is: execute) the command.
      * 
-     * @param command The command to be processed.
-     * @return A message to display
+     * @param command the command to be processed.
+     * @return a message to display
      */
     public String processCommand(Command command) {
         return commandProcessor.processCommand(command);
@@ -50,7 +50,7 @@ public class GameEngine {
     /**
      * Returns a random room in the haunted house
      * 
-     * @return A random room
+     * @return a random room
      */
     public Room getRandomRoom() {
         Random randomGenerator = new Random();
@@ -65,7 +65,7 @@ public class GameEngine {
      * Build the welcome message that displays when a new game is started. Includes information
      * about the room a player is in.
      * 
-     * @return The welcome message
+     * @return the welcome message
      */
     public String buildWelcomeMessage() {
         StringBuilder buffer = new StringBuilder();
@@ -87,7 +87,7 @@ public class GameEngine {
      * Gets a description about the room the player is currently in including the items and
      * characters that it contains.
      * 
-     * @return A description of the room
+     * @return a description of the room
      */
     public String describeCurrentRoom() {
         Room currentRoom = world.getPlayer().getCurrentRoom();
@@ -103,9 +103,9 @@ public class GameEngine {
     /**
      * Moves the player to the specified room and returns details about the room
      * 
-     * @param nextRoom The room to move to
-     * @param addToHistory True if the current room should be added to history
-     * @return The details about the room
+     * @param nextRoom the room to move to
+     * @param addToHistory true if the current room should be added to history
+     * @return the details about the room
      */
     public String movePlayerTo(Room nextRoom, boolean addToHistory) {
         world.getPlayer().moveToRoom(nextRoom, addToHistory);

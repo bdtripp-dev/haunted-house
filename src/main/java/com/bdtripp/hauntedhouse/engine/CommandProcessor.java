@@ -24,8 +24,8 @@ public class CommandProcessor {
     /**
      * Creates a CommandProcessor that operates on the given game world.
      * 
-     * @param world The game world whose state will be manipulated by commands.
-     * @param gameEngine The engine that modifies the game's state
+     * @param world the game world whose state will be manipulated by commands.
+     * @param gameEngine the engine that modifies the game's state
      */
     public CommandProcessor(World world, GameEngine gameEngine) {
         this.world = world;
@@ -35,8 +35,8 @@ public class CommandProcessor {
     /**
      * Given a command, process (that is: execute) the command.
      * 
-     * @param command The command to be processed.
-     * @return A message to display
+     * @param command the command to be processed.
+     * @return a message to display
      */
     public String processCommand(Command command) {
         return switch (command.getCommandWord()) {
@@ -61,7 +61,7 @@ public class CommandProcessor {
     /**
      * Returns a list of command words and directions on how to use them.
      * 
-     * @return A help message
+     * @return a help message
      */
     private String showHelp() {
         StringBuilder buffer = new StringBuilder();
@@ -142,8 +142,8 @@ public class CommandProcessor {
      * If there is an exit in the direction provided by the command, the player takes that exit and
      * enters the neighboring room.
      * 
-     * @param command The command that was entered
-     * @return A message
+     * @param command the command that was entered
+     * @return a message
      */
     private String handleGoCommand(Command command) {
         StringBuilder buffer = new StringBuilder();
@@ -181,7 +181,7 @@ public class CommandProcessor {
     /**
      * Returns a message about the current location
      * 
-     * @return A message to display
+     * @return a message to display
      */
     private String look() {
         return world.getPlayer().getCurrentRoom().describeRoom();
@@ -190,8 +190,8 @@ public class CommandProcessor {
     /**
      * Makes the player eat an item if it is edible
      * 
-     * @param command The command that was entered
-     * @return A message to display
+     * @param command the command that was entered
+     * @return a message to display
      */
     private String eat(Command command) {
         if (!command.hasSecondWord()) {
@@ -214,8 +214,8 @@ public class CommandProcessor {
     /**
      * Makes a player pick up an item to carry with them
      * 
-     * @param command The command that was entered
-     * @return A message to display
+     * @param command the command that was entered
+     * @return a message to display
      */
     private String take(Command command) {
         if (!command.hasSecondWord()) {
@@ -244,8 +244,8 @@ public class CommandProcessor {
     /**
      * Makes a player drop an item so they no longer have to carry it
      * 
-     * @param command The command that was entered
-     * @return A message to display
+     * @param command the command that was entered
+     * @return a message to display
      */
     private String drop(Command command) {
         if (!command.hasSecondWord()) {
@@ -267,7 +267,7 @@ public class CommandProcessor {
     /**
      * Returns a message about all of the items that the player is currently carrying
      * 
-     * @return A message to display
+     * @return a message to display
      */
     private String showInventory() {
         return world.getPlayer().getInventory().getItemDetails();
@@ -276,7 +276,7 @@ public class CommandProcessor {
     /**
      * Returns the players current stats
      * 
-     * @return A message to display
+     * @return a message to display
      */
     private String showStats() {
         return world.getPlayer().getStats();
@@ -285,8 +285,8 @@ public class CommandProcessor {
     /**
      * Makes a play talk to a character
      * 
-     * @param command The command that was entered
-     * @return A message to display
+     * @param command the command that was entered
+     * @return a message to display
      */
     public String talk(Command command) {
         if (!command.hasSecondWord()) {
@@ -306,8 +306,8 @@ public class CommandProcessor {
     /**
      * Makes the player give an item to a character
      * 
-     * @param command The command that was entered
-     * @return A message to display
+     * @param command the command that was entered
+     * @return a message to display
      */
     public String give(Command command) {
         StringBuilder buffer = new StringBuilder();
@@ -349,8 +349,8 @@ public class CommandProcessor {
      * Charges an item. (i.e. the beamer. Charging the beamer memorizes the location of the players
      * current room.)
      * 
-     * @param command The command that was entered
-     * @return A message to display
+     * @param command the command that was entered
+     * @return a message to display
      */
     private String charge(Command command) {
         if (!command.hasSecondWord()) {
@@ -372,8 +372,8 @@ public class CommandProcessor {
      * Fires an item. (i.e. the beamer. Firing the beamer returns the player to the location at
      * which the beamer was last charged.)
      * 
-     * @param command The command that was entered
-     * @return A message to display
+     * @param command the command that was entered
+     * @return a message to display
      */
     private String fire(Command command) {
         StringBuilder buffer = new StringBuilder();
@@ -397,8 +397,8 @@ public class CommandProcessor {
     /**
      * Moves the player back to the previous room they were in.
      * 
-     * @param command The command that was entered
-     * @return A message to display
+     * @param command the command that was entered
+     * @return a message to display
      */
     private String back(Command command) {
         if (command.hasSecondWord()) {
@@ -414,7 +414,7 @@ public class CommandProcessor {
     /**
      * Check the rest of the command to see whether we really quit the game.
      * 
-     * @return A message to display in the console
+     * @return a message to display in the console
      */
     private String quit(Command command) {
         if (command.hasSecondWord()) {
