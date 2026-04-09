@@ -25,6 +25,16 @@ document.addEventListener('DOMContentLoaded', async () => {
         }
     };
 
+  // -----------------------------
+  // Helper Functions
+  // -----------------------------
+
+  const DEBUG = window.LOCAL_DEBUG === true;
+
+  function debug(...args) {
+    if (DEBUG) console.log(...args);
+  }
+
     // -----------------------------
     // Rendering
     // -----------------------------
