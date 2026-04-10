@@ -4,10 +4,12 @@ import java.util.Arrays;
 import java.util.stream.Collectors;
 
 /**
- * An enumeration of all valid commands in the Haunted House game.
+ * An enumeration of all valid commands.
  *
- * @author Michael Kölling, David J. Barnes, and Brian Tripp
- * @version 2026.02.10
+ * Each constant represents a command that the game engine can execute. The UNKNOWN value is used
+ * when player input does not match any defined command.
+ *
+ * @author Brian Tripp
  */
 public enum CommandWord {
 
@@ -59,9 +61,8 @@ public enum CommandWord {
     /**
      * Checks whether a given string is a valid command word.
      * 
-     * @param aString The string to check
-     * @return true if a given string is a valid command,
-     *         false if it isn't.
+     * @param aString the string to check
+     * @return true if a given string is a valid command, false if it isn't.
      */
     public static boolean isCommand(String aString) {
         try {
@@ -75,20 +76,18 @@ public enum CommandWord {
     /**
      * Get a list of all valid commands
      * 
-     * @return A list of all valid commands separated by spaces
+     * @return a list of all valid commands separated by spaces
      */
     public static String getCommandList() {
-        return Arrays.stream(CommandWord.values())
-                .map(Enum::name)
-                .map(String::toLowerCase)
+        return Arrays.stream(CommandWord.values()).map(Enum::name).map(String::toLowerCase)
                 .collect(Collectors.joining(" "));
     }
 
     /**
      * Converts a string into a CommandWord if it is a valid command
      * 
-     * @param word A string to convert to a CommandWord
-     * @return The CommandWord
+     * @param word a string to convert to a CommandWord
+     * @return the CommandWord
      */
     public static CommandWord fromString(String word) {
         try {

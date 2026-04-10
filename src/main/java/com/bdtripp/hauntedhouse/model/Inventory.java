@@ -3,14 +3,12 @@ package com.bdtripp.hauntedhouse.model;
 import java.util.ArrayList;
 
 /**
- * Represents a collection of items carried by the player in
- * the Haunted House game. The Inventory is responsible for storing items,
- * enforcing carry-weight limits, and providing operations for adding, removing,
- * and querying items. It encapsulates all item-management logic so that Player
- * remains focused on player-specific behavior.
- * 
+ * Represents a collection of items carried by the player.
+ *
+ * The inventory stores items, enforces carry‑weight limits, and provides operations for adding,
+ * removing, and querying items.
+ *
  * @author Brian Tripp
- * @version 2026.04.02
  */
 public class Inventory {
     private int maxCarryWeight;
@@ -38,7 +36,7 @@ public class Inventory {
     /**
      * Returns the maximum weight that the player can carry
      * 
-     * @return The maximum weight
+     * @return the maximum weight
      */
     public int getMaxCarryWeight() {
         return maxCarryWeight;
@@ -47,7 +45,7 @@ public class Inventory {
     /**
      * Adds an item to the inventory
      * 
-     * @param item The item add
+     * @param item the item add
      */
     public void addItem(Item item) {
         items.add(item);
@@ -56,8 +54,8 @@ public class Inventory {
     /**
      * Removes an item from the inventory
      * 
-     * @param item The item to remove
-     * @return The item that was removed
+     * @param item the item to remove
+     * @return the item that was removed
      */
     public Item removeItem(Item item) {
         if (items.remove(item)) {
@@ -82,7 +80,7 @@ public class Inventory {
     /**
      * Returns an item in the inventory
      * 
-     * @param name The name of the item
+     * @param name the name of the item
      * @return The item
      */
     public Item findItem(String name) {
@@ -97,7 +95,7 @@ public class Inventory {
     /**
      * Checks if a particular item is in the inventory
      * 
-     * @param item The item to check
+     * @param item the item to check
      * @return true if the item is in the inventory
      */
     public boolean hasItem(Item item) {

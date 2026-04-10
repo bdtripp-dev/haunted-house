@@ -1,8 +1,8 @@
 package com.bdtripp.hauntedhouse.model;
 
 /**
- * Enumerates all the room names in the Haunted House game.
- * 
+ * Enumerates all supported room names.
+ *
  * @author Brian Tripp
  */
 public enum RoomName {

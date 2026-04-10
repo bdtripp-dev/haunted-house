@@ -10,10 +10,12 @@ import com.bdtripp.hauntedhouse.model.Room;
 import com.bdtripp.hauntedhouse.model.World;
 
 /**
- * Responsible for interpreting and executing player commands.
+ * Interprets player commands and applies their effects to the game world.
+ *
+ * The CommandProcessor translates parsed commands into actions, invokes the GameEngine to update
+ * the game state, and returns messages describing the results of those actions.
  *
  * @author Brian Tripp
- * @version 2026.04.04
  */
 public class CommandProcessor {
     private final World world;
@@ -22,8 +24,8 @@ public class CommandProcessor {
     /**
      * Creates a CommandProcessor that operates on the given game world.
      * 
-     * @param world      The game world whose state will be manipulated by commands.
-     * @param gameEngine The engine that modifies the game's state
+     * @param world the game world whose state will be manipulated by commands.
+     * @param gameEngine the engine that modifies the game's state
      */
     public CommandProcessor(World world, GameEngine gameEngine) {
         this.world = world;
@@ -33,33 +35,33 @@ public class CommandProcessor {
     /**
      * Given a command, process (that is: execute) the command.
      * 
-     * @param command The command to be processed.
-     * @return A message to display
+     * @param command the command to be processed.
+     * @return a message to display
      */
     public String processCommand(Command command) {
         return switch (command.getCommandWord()) {
-            case HELP -> showHelp();
-            case GO -> handleGoCommand(command);
-            case LOOK -> look();
-            case EAT -> eat(command);
-            case TAKE -> take(command);
-            case DROP -> drop(command);
-            case ITEMS -> showInventory();
-            case STATS -> showStats();
-            case TALK -> talk(command);
-            case GIVE -> give(command);
-            case CHARGE -> charge(command);
-            case FIRE -> fire(command);
-            case BACK -> back(command);
-            case QUIT -> quit(command);
-            case UNKNOWN -> "I don't know what you mean...";
+        case HELP -> showHelp();
+        case GO -> handleGoCommand(command);
+        case LOOK -> look();
+        case EAT -> eat(command);
+        case TAKE -> take(command);
+        case DROP -> drop(command);
+        case ITEMS -> showInventory();
+        case STATS -> showStats();
+        case TALK -> talk(command);
+        case GIVE -> give(command);
+        case CHARGE -> charge(command);
+        case FIRE -> fire(command);
+        case BACK -> back(command);
+        case QUIT -> quit(command);
+        case UNKNOWN -> "I don't know what you mean...";
         };
     }
 
     /**
      * Returns a list of command words and directions on how to use them.
      * 
-     * @return A help message
+     * @return a help message
      */
     private String showHelp() {
         StringBuilder buffer = new StringBuilder();
@@ -67,81 +69,81 @@ public class CommandProcessor {
         buffer.append("Your command words are:").append("\n");
         buffer.append(CommandWord.getCommandList()).append("\n\n");
 
-        buffer.append("""
-                How to use the commands:
+        buffer.append(
+                """
+                        How to use the commands:
 
-                go: Use to move from room to room.
-                Usage: type \"go\" + \"space\" + \"a direction\"
-                Hint(s): Directions are north, south, east, or west.
+                        go: Use to move from room to room.
+                        Usage: type \"go\" + \"space\" + \"a direction\"
+                        Hint(s): Directions are north, south, east, or west.
 
-                quit: Use to quit the program.
-                Usage: type \"quit\"
-                Hint(s): N/A
+                        quit: Use to quit the program.
+                        Usage: type \"quit\"
+                        Hint(s): N/A
 
-                help: Use to get information on how to play the game.
-                Usage: type \"help\"
-                Hint(s): N/A
+                        help: Use to get information on how to play the game.
+                        Usage: type \"help\"
+                        Hint(s): N/A
 
-                look: Use to get a description of your location and directions that you are able to travel in.
-                Usage: type \"look\"
-                Hint(s): N/A
+                        look: Use to get a description of your location and directions that you are able to travel in.
+                        Usage: type \"look\"
+                        Hint(s): N/A
 
-                eat: Use to eat an item. Eating an item can boost your stats. Not all items are edible.
-                Usage: type \"eat\" + \"space\" + \"the name of the item you want to eat\"
-                Hint(s): example command - \"eat potion\".
+                        eat: Use to eat an item. Eating an item can boost your stats. Not all items are edible.
+                        Usage: type \"eat\" + \"space\" + \"the name of the item you want to eat\"
+                        Hint(s): example command - \"eat potion\".
 
-                back: Use to backtrack consecutively through the rooms that you were just in.
-                Usage: type \"back\"
-                Hint(s): N/A
+                        back: Use to backtrack consecutively through the rooms that you were just in.
+                        Usage: type \"back\"
+                        Hint(s): N/A
 
-                take: If you find an item in a room, you can use the \"take\" command to pick up the item.
-                Usage: type \"take\" + \"space\" + \"the name of the item you want to pick up\"
-                Hint(s): N/A
+                        take: If you find an item in a room, you can use the \"take\" command to pick up the item.
+                        Usage: type \"take\" + \"space\" + \"the name of the item you want to pick up\"
+                        Hint(s): N/A
 
-                drop: Use to drop an item that you are carrying.
-                Usage: type \"drop\" + \"space\" + \"the name of the item you want to drop\"
-                Hint(s): You may want to drop an item since you can only carry so much weight.
+                        drop: Use to drop an item that you are carrying.
+                        Usage: type \"drop\" + \"space\" + \"the name of the item you want to drop\"
+                        Hint(s): You may want to drop an item since you can only carry so much weight.
 
-                items: Use to print a list of items that you are carrying and descriptions of each item.
-                Usage: type \"items\"
-                Hint(s): N/A
+                        items: Use to print a list of items that you are carrying and descriptions of each item.
+                        Usage: type \"items\"
+                        Hint(s): N/A
 
-                stats: Use to print a list of the players current stats.
-                Usage: type \"stats\"
-                Hint(s): This command will display information such as health, strength, and maximum carry weight.
+                        stats: Use to print a list of the players current stats.
+                        Usage: type \"stats\"
+                        Hint(s): This command will display information such as health, strength, and maximum carry weight.
 
-                charge: Use to charge an item.
-                Usage: type \"charge\" + \"space\" + \"the name of the item you want to charge\"
-                Hint(s): You will need to charge your beamer before firing it. Charge the beamer in a room that
-                you want to use as a return point. Later when you fire the beamer, it will send you back to the
-                room that you charged it in originally.
+                        charge: Use to charge an item.
+                        Usage: type \"charge\" + \"space\" + \"the name of the item you want to charge\"
+                        Hint(s): You will need to charge your beamer before firing it. Charge the beamer in a room that
+                        you want to use as a return point. Later when you fire the beamer, it will send you back to the
+                        room that you charged it in originally.
 
-                fire: Use to fire an item.
-                Usage: type \"fire\" + \"space\" + \"the name of the item you want to fire\"
-                Hint(s): You will need to charge your beamer before firing it. Charge the beamer in a room that
-                you want to use as a return point. Later when you fire the beamer, it will send you back to the
-                room that you charged it in originally.
+                        fire: Use to fire an item.
+                        Usage: type \"fire\" + \"space\" + \"the name of the item you want to fire\"
+                        Hint(s): You will need to charge your beamer before firing it. Charge the beamer in a room that
+                        you want to use as a return point. Later when you fire the beamer, it will send you back to the
+                        room that you charged it in originally.
 
-                talk: If there is a character in a room, you can use this command to talk to them.
-                Usage: type \"talk\" + \"space\" + \"the name of the person you want to talk to\"
-                Hint(s): N/A
+                        talk: If there is a character in a room, you can use this command to talk to them.
+                        Usage: type \"talk\" + \"space\" + \"the name of the person you want to talk to\"
+                        Hint(s): N/A
 
-                give: Use to give an item to a Character.
-                Usage: type \"give\" + \"space\" + \"the name of the item you want to give\"  + \"space\" +
-                \"the name of the character you want to give it to\".
-                Hint(s): Certain characters will give you a reward in exchange for giving them an item that
-                you found. You must be in the same room as the Character that you want to give an item to.""");
+                        give: Use to give an item to a Character.
+                        Usage: type \"give\" + \"space\" + \"the name of the item you want to give\"  + \"space\" +
+                        \"the name of the character you want to give it to\".
+                        Hint(s): Certain characters will give you a reward in exchange for giving them an item that
+                        you found. You must be in the same room as the Character that you want to give an item to.""");
 
         return buffer.toString();
     }
 
     /**
-     * If there is an exit in the direction provided by the command, the player
-     * takes that exit and enters
-     * the neighboring room.
+     * If there is an exit in the direction provided by the command, the player takes that exit and
+     * enters the neighboring room.
      * 
-     * @param command The command that was entered
-     * @return A message
+     * @param command the command that was entered
+     * @return a message
      */
     private String handleGoCommand(Command command) {
         StringBuilder buffer = new StringBuilder();
@@ -161,8 +163,9 @@ public class CommandProcessor {
                 buffer.append("The door is locked...but you have the key!").append("\n");
                 gameEngine.movePlayerTo(nextRoom, true);
                 gameEngine.endGame();
-                return buffer.append("You are ").append(world.getPlayer().getCurrentRoom().getDescription())
-                        .append("\n").toString();
+                return buffer.append("You are ")
+                        .append(world.getPlayer().getCurrentRoom().getDescription()).append("\n")
+                        .toString();
             } else {
                 return "The door is locked...you need to find the key!";
             }
@@ -178,7 +181,7 @@ public class CommandProcessor {
     /**
      * Returns a message about the current location
      * 
-     * @return A message to display
+     * @return a message to display
      */
     private String look() {
         return world.getPlayer().getCurrentRoom().describeRoom();
@@ -187,8 +190,8 @@ public class CommandProcessor {
     /**
      * Makes the player eat an item if it is edible
      * 
-     * @param command The command that was entered
-     * @return A message to display
+     * @param command the command that was entered
+     * @return a message to display
      */
     private String eat(Command command) {
         if (!command.hasSecondWord()) {
@@ -211,8 +214,8 @@ public class CommandProcessor {
     /**
      * Makes a player pick up an item to carry with them
      * 
-     * @param command The command that was entered
-     * @return A message to display
+     * @param command the command that was entered
+     * @return a message to display
      */
     private String take(Command command) {
         if (!command.hasSecondWord()) {
@@ -225,12 +228,13 @@ public class CommandProcessor {
 
         if (itemToTake == null) {
             return "That item doesn't exist in this room";
-        } else if ((itemToTake.getWeight() + world.getPlayer().getInventory().getCurrentCarryWeight()) > world
-                .getPlayer().getInventory()
-                .getMaxCarryWeight()) {
-            return "It's too heavy! You can carry up to " +
-                    world.getPlayer().getInventory().getMaxCarryWeight() + " units. Maybe if you dropped \n" +
-                    "some items you could manage it. Or it may be simply too heavy.";
+        } else if ((itemToTake.getWeight()
+                + world.getPlayer().getInventory().getCurrentCarryWeight()) > world.getPlayer()
+                        .getInventory().getMaxCarryWeight()) {
+            return "It's too heavy! You can carry up to "
+                    + world.getPlayer().getInventory().getMaxCarryWeight()
+                    + " units. Maybe if you dropped \n"
+                    + "some items you could manage it. Or it may be simply too heavy.";
         } else {
             world.getPlayer().getInventory().addItem(itemToTake);
             return "You picked up " + itemToTake.getDescription() + "!";
@@ -240,8 +244,8 @@ public class CommandProcessor {
     /**
      * Makes a player drop an item so they no longer have to carry it
      * 
-     * @param command The command that was entered
-     * @return A message to display
+     * @param command the command that was entered
+     * @return a message to display
      */
     private String drop(Command command) {
         if (!command.hasSecondWord()) {
@@ -261,10 +265,9 @@ public class CommandProcessor {
     }
 
     /**
-     * Returns a message about all of the items that the player is
-     * currently carrying
+     * Returns a message about all of the items that the player is currently carrying
      * 
-     * @return A message to display
+     * @return a message to display
      */
     private String showInventory() {
         return world.getPlayer().getInventory().getItemDetails();
@@ -273,7 +276,7 @@ public class CommandProcessor {
     /**
      * Returns the players current stats
      * 
-     * @return A message to display
+     * @return a message to display
      */
     private String showStats() {
         return world.getPlayer().getStats();
@@ -282,8 +285,8 @@ public class CommandProcessor {
     /**
      * Makes a play talk to a character
      * 
-     * @param command The command that was entered
-     * @return A message to display
+     * @param command the command that was entered
+     * @return a message to display
      */
     public String talk(Command command) {
         if (!command.hasSecondWord()) {
@@ -303,8 +306,8 @@ public class CommandProcessor {
     /**
      * Makes the player give an item to a character
      * 
-     * @param command The command that was entered
-     * @return A message to display
+     * @param command the command that was entered
+     * @return a message to display
      */
     public String give(Command command) {
         StringBuilder buffer = new StringBuilder();
@@ -343,13 +346,11 @@ public class CommandProcessor {
     }
 
     /**
-     * Charges an item. (i.e. the beamer. Charging the beamer memorizes the location
-     * of the
-     * players
+     * Charges an item. (i.e. the beamer. Charging the beamer memorizes the location of the players
      * current room.)
      * 
-     * @param command The command that was entered
-     * @return A message to display
+     * @param command the command that was entered
+     * @return a message to display
      */
     private String charge(Command command) {
         if (!command.hasSecondWord()) {
@@ -368,12 +369,11 @@ public class CommandProcessor {
     }
 
     /**
-     * Fires an item. (i.e. the beamer. Firing the beamer returns the player to the
-     * location at which the
-     * beamer was last charged.)
+     * Fires an item. (i.e. the beamer. Firing the beamer returns the player to the location at
+     * which the beamer was last charged.)
      * 
-     * @param command The command that was entered
-     * @return A message to display
+     * @param command the command that was entered
+     * @return a message to display
      */
     private String fire(Command command) {
         StringBuilder buffer = new StringBuilder();
@@ -395,11 +395,10 @@ public class CommandProcessor {
     }
 
     /**
-     * Moves the player back to the previous room they
-     * were in.
+     * Moves the player back to the previous room they were in.
      * 
-     * @param command The command that was entered
-     * @return A message to display
+     * @param command the command that was entered
+     * @return a message to display
      */
     private String back(Command command) {
         if (command.hasSecondWord()) {
@@ -413,10 +412,9 @@ public class CommandProcessor {
     }
 
     /**
-     * Check the rest of the command to see
-     * whether we really quit the game.
+     * Check the rest of the command to see whether we really quit the game.
      * 
-     * @return A message to display in the console
+     * @return a message to display in the console
      */
     private String quit(Command command) {
         if (command.hasSecondWord()) {

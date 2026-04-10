@@ -1,15 +1,15 @@
 package com.bdtripp.hauntedhouse.model;
 
 /**
- * Represents the four cardinal directions used for room navigation
- * within the Haunted House game.
- * 
+ * Represents the four cardinal directions used for room navigation.
+ *
+ * Each constant corresponds to a navigable direction within the game world.
+ *
  * @author Brian Tripp
- * @version 2026.03.31
  */
 public enum Direction {
 
-    /** North (comments are here to satisfy Maven Javadoc plugin */
+    /** North */
     NORTH,
 
     /** South */
@@ -22,9 +22,8 @@ public enum Direction {
     WEST;
 
     /**
-     * Converts a raw input string into a {@link Direction}. The comparison
-     * is case-insensitive. If the input does not match any direction,
-     * this method returns {@code null}.
+     * Converts a raw input string into a {@link Direction}. The comparison is case-insensitive. If
+     * the input does not match any direction, this method returns {@code null}.
      *
      * @param s the input string to convert
      * @return the matching {@link Direction}, or {@code null} if no match exists

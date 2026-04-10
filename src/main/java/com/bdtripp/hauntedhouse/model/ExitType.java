@@ -1,12 +1,9 @@
 package com.bdtripp.hauntedhouse.model;
 
 /**
- * Represents the ExitType of the Haunted House game.
- * 
- * Enumerates all the possible exit types.
- * 
+ * Defines the various types of exits in the game world.
+ *
  * @author Brian Tripp
- * @version 2026.04.02
  */
 public enum ExitType {
 
