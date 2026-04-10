@@ -20,9 +20,10 @@ public class Room {
 
     /**
      * Creates a new room with the given name and description.
-     * 
-     * @param description the room's description. Something like "a kitchen" or "an open court
-     * yard".
+     *
+     * @param name the room's identifier
+     * @param description the room's narrative text (e.g., "in a misty indoor garden" or "in a dark
+     * hallway")
      */
     public Room(RoomName name, String description) {
         this.name = name;

@@ -14,8 +14,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 public class WebApp {
 
     /**
-     * Explicit no‑argument constructor required to satisfy Maven's strict Javadoc rules for default
-     * constructors.
+     * Creates a new WebApp instance.
      */
     public WebApp() {
     }

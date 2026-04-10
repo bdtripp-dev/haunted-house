@@ -21,6 +21,12 @@ public class GameService {
     private GameEngine gameEngine;
 
     /**
+     * Creates a new GameService instance.
+     */
+    public GameService() {
+    }
+
+    /**
      * Starts a new game session and returns the initial response.
      *
      * @return a response containing a welcome message and status of the game

@@ -9,7 +9,7 @@ package com.bdtripp.hauntedhouse.model;
  */
 public enum Direction {
 
-    /** North (comments are here to satisfy Maven Javadoc plugin */
+    /** North */
     NORTH,
 
     /** South */
