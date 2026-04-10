@@ -26,3 +26,4 @@ target/
 
 .env
 *:Zone.Identifier
+src/main/resources/static/js/debug.local.js

@@ -4,7 +4,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 
 /**
- * Serves the web page of the Haunted House application.
+ * Serves the main HTML page.
+ *
+ * The PageController handles requests to the root URL and returns the static index view, which
+ * loads the client-side terminal interface.
+ *
+ * @author Brian Tripp
  */
 @Controller
 public class PageController {
