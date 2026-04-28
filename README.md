@@ -3,7 +3,7 @@ Haunted House is a text based adventure game in which the user can explore rooms
 
 **Languages:** Written in Java.
 
-**View Javadoc (API documentation) for the project at**: http://bdtripp.com/documents/hh_javadoc
+**View Javadoc (API documentation) for the project at**: https://bdtripp-dev.github.io/haunted-house/javadoc/
 
 **Short list of commands to get you started:**  
 
