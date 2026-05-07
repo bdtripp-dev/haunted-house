@@ -1,25 +1,45 @@
 # Haunted House
-Haunted House is a text based adventure game in which the user can explore rooms in a haunted house. The goal of the game is to try to find your way out of the house.  
+I built a text‑based adventure game where the player explores a haunted house and tries to find a way out.  
 
-**Languages:** Written in Java.
+---
 
-**View Javadoc (API documentation) for the project at**: https://bdtripp-dev.github.io/haunted-house/javadoc/
+## Live Demo
 
-**Short list of commands to get you started:**  
+Play the game at https://haunted-house.bdtripp.com/
 
-help: use to get info on how to play the game and a list of all the commands  
+---
 
-look: Use to get a description of your location and directions that you are able to travel in  
+## Some Commands to Get You Started
 
-items: Use to print a list of items that you are carrying and descriptions of each item  
+`go`: move to another room. Type `go` + "space" + "a direction"
+Hint: Directions are north, south, east, or west 
 
-stats: Use to print a list of the players current stats  
+`help`: get info on how to play the game and a list of all the commands  
 
-go: Use to move from room to room -- Type "go" + "space" + "a direction"
-Hint(s): Directions are north, south, east, or west  
+`look`: get a description of your location and directions that you are able to move 
 
-quit: Use to quit the program  
+`items`: print a list of items that you are carrying and descriptions of each item  
 
+`stats`: print a list of the player's current stats  
 
+`quit`: Use to quit the program  
+
+---
+
+## Tech Stack
+
+- Languages:  
+    - Front-end: HTML, CSS, JS
+    - Back-end: Java
+- Framework: Spring Boot
+- DevOps / Workflow: Docker, Dev Container, GitHub Actions
+
+---
+
+## Documentation
+
+View Javadoc (API documentation) for the project at: https://bdtripp-dev.github.io/haunted-house/javadoc/
+
+---
 
 
