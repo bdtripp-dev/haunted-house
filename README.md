@@ -1,5 +1,5 @@
 # Haunted House
-Haunted House is a text based adventure game that I built in which the player can explore rooms in a haunted house. The goal of the game is to try to find your way out of the house.  
+I built a text‑based adventure game where the player explores a haunted house and tries to find a way out.  
 
 ---
 
