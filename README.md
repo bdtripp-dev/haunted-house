@@ -52,4 +52,20 @@ View Javadoc (API documentation) for the project at: https://bdtripp-dev.github.
 
 ---
 
+## Key Engineering Decisions
 
+- **Designed a modular game engine** using object‑oriented principles where rooms, items, commands, and player state are modeled as independent components with clear responsibilities.
+
+- **Implemented a command‑parsing system** that maps user input to executable game actions, making it easy to add new commands without modifying existing logic.
+
+- **Separated engine logic from the UI layer**, enabling the same Java backend to power both the CLI version and the web-based terminal.
+
+- **Built a REST API** that exposes game actions (`/start`, `/command`) and returns structured JSON responses for the browser client.
+
+- **Used Spring Boot’s dependency injection** to wire together the controller, service layer, and game engine, keeping components loosely coupled and easy to test or replace.
+
+- **Containerized the application with Docker** to ensure consistent local development and deployment environments.
+
+- **Set up GitHub Actions CI/CD** to automatically build and deploy the project on each push.
+
+- **Wrote complete Javadoc documentation** to make the engine understandable, maintainable, and easy to extend.
