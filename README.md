@@ -70,3 +70,17 @@ Hint: Directions are north, south, east, or west
 - **Set up GitHub Actions CI/CD** to automatically build and deploy the project on each push.
 
 - **Wrote complete Javadoc documentation** to make the engine understandable, maintainable, and easy to extend.
+
+## What I Learned
+
+- How to break down oversized classes and keep architecture clean as a project grows
+
+- How to design a system using components with clearly defined responsibilities and separation of concerns
+
+- How to expose backend logic through REST endpoints and structure JSON responses
+
+- How to learn a new framework quickly by focusing on core concepts and applying them immediately to a real problem
+
+- How to containerize a Java/Spring Boot app for consistent development and deployment
+
+- How to write maintainable, well‑documented code using Javadoc
