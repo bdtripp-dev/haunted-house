@@ -22,7 +22,7 @@ The project gave me hands‑on experience with Spring Boot, REST design, Dockeri
 
 ## Gameplay
 
-<img src="docs/images/screenshot.png" width="750" alt="Gameplay screenshot showing the terminal interface and a room description">
+<img src="docs/images/gameplay.gif" width="750" alt="Gameplay screenshot showing the terminal interface and a room description">
 
 ---
 
