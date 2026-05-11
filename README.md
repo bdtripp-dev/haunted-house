@@ -15,7 +15,14 @@ The project gave me hands‑on experience with Spring Boot, REST design, Dockeri
 
 ## Live Demo
 
-Play the game at https://haunted-house.bdtripp.com/
+<a href="https://haunted-house.bdtripp.com/" target="_blank">Play Haunted House</a><br><br>
+(Runs in your browser with no installation required.)
+
+---
+
+## Gameplay
+
+<img src="docs/images/gameplay.gif" width="750" alt="Gameplay screenshot showing the terminal interface and a room description">
 
 ---
 
@@ -48,7 +55,7 @@ Hint: Directions are north, south, east, or west
 
 ## Documentation
 
-View Javadoc (API documentation) for the project at: https://bdtripp-dev.github.io/haunted-house/javadoc/
+<a href="https://bdtripp-dev.github.io/haunted-house/javadoc/" target="_blank">View Javadoc</a>
 
 ---
 
