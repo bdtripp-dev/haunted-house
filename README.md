@@ -13,14 +13,58 @@ The project gave me hands‑on experience with Spring Boot, REST design, Dockeri
 
 ---
 
-## Live Demo
+## Play Online
 
 <a href="https://haunted-house.bdtripp.com/" target="_blank">Play Haunted House</a><br><br>
 (Runs in your browser with no installation required.)
 
 ---
 
+## Running the Project Locally (for developers)
+
+If you'd like to explore the source code or run the engine on your own machine, you can launch the full stack (Java backend + web frontend) using either Docker or Maven.
+
+### 1. Clone the Repository
+
+```bash
+git clone https://github.com/bdtripp-dev/haunted-house.git
+cd haunted-house
+```
+
+### 2. Launch the Application
+
+You can run the application using Docker (production‑like environment) or Maven (best for active development).
+
+#### Option A: Docker (Recommended)
+
+This builds and runs the application in a clean, reproducible environment.
+
+```bash
+docker build -t haunted-house .
+docker run -p 8080:8080 haunted-house
+```
+
+#### Option B: Maven
+
+Uses the Maven Wrapper so the project builds even if Maven isn’t installed globally.
+
+```bash
+./mvnw spring-boot:run
+```
+
+### 3. Access the Game
+
+Once the application starts, open your browser to:
+
+http://localhost:8080
+
+This loads the web‑based terminal interface.
+
+---
+
 ## Gameplay
+
+Here’s what the game looks like in action:
 
 <img src="docs/images/gameplay.gif" width="750" alt="Gameplay screenshot showing the terminal interface and a room description">
 
