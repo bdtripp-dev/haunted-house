@@ -109,7 +109,7 @@ Hint: Directions are north, south, east, or west
 
 - **Implemented a command‑parsing system** that maps user input to executable game actions, making it easy to add new commands without modifying existing logic.
 
-- **Separated engine logic from the UI layer**, enabling the same Java backend to power both the CLI version and the web-based terminal.
+- **Separated engine logic from the UI layer**, enabling the same Java backend to power both the CLI version and the fully custom web‑based terminal UI.
 
 - **Built a REST API** that exposes game actions (`/start`, `/command`) and returns structured JSON responses for the browser client.
 
