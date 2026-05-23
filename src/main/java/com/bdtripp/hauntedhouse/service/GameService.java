@@ -1,11 +1,15 @@
 package com.bdtripp.hauntedhouse.service;
 
 import com.bdtripp.hauntedhouse.engine.Parser;
+import com.bdtripp.hauntedhouse.engine.WorldBuilder;
 import com.bdtripp.hauntedhouse.model.Command;
 import com.bdtripp.hauntedhouse.api.GameRequest;
 import com.bdtripp.hauntedhouse.api.GameResponse;
+import com.bdtripp.hauntedhouse.engine.CommandProcessor;
 import com.bdtripp.hauntedhouse.engine.GameEngine;
 import com.bdtripp.hauntedhouse.model.GameStatus;
+import com.bdtripp.hauntedhouse.model.World;
+
 import org.springframework.stereotype.Service;
 import org.springframework.web.context.annotation.SessionScope;
 
@@ -32,7 +36,11 @@ public class GameService {
      * @return a response containing a welcome message and status of the game
      */
     public GameResponse startGame() {
-        gameEngine = new GameEngine();
+        World world = new WorldBuilder().createWorld();
+        GameEngine engine = new GameEngine(world);
+        CommandProcessor processor = new CommandProcessor(world, engine);
+        engine.setCommandProcessor(processor);
+        this.gameEngine = engine;
         gameEngine.startGame();
         String output = gameEngine.buildWelcomeMessage() + "\n";
         return new GameResponse(output, GameStatus.RUNNING);

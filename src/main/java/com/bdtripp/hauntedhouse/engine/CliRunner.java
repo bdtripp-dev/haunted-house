@@ -1,6 +1,7 @@
 package com.bdtripp.hauntedhouse.engine;
 
 import com.bdtripp.hauntedhouse.model.Command;
+import com.bdtripp.hauntedhouse.model.World;
 
 /**
  * Runs the game in a command-line environment.
@@ -12,12 +13,17 @@ import com.bdtripp.hauntedhouse.model.Command;
  */
 public class CliRunner {
     private Parser parser = new Parser(System.in);
-    private GameEngine gameEngine = new GameEngine();
+    private GameEngine gameEngine;
 
     /**
      * Initializes the parser and game engine for cli play.
      */
     public CliRunner() {
+        World world = new WorldBuilder().createWorld();
+        GameEngine engine = new GameEngine(world);
+        CommandProcessor processor = new CommandProcessor(world, engine);
+        engine.setCommandProcessor(processor);
+        this.gameEngine = engine;
     }
 
     /**
