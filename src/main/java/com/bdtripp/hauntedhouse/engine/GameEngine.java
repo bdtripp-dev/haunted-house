@@ -19,15 +19,26 @@ import com.bdtripp.hauntedhouse.model.World;
  */
 public class GameEngine {
     private final World world;
-    private final CommandProcessor commandProcessor;
+    private CommandProcessor commandProcessor;
     private boolean gameOver;
 
     /**
-     * Creates the GameEngine and the game world.
+     * Creates the GameEngine.
      */
-    public GameEngine() {
-        world = new WorldBuilder().createWorld();
-        commandProcessor = new CommandProcessor(world, this);
+    public GameEngine(World world) {
+        this.world = world;
+    }
+
+    /**
+     * Injects the CommandProcessor used by the engine to interpret and execute player commands.
+     *
+     * This setter is required because the CommandProcessor also depends on the GameEngine, and
+     * therefore cannot be constructed until after the engine itself is created.
+     *
+     * @param processor the CommandProcessor responsible for handling commands
+     */
+    public void setCommandProcessor(CommandProcessor processor) {
+        this.commandProcessor = processor;
     }
 
     /**
